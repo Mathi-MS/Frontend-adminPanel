@@ -7,8 +7,8 @@ import {
   TextField,
 } from "@mui/material";
 import { IoClose } from "react-icons/io5";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   ChangePasswordSchema,
@@ -18,6 +18,13 @@ import CustomInput from "../Custom/CustomInput";
 import CustomButton from "../Custom/CustomButton";
 import CustomFileUpload from "../Custom/CustomFileUpload";
 import CourseCard from "../Custom/CourseCard";
+import {
+  coursesDeleteApi,
+  coursesUpdateApi,
+  useCoursesAddApi,
+  useGetCoursesApi,
+} from "../Hooks/courses";
+import CustomSnackBar from "../Custom/CustomSnackBar";
 const style = {
   position: "absolute",
   top: "50%",
@@ -34,160 +41,80 @@ const style = {
     margin: "auto",
   },
 };
-// Dummy data for courses
-const dummyCourses = [
-  {
-    id: 1,
-    thumbnail:
-      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=200&fit=crop",
-    courseName: "React Development",
-    description:
-      "Learn modern React development with hooks, context, and best practices for building scalable applications",
-    prize: 2999,
-    duration: "8 weeks",
-    discount: 20,
-  },
-  {
-    id: 2,
-    thumbnail:
-      "https://images.unsplash.com/photo-1587620962725-abab7fe55159?w=400&h=200&fit=crop",
-    courseName: "Node.js Backend",
-    description:
-      "Master backend development with Node.js, Express, and MongoDB for full-stack applications",
-    prize: 3499,
-    duration: "10 weeks",
-    discount: 15,
-  },
-  {
-    id: 3,
-    thumbnail:
-      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=200&fit=crop",
-    courseName: "Python Programming",
-    description:
-      "Complete Python course covering basics to advanced topics including data structures and algorithms",
-    prize: 2499,
-    duration: "12 weeks",
-  },
-  {
-    id: 4,
-    thumbnail:
-      "https://images.unsplash.com/photo-1593720213428-28a5b9e94613?w=400&h=200&fit=crop",
-    courseName: "JavaScript Mastery",
-    description:
-      "Deep dive into JavaScript fundamentals, ES6+, async programming, and modern development patterns",
-    prize: 2799,
-    duration: "6 weeks",
-    discount: 25,
-  },
-  {
-    id: 5,
-    thumbnail:
-      "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=400&h=200&fit=crop",
-    courseName: "UI/UX Design",
-    description:
-      "Learn user interface and user experience design principles with hands-on projects and real-world examples",
-    prize: 3999,
-    duration: "14 weeks",
-    discount: 30,
-  },
-  {
-    id: 6,
-    thumbnail:
-      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=200&fit=crop",
-    courseName: "Data Science",
-    description:
-      "Comprehensive data science course covering statistics, machine learning, and data visualization techniques",
-    prize: 4499,
-    duration: "16 weeks",
-    discount: 10,
-  },
-  {
-    id: 7,
-    thumbnail:
-      "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=400&h=200&fit=crop",
-    courseName: "Mobile Development",
-    description:
-      "Build cross-platform mobile apps using React Native and Flutter with native performance optimization",
-    prize: 3799,
-    duration: "12 weeks",
-  },
-  {
-    id: 8,
-    thumbnail:
-      "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=200&fit=crop",
-    courseName: "DevOps Engineering",
-    description:
-      "Master DevOps practices including CI/CD, containerization, cloud deployment, and infrastructure automation",
-    prize: 4999,
-    duration: "18 weeks",
-    discount: 20,
-  },
-  {
-    id: 9,
-    thumbnail:
-      "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&h=200&fit=crop",
-    courseName: "Cybersecurity",
-    description:
-      "Learn cybersecurity fundamentals, ethical hacking, network security, and threat assessment methodologies",
-    prize: 5499,
-    duration: "20 weeks",
-    discount: 15,
-  },
-  {
-    id: 10,
-    thumbnail:
-      "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=400&h=200&fit=crop",
-    courseName: "Cloud Computing",
-    description:
-      "Comprehensive cloud computing course covering AWS, Azure, and Google Cloud Platform services and architecture",
-    prize: 4299,
-    duration: "14 weeks",
-    // discount: 25,
-  },
-];
 
 const Courses = () => {
   const [open, setOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [courses, setCourses] = useState(dummyCourses);
+  const [courses, setCourses] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [editingCourse, setEditingCourse] = useState<any>(null);
-  const [courseToDelete, setCourseToDelete] = useState<number | null>(null);
+  const [courseToDelete, setCourseToDelete] = useState<string | null>(null);
+  const { data: courseGet } = useGetCoursesApi();
+  const { mutate: courseAdd } = useCoursesAddApi();
+  const { mutate: courseUpdate } = coursesUpdateApi();
+  const { mutate: courseDelete } = coursesDeleteApi();
+  useEffect(() => {
+    if (courseGet) {
+      setCourses(courseGet?.courses);
+    }
+  }, [courseGet]);
 
   const handleClose = () => {
     setOpen(false);
     setEditingCourse(null);
-    reset();
+    reset({
+      courseName: "",
+      description: "",
+      prize: "",
+      duration: "",
+      discount: "",
+      thumbnail: "",
+    });
   };
 
-  const handleEdit = (id: number) => {
-    const courseToEdit = courses.find((course) => course.id === id);
+  const handleEdit = (id: any) => {
+    const courseToEdit = courses.find((course) => course._id === id);
     if (courseToEdit) {
       setEditingCourse(courseToEdit);
-      // Pre-fill the form with course data
+      console.log(courseToEdit, "qdqwdqd");
+
       reset({
-        courseName: courseToEdit.courseName,
-        description: courseToEdit.description,
-        prize: courseToEdit.prize.toString(),
-        duration: courseToEdit.duration,
+        courseName: courseToEdit.name || "",
+        description: courseToEdit.description || "",
+        prize: courseToEdit.price?.toString() || "",
+        duration: courseToEdit.duration || "",
         discount: courseToEdit.discount?.toString() || "",
+        thumbnail: courseToEdit.fileupload
+          ? {
+              filename: courseToEdit.fileupload,
+              url: `/uploads/${courseToEdit.fileupload}`,
+            }
+          : "",
       });
       setOpen(true);
     }
   };
 
-  const handleDeleteClick = (id: number) => {
+  const handleDeleteClick = (id: any) => {    
     setCourseToDelete(id);
     setDeleteModalOpen(true);
   };
 
   const handleDeleteConfirm = () => {
     if (courseToDelete) {
-      setCourses(courses.filter((course) => course.id !== courseToDelete));
-      console.log("Delete course with id:", courseToDelete);
+      courseDelete(courseToDelete, {
+        onSuccess: () => {
+          CustomSnackBar.successSnackbar("Deleted Successfully!");
+          setDeleteModalOpen(false);
+          setCourseToDelete(null);
+        },
+        onError: (error: any) => {
+          CustomSnackBar.errorSnackbar("Failed to delete user!");
+          setDeleteModalOpen(false);
+          setCourseToDelete(null);
+        },
+      });
     }
-    setDeleteModalOpen(false);
-    setCourseToDelete(null);
   };
 
   const handleDeleteCancel = () => {
@@ -197,8 +124,8 @@ const Courses = () => {
 
   const filteredCourses = courses.filter(
     (course) =>
-      course.courseName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      course.description.toLowerCase().includes(searchTerm.toLowerCase())
+      course.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      course.description?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const {
@@ -207,41 +134,60 @@ const Courses = () => {
     formState: { errors },
     reset,
     clearErrors,
+    setValue,
+    control,
   } = useForm({
     resolver: zodResolver(CourseSchema),
   });
   const onsubmit = (data: any) => {
     if (editingCourse) {
-      // Update existing course
-      setCourses(
-        courses.map((course) =>
-          course.id === editingCourse.id
-            ? {
-                ...course,
-                courseName: data.courseName,
-                description: data.description,
-                prize: parseFloat(data.prize),
-                duration: data.duration,
-                discount: data.discount ? parseFloat(data.discount) : undefined,
-              }
-            : course
-        )
+      const formData = new FormData();
+      console.log(data, editingCourse);
+
+      formData.append("name", data.courseName);
+      formData.append("description", data.description);
+      formData.append("discount", data.discount);
+      formData.append("duration", data.duration);
+      formData.append("price", data.prize);
+
+      // Handle thumbnail - only append if it's a new file (File object)
+      if (data.thumbnail && data.thumbnail instanceof File) {
+        formData.append("fileupload", data.thumbnail);
+      }
+      courseUpdate(
+        { id: editingCourse._id, formData: formData },
+        {
+          onSuccess: () => {
+            CustomSnackBar.successSnackbar("Courses Added Successfully!");
+            handleClose();
+          },
+          onError: (error) => {
+            CustomSnackBar.errorSnackbar(
+              error.message || "Error Adding Courses."
+            );
+          },
+        }
       );
-      console.log("Updated course:", data);
     } else {
-      // Add new course
-      const newCourse = {
-        id: Math.max(...courses.map((c) => c.id)) + 1,
-        thumbnail:
-          "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=200&fit=crop", // Default thumbnail
-        courseName: data.courseName,
-        description: data.description,
-        prize: parseFloat(data.prize),
-        duration: data.duration,
-        discount: data.discount ? parseFloat(data.discount) : undefined,
-      };
-      setCourses([...courses, newCourse]);
-      console.log("Added new course:", data);
+      const formData = new FormData();
+
+      formData.append("name", data.courseName);
+      formData.append("description", data.description);
+      formData.append("discount", data.discount);
+      formData.append("duration", data.duration);
+      formData.append("price", data.prize);
+      formData.append("fileupload", data.thumbnail);
+      courseAdd(formData, {
+        onSuccess: () => {
+          CustomSnackBar.successSnackbar("Courses Added Successfully!");
+          handleClose();
+        },
+        onError: (error) => {
+          CustomSnackBar.errorSnackbar(
+            error.message || "Error Adding Courses."
+          );
+        },
+      });
     }
     handleClose();
   };
@@ -324,17 +270,17 @@ const Courses = () => {
                   },
                   "@media (max-width: 767px)": {
                     flexBasis: "100% !important",
-                  }
+                  },
                 }}
               >
                 <CourseCard
-                  id={course.id}
-                  thumbnail={course.thumbnail}
-                  courseName={course.courseName}
+                  id={course._id}
+                  thumbnail={`http://localhost:5000/uploads/${course.fileupload}`}
+                  courseName={course.name}
                   description={course.description}
-                  prize={course.prize}
+                  prize={parseFloat(course.price) || 0}
                   duration={course.duration}
-                  discount={course.discount}
+                  discount={parseFloat(course.discount) || 0}
                   onEdit={handleEdit}
                   onDelete={handleDeleteClick}
                 />
@@ -473,15 +419,18 @@ const Courses = () => {
                 register={register}
                 errors={errors}
               />
-              <CustomFileUpload
+              <Controller
                 name="thumbnail"
-                label="Course Thumbnail"
-                register={register}
-                errors={errors}
-                clearErrors={clearErrors}
-                accept="image/jpeg,image/jpg,image/png,image/webp"
-                maxSize={20480}
-                bgmode="dark"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <CustomFileUpload
+                    name={field.name}
+                    label="Course Thumbnail"
+                    value={field.value}
+                    onChange={(file) => field.onChange(file)}
+                    error={fieldState.error}
+                  />
+                )}
               />
             </Box>
             {/* Footer */}

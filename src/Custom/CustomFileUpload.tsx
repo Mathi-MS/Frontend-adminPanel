@@ -1,97 +1,65 @@
-import React, { useState } from "react";
-import { Box, Typography, Button, IconButton, Tooltip } from "@mui/material";
-import { IoCloudUpload, IoClose, IoImage } from "react-icons/io5";
-import get from "lodash/get";
+import * as React from "react";
+import { styled } from "@mui/material/styles";
 import {
-  customBox,
-  labelStyle,
-  span,
-  inputStyle,
-  inputStyleColor,
-  inputStyleColorLight,
-  inputStyleColorRed,
-} from "../assets/Styles/CustomInputStyle";
-import type {
-  FieldValues,
-  UseFormRegister,
-  FieldErrors,
-  UseFormClearErrors,
-} from "react-hook-form";
+  Box,
+  Typography,
+  Button,
+  IconButton,
+  Stack,
+  Tooltip,
+} from "@mui/material";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { span } from "../assets/Styles/CustomInputStyle";
+import {
+  errorsFileUpload,
+  FileNames,
+  fileuploadBox,
+  fileuploadBoxLabel,
+} from "../assets/Styles/CustomFileUploadStyle";
+import config from "../Config/Config";
 
-interface CustomFileUploadProps<T extends FieldValues> {
-  name: keyof T;
-  label: string;
-  register: UseFormRegister<T>;
-  errors: FieldErrors<T>;
-  clearErrors?: UseFormClearErrors<T>;
-  accept?: string;
-  maxSize?: number; // in bytes
+const VisuallyHiddenInput = styled("input")({
+  clip: "rect(0 0 0 0)",
+  clipPath: "inset(50%)",
+  height: 1,
+  overflow: "hidden",
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  whiteSpace: "nowrap",
+  width: 1,
+});
+
+interface CustomFileUploadProps {
+  label?: string;
+  name: string;
   required?: boolean;
-  bgmode?: "light" | "dark";
-  boxSx?: object;
+  multiple?: boolean;
+  accept?: string;
+  maxFiles?: number;
+  error?: { message?: string };
+  value?: File | File[] | null | { filename: string; url: string };
+  onChange: (file: File | File[] | null) => void;
 }
 
-const CustomFileUpload = <T extends FieldValues>({
+const CustomFileUpload: React.FC<CustomFileUploadProps> = ({
+  label = "PNG, JPG or JPEG (max. 800x400px)",
   name,
-  label,
-  register,
-  errors,
-  clearErrors,
-  accept = "image/*",
-  maxSize = 20480, // 20KB default
-  required = false,
-  bgmode = "light",
-  boxSx,
-}: CustomFileUploadProps<T>) => {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string | null>(null);
-  const errorMessage = get(errors, `${name}.message`, null);
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setSelectedFile(file);
-
-      // Clear validation errors when file is selected
-      if (clearErrors) {
-        clearErrors(name);
-      }
-
-      // Create preview for images
-      if (file.type.startsWith("image/")) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          setPreview(e.target?.result as string);
-        };
-        reader.readAsDataURL(file);
-      }
-    }
-  };
-
-  const handleRemoveFile = () => {
-    setSelectedFile(null);
-    setPreview(null);
-    // Reset the input value
-    const input = document.getElementById(
-      `file-input-${name as string}`
-    ) as HTMLInputElement;
-    if (input) {
-      input.value = "";
-    }
-  };
-
-  const formatFileSize = (bytes: number) => {
-    if (bytes === 0) return "0 Bytes";
-    const k = 1024;
-    const sizes = ["Bytes", "KB", "MB"];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
-  };
-
-  const truncatedLabel =
+  error,
+  value,
+  required,
+  multiple = false,
+  accept = "image/png, image/jpeg, image/jpg, image/webp, .jpg, .jpeg, .png, .webp",
+  maxFiles = 10,
+  onChange,
+}) => {
+  const truncatedLabel: any =
     label.length > 17 ? `${label.substring(0, 17)}...` : label;
-
-  const truncateFileName = (fileName: string, maxLength: number = 14) => {
+  const truncateFileName = (
+    fileName: string,
+    maxLength: number = 20
+  ): string => {
     if (fileName.length <= maxLength) return fileName;
 
     const extension = fileName.split(".").pop();
@@ -99,235 +67,262 @@ const CustomFileUpload = <T extends FieldValues>({
       0,
       fileName.lastIndexOf(".")
     );
+    const maxNameLength = maxLength - (extension ? extension.length + 4 : 3); // +4 for "..." and "."
 
-    if (extension) {
-      const availableLength = maxLength - extension.length - 4; // 4 for "..." and "."
-      return `${nameWithoutExtension.substring(
-        0,
-        availableLength
-      )}...${extension}`;
+    return `${nameWithoutExtension.substring(0, maxNameLength)}...${
+      extension ? "." + extension : ""
+    }`;
+  };
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files) {
+      if (multiple) {
+        const fileArray = Array.from(files);
+        const currentFiles = Array.isArray(value) ? value : [];
+        const newFiles = [...currentFiles, ...fileArray];
+
+        // Check max files limit
+        if (newFiles.length > maxFiles) {
+          alert(`Maximum ${maxFiles} files allowed`);
+          return;
+        }
+
+        onChange(newFiles);
+      } else {
+        const file = files[0];
+        onChange(files[0]);
+      }
+    }
+    // Clear the input value to allow selecting the same file again
+    e.target.value = "";
+  };
+
+  const handleRemoveFile = (index?: number) => {
+    if (multiple && Array.isArray(value)) {
+      if (typeof index === "number") {
+        const updatedFiles = value.filter((_, i) => i !== index);
+        onChange(updatedFiles.length > 0 ? updatedFiles : null);
+      } else {
+        onChange(null);
+      }
+    } else {
+      onChange(null);
+    }
+  };
+
+  // Helper function to get files as array for consistent rendering
+  const getFilesArray = (): File[] => {
+    if (!value) return [];
+
+    // Handle case where value is an object with filename and url
+    if (
+      value &&
+      typeof value === "object" &&
+      "filename" in value &&
+      "url" in value
+    ) {
+      // If we have a file object with filename and url, we'll display it differently
+      return [];
     }
 
-    return `${fileName.substring(0, maxLength - 3)}...`;
+    return Array.isArray(value) ? value : [value as File];
   };
 
-  // Custom file upload styles matching CustomInput
-  const fileUploadStyle = {
-    ...inputStyle,
-    ...(errorMessage
-      ? inputStyleColorRed
-      : bgmode === "dark"
-      ? inputStyleColorLight
-      : inputStyleColor),
-    "& .MuiOutlinedInput-root": {
-      padding: "0px",
-      minHeight: "120px",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      cursor: "pointer",
-      "&:hover .MuiOutlinedInput-notchedOutline": {
-        borderColor: errorMessage
-          ? "red"
-          : bgmode === "dark"
-          ? "var(--borderColor)"
-          : "#000",
-        borderWidth: "1px",
-        borderStyle: "dashed",
-      },
-      "& .MuiOutlinedInput-notchedOutline": {
-        borderColor: errorMessage
-          ? "red"
-          : bgmode === "dark"
-          ? "var(--borderColor)"
-          : "#000",
-        borderWidth: "1px",
-        borderStyle: "dashed",
-      },
-    },
-  };
+  // Check if we have an image URL to display
+  const hasImageUrl = value && typeof value === "object" && "url" in value;
 
   return (
-    <Box sx={{ ...customBox, ...boxSx }}>
-      {/* Label - Same as CustomInput */}
-      <Typography variant="h5" sx={{ ...labelStyle }}>
-        <Tooltip title={label}>{truncatedLabel}</Tooltip>
-        {required && (
-          <Typography variant="h6" sx={{ ...span }}>
-            *
-          </Typography>
-        )}
-      </Typography>
+    <Box sx={{ ...fileuploadBox }}>
+      {label && (
+        <Typography sx={{ ...fileuploadBoxLabel }}>
+          <Tooltip title={label}>{truncatedLabel}</Tooltip>
+          {required && (
+            <Typography variant="h6" sx={{ ...span }}>
+              *
+            </Typography>
+          )}
+        </Typography>
+      )}
 
-      {/* File Upload Area */}
-      <Box
-        sx={{
-          ...fileUploadStyle,
-          position: "relative",
-        }}
+      {/* Upload Button */}
+      <Button
+        component="label"
+        variant="contained"
+        startIcon={<CloudUploadIcon />}
+        sx={{ mt: 1 }}
       >
-        <input
-          id={`file-input-${name as string}`}
+        {hasImageUrl ? (
+          <span className="BoldText">Change Image</span>
+        ) : multiple ? (
+          <>
+            <div>
+              <span className="BoldText">Click to upload </span>PNG, JPG,Webp or
+              JPEG (max. 800x400px)
+            </div>
+          </>
+        ) : (
+          <>
+            <span className="BoldText">Click to upload </span>PNG, JPG,Webp or
+            JPEG (max. 800x400px)
+          </>
+        )}
+        <VisuallyHiddenInput
           type="file"
           accept={accept}
-          {...register(name)}
+          name={name}
+          multiple={multiple}
           onChange={handleFileChange}
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            opacity: 0,
-            cursor: "pointer",
-            zIndex: 1,
-          }}
         />
+      </Button>
 
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "20px",
-            textAlign: "center",
-            minHeight: "120px",
-            width: "100%",
-            border: errorMessage
-              ? "1px dashed red"
-              : bgmode === "dark"
-              ? "1px dashed var(--borderColor)"
-              : "1px dashed #000",
-            borderRadius: "4px",
-            backgroundColor: "transparent",
-            position: "relative",
-            zIndex: 0,
-          }}
-        >
-          {!selectedFile ? (
-            <>
-              <IoCloudUpload
-                size={32}
-                color={
-                  bgmode === "dark" ? "var(--borderColor)" : "var(--greyText)"
-                }
-              />
-              <Typography
-                variant="body2"
-                sx={{
-                  marginTop: "8px",
-                  fontSize: "14px",
-                  color:
-                    bgmode === "dark"
-                      ? "var(--borderColor)"
-                      : "var(--greyText)",
-                }}
-              >
-                Click to upload or drag and drop
-              </Typography>
-              <Typography
-                variant="caption"
-                sx={{
-                  color: "var(--greyText)",
-                  fontSize: "12px",
-                  marginTop: "4px",
-                }}
-              >
-                Max size: {formatFileSize(maxSize)}
-              </Typography>
-            </>
-          ) : (
-            <Box sx={{ width: "100%" }}>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  backgroundColor:
-                    bgmode === "dark"
-                      ? "rgba(255,255,255,0.1)"
-                      : "rgba(0,0,0,0.05)",
-                  padding: "8px 12px",
-                  borderRadius: "4px",
-                  marginBottom: preview ? "12px" : "0",
-                }}
-              >
-                <Box sx={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                  <IoImage color="var(--primary)" />
-                  <Box>
+      {/* Display uploaded files */}
+      {getFilesArray().length > 0 && (
+        <Box sx={{ mt: 1 }}>
+          {getFilesArray().map((file, index) => {
+            const isImage = file.type?.startsWith("image/");
+            const imageUrl = isImage ? URL.createObjectURL(file) : null;
+
+            return (
+              <Box key={`${file.name}-${index}`} sx={{ mb: 2 }}>
+                {/* Image preview for newly selected files */}
+                {isImage && imageUrl && (
+                  <Box
+                    sx={{
+                      position: "relative",
+                      display: "inline-block",
+                      mb: 1,
+                    }}
+                  >
+                    <img
+                      src={imageUrl}
+                      alt={file.name}
+                      style={{
+                        maxWidth: "100%",
+                        maxHeight: "100px",
+                        border: "1px solid #ddd",
+                        borderRadius: "4px",
+                        padding: "5px",
+                      }}
+                      onLoad={() => URL.revokeObjectURL(imageUrl)} // Clean up object URL
+                    />
+                    <IconButton
+                      onClick={() =>
+                        handleRemoveFile(multiple ? index : undefined)
+                      }
+                      size="small"
+                      sx={{
+                        position: "absolute",
+                        top: -8,
+                        right: -8,
+                        backgroundColor: "white",
+                        boxShadow: 1,
+                        "&:hover": {
+                          backgroundColor: "#f5f5f5",
+                        },
+                      }}
+                    >
+                      <DeleteIcon fontSize="small" color="error" />
+                    </IconButton>
+                  </Box>
+                )}
+
+                {/* File name */}
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  alignItems="center"
+                  sx={{ ...FileNames }}
+                >
+                  <Tooltip title={file.name} placement="top">
                     <Typography
                       variant="body2"
                       sx={{
-                        fontWeight: "500",
-                        fontSize: "14px",
-                        color:
-                          bgmode === "dark" ? "var(--red)" : "var(--title)",
+                        cursor: "default",
+                        maxWidth: "200px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
                       }}
-                      title={selectedFile.name} // Show full name on hover
                     >
-                      {truncateFileName(selectedFile.name)}
+                      {truncateFileName(file.name)}
                     </Typography>
-                    <Typography
-                      variant="caption"
-                      sx={{ color: "var(--greyText)", fontSize: "12px" }}
+                  </Tooltip>
+                  {!isImage && (
+                    <IconButton
+                      onClick={() =>
+                        handleRemoveFile(multiple ? index : undefined)
+                      }
+                      size="small"
                     >
-                      {formatFileSize(selectedFile.size)}
-                    </Typography>
-                  </Box>
-                </Box>
-                <IconButton
-                  size="small"
-                  onClick={handleRemoveFile}
-                  sx={{
-                    color: "#f44336",
-                    zIndex: 2,
-                    "&:hover": {
-                      backgroundColor: "rgba(244, 67, 54, 0.1)",
-                    },
-                  }}
-                >
-                  <IoClose />
-                </IconButton>
+                      <DeleteIcon fontSize="small" color="error" />
+                    </IconButton>
+                  )}
+                </Stack>
               </Box>
+            );
+          })}
 
-              {preview && (
-                <Box
-                  sx={{
-                    width: "80px",
-                    height: "80px",
-                    margin: "0 auto",
-                    borderRadius: "4px",
-                    overflow: "hidden",
-                    border: "1px solid var(--greyText)",
-                  }}
-                >
-                  <img
-                    src={preview}
-                    alt="Preview"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
-                  />
-                </Box>
-              )}
-            </Box>
+          {multiple && getFilesArray().length > 1 && (
+            <Typography variant="caption" color="text.secondary">
+              {getFilesArray().length} files selected
+            </Typography>
           )}
         </Box>
-      </Box>
+      )}
 
-      {/* Error Message - Same as CustomInput */}
-      {errorMessage && (
+      {/* Display image from URL if available */}
+      {hasImageUrl && value && "url" in value && (
+        <Box sx={{ mt: 2, position: "relative", display: "inline-block" }}>
+          <img
+            src={`${config.BASE_URL_MAIN}${value.url}`}
+            alt={value.filename || "Uploaded image"}
+            style={{
+              maxWidth: "100%",
+              maxHeight: "100px",
+              border: "1px solid #ddd",
+              borderRadius: "4px",
+              padding: "5px",
+            }}
+          />
+          {/* Delete icon */}
+          <IconButton
+            onClick={() => handleRemoveFile()}
+            size="small"
+            sx={{
+              position: "absolute",
+              top: -8,
+              right: -8,
+              backgroundColor: "white",
+              boxShadow: 1,
+              "&:hover": {
+                backgroundColor: "#f5f5f5",
+              },
+            }}
+          >
+            <DeleteIcon fontSize="small" color="error" />
+          </IconButton>
+
+          <Tooltip title={value.filename}>
+            <Typography
+              variant="caption"
+              display="block"
+              sx={{ mt: 0.5, cursor: "pointer" }}
+            >
+              {value.filename
+                ? truncateFileName(value.filename)
+                : "Uploaded image"}
+            </Typography>
+          </Tooltip>
+        </Box>
+      )}
+
+      {error?.message && (
         <Typography
-          sx={{
-            margin: "5px 0px",
-            color: "red",
-            fontSize: "12px",
-          }}
+          variant="caption"
+          color="error"
+          sx={{ ...errorsFileUpload }}
         >
-          {errorMessage.toString()}
+          {error.message}
         </Typography>
       )}
     </Box>

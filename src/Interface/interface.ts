@@ -56,19 +56,20 @@ export interface optionType {
   disabled?: boolean;
 }
 
-export interface CustomAutoCompleteProps {
+export interface CustomAutoCompleteProps<T extends FieldValues = FieldValues> {
   options: optionType[];
   label: string;
-  onValueChange: (value: any) => void;
+  onValueChange: (value: string | string[] | null) => void;
   value: string | string[] | null;
   placeholder?: string;
   required?: boolean;
   multiple?: boolean;
   helperText?: string;
-  errors?: FieldErrors<FieldValues>;
-  name: string;
-  register: UseFormRegister<FieldValues>;
+  errors?: FieldErrors<T>;
+  name: Path<T>;
+  register: UseFormRegister<T>;
   readonly?: boolean;
+  boxSx?: any;
 }
 
 export interface CustomCheckboxProps {

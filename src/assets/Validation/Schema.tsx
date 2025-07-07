@@ -46,6 +46,25 @@ export const OffersDescriptionSchema = z.object({
     .max(20, "Description must be at most 20 characters long"),
 });
 
+export const jobFormSchema = z.object({
+  // jobTitle: z.string().min(1, "Job Title is required"),
+  jobTitle: z
+    .string()
+    .min(10, "jobTitle must be at least 10 characters long")
+    .max(20, "jobTitle must be at most 20 characters long"),
+  workType: z.string().min(1, { message: "Work Type is required" }).trim(),
+  description: z
+    .string()
+    .min(10, "Description must be at least 10 characters long")
+    .max(20, "Description must be at most 20 characters long"),
+  keySkill: z.string().min(1, "Key Skill is required"),
+  vancancy: z.string().min(1, { message: "Vancancy is required" }).trim(),
+  noOfopening: z
+    .string({ invalid_type_error: "No Of Opening must be a number" })
+    .min(1, "At least one opening is required"),
+  salaryRange: z.string().min(1, "Salary Range is required"),
+});
+
 export const ChangePasswordSchema = z
   .object({
     currentPassword: z
@@ -105,16 +124,43 @@ export const CourseSchema = z.object({
     }),
   thumbnail: z
     .any()
-    .refine((files) => files?.length >= 1, "Thumbnail is required")
     .refine(
-      (files) => files?.[0]?.size <= 20480, // 20KB in bytes
-      "Thumbnail size must be less than 20KB"
+      (value) => {
+        if (value instanceof File) return true;
+        if (typeof value === "object" && value && "filename" in value)
+          return true;
+        return false;
+      },
+      {
+        message: "Image is required",
+      }
     )
     .refine(
-      (files) =>
-        ["image/jpeg", "image/jpg", "image/png", "image/webp"].includes(
-          files?.[0]?.type
-        ),
-      "Only JPEG, JPG, PNG, and WebP formats are supported"
+      (value) => {
+        if (value instanceof File) {
+          return value.size <= 20 * 1024; // 20KB
+        }
+        return true;
+      },
+      {
+        message: "Max file size is 20KB",
+      }
+    )
+    .refine(
+      (value) => {
+        if (value instanceof File) {
+          return [
+            "image/png",
+            "image/jpeg",
+            "image/jpg",
+            "image/webp",
+          ].includes(value.type);
+        }
+        // Skip validation for existing uploads
+        return true;
+      },
+      {
+        message: "Only JPG, JPEG, PNG, or WEBP files are allowed",
+      }
     ),
 });

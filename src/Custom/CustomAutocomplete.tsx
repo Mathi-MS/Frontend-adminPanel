@@ -7,9 +7,13 @@ import {
   customAutoCompleteBoxError,
 } from "../assets/Styles/CustomAutoCompleteStyle";
 import { get } from "lodash";
-import type { CustomAutoCompleteProps, optionType } from "../Interface/interface";
+import type {
+  CustomAutoCompleteProps,
+  optionType,
+} from "../Interface/interface";
+import type { FieldValues } from "react-hook-form";
 
-const CustomAutoComplete = ({
+const CustomAutoComplete = <T extends FieldValues>({
   options,
   label,
   onValueChange,
@@ -21,32 +25,49 @@ const CustomAutoComplete = ({
   errors,
   name,
   register,
+  boxSx,
   readonly,
-}: CustomAutoCompleteProps) => {
+}: CustomAutoCompleteProps<T>) => {
   const truncatedLabel: any =
     label.length > 17 ? `${label.substring(0, 17)}...` : label;
   const errorMessage = get(errors, `${name}.message`, null);
 
   return (
-    <Box sx={{ ...customAutoComplete }}>
-      <Typography sx={{ display: "flex", padding: "0px 0px 2.5px 0px" }}>
+    <Box sx={{ ...customAutoComplete, ...boxSx }}>
+      <Typography
+        sx={{
+          display: "flex",
+          padding: "0px 0px 3px 0px",
+          fontFamily: "Regular_M",
+          fontSize: "12px",
+          height: "22px",
+          alignItems: "start",
+        }}
+      >
         <Tooltip title={label}>{truncatedLabel}</Tooltip>
         {required && (
-          <Typography sx={{ color: "red", position: "relative", left: "4px" }}>
+          <Typography
+            sx={{
+              color: "var(--buttonPrimary)",
+              position: "relative",
+              left: "4px",
+              top: "-3px",
+            }}
+          >
             *
           </Typography>
         )}
       </Typography>
 
       <Autocomplete
-        {...register(name)}
+        {...(register && register(name))}
         options={options || []}
         value={
           multiple
             ? options.filter((option: optionType) =>
                 value?.includes(option.value)
               )
-            : options.find((option: optionType) => option.value === value) ||
+            : options?.find((option: optionType) => option.value === value) ||
               null
         }
         multiple={multiple}

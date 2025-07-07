@@ -1,12 +1,14 @@
 
 export const customAutoCompleteBox = {
-  border:"1px solid #000",
+  border:"1px solid var(--borderColor)",
   minHeight:"30px",
   maxHeight:"80px",
   borderRadius:"5px",
   overflowY:"auto",
   "& .MuiInputBase-root ": {
     backgroundColor: "transparent !important",
+      fontSize:"14px",
+
   },
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
@@ -37,6 +39,8 @@ export const customAutoCompleteBoxError = {
   },
   "& .MuiInputBase-root ": {
     backgroundColor: "transparent",
+          fontSize:"14px",
+
   },
   "& .MuiOutlinedInput-root": {
     borderColor: "transparent",
@@ -56,5 +60,5 @@ export const customAutoCompleteBoxError = {
   },
 };
 export const customAutoComplete = {
-  marginBottom:"10px"
+  marginBottom:"20px"
 };

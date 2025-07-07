@@ -27,7 +27,8 @@ import { TbLayoutDashboard } from "react-icons/tb";
 import { FiBook } from "react-icons/fi";
 import { AiOutlineRead } from "react-icons/ai";
 import { MdOutlineCategory, MdOutlineLocalOffer } from "react-icons/md";
-import { CategoryRoutes, CoursesRoutes, OffersRoutes, UsersRoutes } from "./RoutesActive";
+import { CarreerRoutes, CategoryRoutes, CoursesRoutes, OffersRoutes, UsersRoutes } from "./RoutesActive";
+import { GrUserWorker } from "react-icons/gr";
 interface SidebarProps {
   isOpen: boolean;
   isMobile?: boolean;
@@ -169,6 +170,22 @@ const Sidebar = ({ isOpen, isMobile }: SidebarProps) => {
                   }}>
                   <MdOutlineLocalOffer />
                   {(isOpen || isMobile) && "Offers"}
+                </Box>
+              </Link>
+              <Link to={"/careers"}>
+                <Box sx={{
+                    backgroundColor: CarreerRoutes.includes(
+                      location.pathname
+                    )
+                      ? " var(--buttonPrimary)"
+                      : "transparent",
+                    color: CarreerRoutes.includes(location.pathname)
+                      ? "var(--white)"
+                      : "inherit",
+                    transition: "background-color 0.3s ease, color 0.3s ease",
+                  }}>
+                  <GrUserWorker />
+                  {(isOpen || isMobile) && "Careers"}
                 </Box>
               </Link>
             </Box>

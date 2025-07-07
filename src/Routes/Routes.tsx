@@ -7,6 +7,7 @@ import Users from "../Custom/Users";
 import Courses from "../Pages/Courses";
 import Offers from "../Pages/Offers";
 import Category from "../Pages/Category";
+import Carrers from "../Pages/Carrers";
 
 const routes = createHashRouter([
   {
@@ -48,6 +49,11 @@ const routes = createHashRouter([
       {
         path: "category",
         element: <Category />
+        // element: <ProtectedRoute element={<AdminDashboard />} />,
+      },
+      {
+        path: "careers",
+        element: <Carrers />
         // element: <ProtectedRoute element={<AdminDashboard />} />,
       },
       

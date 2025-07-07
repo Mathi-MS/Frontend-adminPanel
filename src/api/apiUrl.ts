@@ -6,4 +6,7 @@ export const apiUrls = {
   updateUser: "user",
   changePassword: "user/change-password",
   offers: "offers",
+  carrers: "careers",
+  carrersStatus: "careersstatus",
+  courses: "courses",
 };
