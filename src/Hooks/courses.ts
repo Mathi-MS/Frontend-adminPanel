@@ -49,31 +49,6 @@ export const coursesUpdateApi = () => {
     },
   });
 };
-// export const carrerStatusUpdateApi = () => {
-//   const queryClient = useQueryClient();
-//   return useMutation({
-//     mutationFn: async (payload: {
-//       id: string;
-//       status: string;
-//     }) => {
-//       const response = await callApi(
-//         `${apiUrls.carrersStatus}/${payload.id}`,
-//         "PUT",
-//         {
-//           status: payload.status,
-//           id: payload.id,
-//         }
-//       );
-//       return response as ApiResponse;
-//     },
-//     onSuccess: () => {
-//       queryClient.invalidateQueries({ queryKey: ["carrers"] });
-//     },
-//     onError: (error) => {
-//       console.error(error);
-//     },
-//   });
-// };
 
 export const coursesDeleteApi = () => {
   const queryClient = useQueryClient();
@@ -87,6 +62,70 @@ export const coursesDeleteApi = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["courses"] });
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+};
+// Lessons 
+export const useGetLessonApi = () => {
+  return useQuery({
+    queryKey: ["lessons"],
+    queryFn: async () => {
+      try {
+        const response = await callApi(apiUrls.lessons, "GET");
+        return response as ApiResponse;
+      } catch (error) {
+        throw error;
+      }
+    },
+  });
+};
+export const useSyllabusAddApi = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: any) => {
+      const response = await callApi(apiUrls.lessons, "POST", data);
+      return response as ApiResponse;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["lessons"] });
+      queryClient.invalidateQueries({ queryKey: ["login"] });
+    },
+  });
+};
+export const lessonUpdateApi = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (payload: { id: string; formData: FormData }) => {
+      const response = await callApi(
+        `${apiUrls.lessons}/${payload.id}`,
+        "PUT",
+        payload.formData
+      );
+      return response as ApiResponse;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["lessons"] });
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+};
+export const SyllabusDeleteApi = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (id: string) => {
+      const response = await callApi(
+        `${apiUrls.lessons}/${id}`,
+        "DELETE",
+      );
+      return response as ApiResponse;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["lessons"] });
     },
     onError: (error) => {
       console.error(error);

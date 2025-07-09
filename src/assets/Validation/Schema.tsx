@@ -138,7 +138,7 @@ export const CourseSchema = z.object({
     .refine(
       (value) => {
         if (value instanceof File) {
-          return value.size <= 20 * 1024; // 20KB
+          return value.size <= 20 * 1024; 
         }
         return true;
       },
@@ -164,3 +164,93 @@ export const CourseSchema = z.object({
       }
     ),
 });
+
+
+export const CategorySchema = z
+  .object({
+    category: z.string().min(1, "Category is required"),
+    title: z
+      .string()
+      .min(3, "Title must be at least 3 characters long")
+      .max(50, "Title must be at most 50 characters long"),
+    description: z
+      .string()
+      .min(10, "Description must be at least 10 characters long")
+      .max(200, "Description must be at most 200 characters long"),
+    prize: z.string().min(1, "Prize is required"),
+    mode: z.string().min(1, "Mode is required"),
+    venue: z
+      .string()
+      .min(3, "Venue must be at least 3 characters long")
+      .max(100, "Venue must be at most 100 characters long"),
+    startDate: z.date({
+      required_error: "Start date is required",
+      invalid_type_error: "Please select a valid start date",
+    }),
+    endDate: z.date({
+      required_error: "End date is required",
+      invalid_type_error: "Please select a valid end date",
+    }),
+    startTime: z.string().min(1, "Start time is required"),
+    endTime: z.string().min(1, "End time is required"),
+    image: z
+      .any()
+      .refine(
+        (value) => {
+          if (value instanceof File) return true;
+          if (typeof value === "object" && value && "filename" in value)
+            return true;
+          return false;
+        },
+        {
+          message: "Image is required",
+        }
+      )
+      .refine(
+        (value) => {
+          if (value instanceof File) {
+            return value.size <= 20 * 1024; 
+          }
+          return true;
+        },
+        {
+          message: "Max file size is 20KB",
+        }
+      )
+      .refine(
+        (value) => {
+          if (value instanceof File) {
+            return [
+              "image/png",
+              "image/jpeg",
+              "image/jpg",
+              "image/webp",
+            ].includes(value.type);
+          }
+          // Skip validation for existing uploads
+          return true;
+        },
+        {
+          message: "Only JPG, JPEG, PNG, or WEBP files are allowed",
+        }
+      ),
+  })
+  .refine((data) => data.endDate >= data.startDate, {
+    message: "End date must be after or equal to start date",
+    path: ["endDate"],
+  })
+  .refine((data) => {
+    // If start and end dates are the same, check if end time is after start time
+    if (data.startDate.toDateString() === data.endDate.toDateString()) {
+      const startTime = data.startTime.split(":");
+      const endTime = data.endTime.split(":");
+      const startMinutes = parseInt(startTime[0]) * 60 + parseInt(startTime[1]);
+      const endMinutes = parseInt(endTime[0]) * 60 + parseInt(endTime[1]);
+      return endMinutes > startMinutes;
+    }
+    return true;
+  }, {
+    message: "End time must be after start time when dates are the same",
+    path: ["endTime"],
+  });
+

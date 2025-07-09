@@ -99,7 +99,7 @@ const Carrers = () => {
           setUserToDelete(null);
         },
         onError: (error: any) => {
-          CustomSnackBar.errorSnackbar("Failed to delete user!");
+          CustomSnackBar.errorSnackbar("Failed to delete Carrers!");
           setDeleteModalOpen(false);
           setUserToDelete(null);
         },

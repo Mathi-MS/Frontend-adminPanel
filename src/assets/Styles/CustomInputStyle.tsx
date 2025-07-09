@@ -7,7 +7,7 @@ export const labelStyle = {
   fontFamily:"Regular_M"
 };
 export const span = {
-  color: "red !important",
+  color: "#d32f2f !important",
   width: "5px",
   height: "5px",
   position:"relative",
@@ -69,25 +69,25 @@ export const inputStyleColor = {
 export const inputStyleColorRed = {
   "& .MuiOutlinedInput-root": {
     "&:hover .MuiOutlinedInput-notchedOutline": {
-      borderColor: "red",
+      borderColor: "#d32f2f",
       borderWidth: "1px",
     },
     "&.Mui-focused": {
       "& .MuiOutlinedInput-notchedOutline": {
-        borderColor: "red",
+        borderColor: "#d32f2f",
         borderWidth: "1px",
 
       },
     },
     "& .MuiOutlinedInput-notchedOutline": {
-      borderColor: "red",
+      borderColor: "#d32f2f",
       borderWidth: "1px",
     },
     color:"grey",
   },
   "& .MuiFormHelperText-root": {
     margin: "5px 0px",
-    color:"red"
+    color:"#d32f2f"
 },
 };
 export const inputStyleColorLight = {
@@ -111,6 +111,9 @@ export const inputStyleColorLight = {
 };
 export const customBox = {
   marginBottom: "20px",
+  "& .MuiPickersSectionList-root":{
+    padding:"8px 0px !important"
+  }
 }
 
 

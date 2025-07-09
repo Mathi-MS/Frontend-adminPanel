@@ -44,7 +44,7 @@ interface CustomFileUploadProps {
 }
 
 const CustomFileUpload: React.FC<CustomFileUploadProps> = ({
-  label = "PNG, JPG or JPEG (max. 800x400px)",
+  label = "PNG, JPG or JPEG (max 20KB)",
   name,
   error,
   value,
@@ -157,13 +157,13 @@ const CustomFileUpload: React.FC<CustomFileUploadProps> = ({
           <>
             <div>
               <span className="BoldText">Click to upload </span>PNG, JPG,Webp or
-              JPEG (max. 800x400px)
+              JPEG (Max 20KB)
             </div>
           </>
         ) : (
           <>
             <span className="BoldText">Click to upload </span>PNG, JPG,Webp or
-            JPEG (max. 800x400px)
+            JPEG (Max 20KB)
           </>
         )}
         <VisuallyHiddenInput

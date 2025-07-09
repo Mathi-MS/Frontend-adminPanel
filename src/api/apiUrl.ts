@@ -9,4 +9,6 @@ export const apiUrls = {
   carrers: "careers",
   carrersStatus: "careersstatus",
   courses: "courses",
+  category: "category",
+  lessons: "lessons",
 };
