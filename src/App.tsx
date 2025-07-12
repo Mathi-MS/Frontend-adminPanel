@@ -4,6 +4,7 @@ import { ReactQueryProvider } from "./Hooks/ReactQueryProvider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import routes from "./Routes/Routes";
+
 function App() {
   return (
     <>

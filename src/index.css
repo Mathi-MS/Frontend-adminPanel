@@ -23,6 +23,28 @@
   font-family: "Light_M";
   src: url("/src/assets/Fonts/Inter/Inter_18pt-Light.ttf") format("truetype");
 }
+/* -----  */
+@font-face {
+  font-family: "Bold_W";
+  src: url("/src/assets/Fonts/Be/BeVietnamPro-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "SemiBold_W";
+  src: url("/src/assets/Fonts/Be/BeVietnamPro-SemiBold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Medium_W";
+  src: url("/src/assets/Fonts/Be/BeVietnamPro-Medium.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Regular_W";
+  src: url("/src/assets/Fonts/Be/BeVietnamPro-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Light_W";
+  src: url("/src/assets/Fonts/Be/BeVietnamPro-Light.ttf") format("truetype");
+}
+/* ----  */
 body {
   font-family: "Regular_M";
   max-width: 1600px;
@@ -75,6 +97,10 @@ body {
   --btnbgapprove: #079455;
   --btnbgreject: #d92d20;
   --red:red;
+  --webback:#f7f7f8;
+  --webprimary:#f57f17;
+  --weblight:#FFF4E5;
+  --webgrey:#f9f9f9;
 }
 /* Scroll Bar Color Change */
 ::-webkit-scrollbar {
