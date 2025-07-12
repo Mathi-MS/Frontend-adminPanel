@@ -22,7 +22,11 @@ const WebsiteLayout = () => {
           component={"img"}
           src={images.overlay}
           alt="sefsef"
-          sx={{ width: "100%", height: "100%" }}
+          sx={{
+            width: "100%",
+            height: "100%",
+            "@media (max-width: 600px)": { height:"500px" },
+          }}
         />
       </Box>
       <Box
