@@ -141,7 +141,7 @@ const WebContact = () => {
           <Paper sx={{ height: "100%", borderRadius: 2, overflow: "hidden" }}>
             <iframe
               title="Location Map"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.684521424579!2d77.5946!3d12.9716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDU4JzE3LjgiTiA3N8KwMzUnNDMuMiJF!5e0!3m2!1sen!2sin!4v1638355190535!5m2!1sen!2sin"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6763.583408766511!2d79.28505475337306!3d11.682915247392357!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bab4bb3c1f8f647%3A0xa5700439d3e35a25!2sSH%2069%2C%20Ulundurpet%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1708262309823!5m2!1sen!2sin"
               width="100%"
               height="100%"
               style={{ border: 0, minHeight: "400px" }}
