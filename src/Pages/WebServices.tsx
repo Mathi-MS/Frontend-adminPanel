@@ -48,13 +48,18 @@ const WebServices = () => {
 
   const handleDetail = (data: any) => {
     console.log(data);
-if (data === "Courses") {
-    navigate("/services/courses");
-  } else if (data === "IT Services") {
-    navigate("/itservices");
-  } else {
-    navigate("/services/details", { state: data });
-  }
+    if (data === "Courses") {
+      navigate("/services/courses");
+    } else if (data === "IT Services") {
+      navigate("/itservices");
+    } else if (
+      data === "Internship Programmes" ||
+      data === "Workshop Sessions"
+    ) {
+      navigate("/services/category", { state: data });
+    } else {
+      navigate("/services/details", { state: data });
+    }
   };
 
   return (
@@ -129,6 +134,7 @@ if (data === "Courses") {
                 cursor: "pointer",
                 fontFamily: "Medium_W",
               }}
+              onClick={() => navigate("/services")}
             >
               View All
             </Box>

@@ -1,25 +1,57 @@
 import {
   Box,
   Typography,
-  Grid,
   Card,
   CardMedia,
   CardContent,
-  Button,
+  Grid,
   Chip,
   Stack,
+  Button,
   Modal,
   IconButton,
 } from "@mui/material";
-import { images } from "../assets/Images/Images";
+import { FaAngleLeft } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
+import { images } from "../assets/Images/Images";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { carrersWebSchema } from "../assets/Validation/Schema";
-import { useState } from "react";
-import CustomButton from "../Custom/CustomButton";
 import { IoClose } from "react-icons/io5";
 import CustomInput from "../Custom/CustomInput";
+import CustomButton from "../Custom/CustomButton";
+import { useState } from "react";
+
+const mockCategoryData = [
+  {
+    title: "React Internship Program",
+    startDate: "2025-08-01",
+    endDate: "2025-09-01",
+    startTime: "10:00 AM",
+    endTime: "4:00 PM",
+    venue: "Online Zoom",
+    mode: "Online",
+    price: "₹2999",
+    image: images.loginBack,
+    description:
+      "This React internship helps you build real-world UI with hands-on projects, expert sessions, and mentorship.",
+    id: "43",
+  },
+  {
+    title: "Web Dev Workshop",
+    startDate: "2025-08-15",
+    endDate: "2025-08-17",
+    startTime: "9:00 AM",
+    endTime: "3:00 PM",
+    venue: "Tech Auditorium, Chennai",
+    mode: "Offline",
+    price: "₹1499",
+    image: images.banner,
+    description:
+      "Join this 3-day offline workshop covering HTML, CSS, JS, and deployment for beginners and students.",
+    id: "23",
+  },
+];
 const style = {
   position: "absolute",
   top: "50%",
@@ -36,39 +68,14 @@ const style = {
     margin: "auto",
   },
 };
-const courses = [
-  {
-    title: "Web Design Fundamentals",
-    duration: "4 Weeks",
-    level: "Beginner",
-    author: "John Smith",
-    description:
-      "Learn the fundamentals of web design, including HTML, CSS, and responsive design principles. Develop the skills to create visually appealing and user-friendly websites.",
-    price: 2999,
-    discountedPrice: 1499,
-    thumbnail: images.banner,
-    id: "87",
-  },
-  {
-    title: "UI/UX Design",
-    duration: "6 Weeks",
-    level: "Intermediate",
-    author: "Emily Johnson",
-    description:
-      "Master the art of creating intuitive user interfaces (UI) and enhancing user experiences (UX). Learn design principles, wireframing, prototyping, and usability testing techniques.",
-    price: 4999,
-    thumbnail: images.loginBack,
-    id: "0998",
-  },
-];
-
-const WebCourses = () => {
+const WebCategory = () => {
   const [open, setOpen] = useState(false);
   const [selectedJob, setSelectedJob] = useState<{
     title: string;
     id: string;
   } | null>(null);
   const location = useLocation();
+  const categoryTitle = location.state;
   const navigate = useNavigate();
   const {
     register,
@@ -78,15 +85,6 @@ const WebCourses = () => {
   } = useForm({
     resolver: zodResolver(carrersWebSchema),
   });
-  const handleOpen = (jobTitle: string, jobId: string) => {
-    setSelectedJob({ title: jobTitle, id: jobId });
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    reset();
-    setOpen(false);
-  };
   const onsubmit = async (data: any) => {
     if (selectedJob) {
       const submissionData = {
@@ -97,9 +95,47 @@ const WebCourses = () => {
       console.log("Apply for:", submissionData);
     }
   };
+  const handleOpen = (jobTitle: string, jobId: string) => {
+    setSelectedJob({ title: jobTitle, id: jobId });
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    reset();
+    setOpen(false);
+  };
   return (
-    <Box>
-      <Box
+    <Box sx={{
+        paddingTop: "60px",
+        "@media (max-width: 768px)": { paddingTop: "40px" },
+      }}>
+      {location.pathname === "/services/category" ? (
+        <Button
+          variant="outlined"
+          onClick={() => navigate(-1)}
+          sx={{
+            mb: 3,
+            fontFamily: "Medium_W",
+            borderColor: "var(--webprimary)",
+            color: "var(--webprimary)",
+            width: "35px ",
+            minWidth: "35px ",
+            height: "35px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: "100%",
+            padding: 0,
+            "&:hover": {
+              backgroundColor: "var(--webprimary)",
+              color: "#fff",
+            },
+          }}
+        >
+          <FaAngleLeft style={{ fontSize: "14px" }} />
+        </Button>
+      ) : (
+              <Box
         display="flex"
         justifyContent="space-between"
         alignItems="center"
@@ -129,7 +165,7 @@ const WebCourses = () => {
               },
             }}
           >
-            Our Courses
+            Intenships & Workshops
           </Typography>
           <Typography sx={{ fontFamily: "Regular_W", fontSize: "14px" }}>
             Our expert-led courses are designed to equip students with practical
@@ -159,139 +195,122 @@ const WebCourses = () => {
                 cursor: "pointer",
                 fontFamily: "Medium_W",
               }}
-              onClick={() => navigate("/services/courses")}
+              onClick={() => navigate("/services")}
             >
               View All
             </Box>
           )}
         </Box>
       </Box>
+      )}
 
-      {/* Courses Grid */}
-      <Grid container sx={{ gap: 3,alignItems:"center",justifyContent:"space-between" }}>
-        {courses.map((course, index) => (
-          <Box
+      <Typography
+        variant="h4"
+        sx={{
+          fontFamily: "Bold_W",
+          mb: 2,
+          "@media (max-width: 768px)": { fontSize: "26px" },
+          "@media (max-width: 480px)": { fontSize: "22px" },
+        }}
+      >
+        {categoryTitle}
+      </Typography>
+
+      <Grid container spacing={3} sx={{justifyContent:"space-between",alignItems:"center"}}>
+        {mockCategoryData.map((item, index) => (
+          <Grid
             flexBasis={"48%"}
-            sx={{ "@media (max-width: 690px)": { flexBasis: "100%" } }}
+            sx={{ "@media (max-width:690px)": { flexBasis: "100%" } }}
             key={index}
           >
-            <Card
-              elevation={0}
-              sx={{
-                border: "1px solid #e0e0e0",
-                borderRadius: "10px",
-                overflow: "hidden",
-              }}
-            >
-              {/* Course Image */}
+            <Card sx={{ borderRadius: 3, overflow: "hidden" }}>
               <CardMedia
                 component="img"
                 height="200"
-                image={course.thumbnail}
-                alt={course.title}
+                image={item.image}
+                alt={item.title}
               />
-
-              {/* Course Content */}
               <CardContent>
-                {/* Top Row: Duration, Level, Author */}
-                <Stack direction="row" spacing={1} mb={1} flexWrap="wrap">
-                  <Chip
-                    label={course.duration}
-                    size="small"
-                    sx={{ fontFamily: "Regular_W", fontSize: "12px" }}
-                  />
-                </Stack>
-
-                {/* Title & Description */}
                 <Typography
                   variant="h6"
-                  fontWeight={600}
-                  gutterBottom
-                  sx={{
-                    fontFamily: "SemiBold_W",
-                    fontSize: "18px",
-                    "@media (max-width: 690px)": { fontSize: "16px" },
-                  }}
+                  sx={{ fontFamily: "SemiBold_W", mb: 1 }}
                 >
-                  {course.title}
+                  {item.title}
                 </Typography>
                 <Typography
                   variant="body2"
-                  color="text.secondary"
-                  mb={2}
-                  sx={{
-                    fontFamily: "Regular_W",
-                    "@media (max-width: 690px)": { fontSize: "14px" },
-                  }}
+                  sx={{ fontFamily: "Regular_W", color: "#555", mb: 2 }}
                 >
-                  {course.description}
+                  {item.description}
                 </Typography>
 
-                {/* Price Section */}
-                <Stack direction="row" spacing={1} alignItems="center" mb={2}>
-                  {course.discountedPrice ? (
-                    <>
-                      <Typography
-                        variant="body2"
-                        color="text.secondary"
-                        sx={{
-                          textDecoration: "line-through",
-                          fontFamily: "Regular_W",
-                          "@media (max-width: 690px)": { fontSize: "14px" },
-                        }}
-                      >
-                        ₹{course.price}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        fontWeight="bold"
-                        sx={{
-                          fontFamily: "SemiBold_W",
-                          color: "var(--webprimary)",
-                          "@media (max-width: 690px)": { fontSize: "14px" },
-                        }}
-                      >
-                        ₹{course.discountedPrice}
-                      </Typography>
-                    </>
-                  ) : (
-                    <Typography
-                      variant="body2"
-                      fontWeight="bold"
-                      sx={{
-                        fontFamily: "SemiBold_W",
-                        "@media (max-width: 690px)": { fontSize: "14px" },
-                      }}
-                    >
-                      ₹{course.price}
-                    </Typography>
-                  )}
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  flexWrap="wrap"
+                  mb={1}
+                  sx={{ gap: 1 }}
+                >
+                  <Chip
+                    sx={{ fontFamily: "Medium_W", fontSize: "10px" }}
+                    label={`Start: ${item.startDate}`}
+                    size="small"
+                  />
+                  <Chip
+                    sx={{ fontFamily: "Medium_W", fontSize: "10px" }}
+                    label={`End: ${item.endDate}`}
+                    size="small"
+                  />
+                  <Chip
+                    sx={{ fontFamily: "Medium_W", fontSize: "10px" }}
+                    label={`Time: ${item.startTime} - ${item.endTime}`}
+                    size="small"
+                  />
                 </Stack>
 
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  flexWrap="wrap"
+                  sx={{ gap: 1 }}
+                >
+                  <Chip
+                    sx={{ fontFamily: "Medium_W", fontSize: "10px" }}
+                    label={`Venue: ${item.venue}`}
+                    size="small"
+                  />
+                  <Chip
+                    sx={{ fontFamily: "Medium_W", fontSize: "10px" }}
+                    label={`Mode: ${item.mode}`}
+                    size="small"
+                  />
+                  <Chip
+                    sx={{ fontFamily: "Medium_W", fontSize: "10px" }}
+                    label={`Price: ${item.price}`}
+                    size="small"
+                  />
+                </Stack>
                 <Button
                   variant="outlined"
-                  fullWidth
+                  onClick={() => handleOpen(item.title, item.id)}
                   sx={{
                     textTransform: "none",
-                    borderRadius: "6px",
                     fontFamily: "Medium_W",
+                    borderRadius: "6px",
                     borderColor: "var(--webprimary)",
                     color: "var(--webprimary)",
-                    transition: "1s",
+                    margin: "20px 0px 0px 0px",
                     "&:hover": {
-                      borderColor: "#ff7f50",
-                      backgroundColor: "#ff7f50",
+                      backgroundColor: "var(--webprimary)",
                       color: "#fff",
                     },
-                    "@media (max-width: 690px)": { fontSize: "14px" },
                   }}
-                  onClick={() => handleOpen(course.title, course.id)}
                 >
-                  Get it Now
+                  Apply
                 </Button>
               </CardContent>
             </Card>
-          </Box>
+          </Grid>
         ))}
       </Grid>
       {/* Apply Modal */}
@@ -400,4 +419,4 @@ const WebCourses = () => {
   );
 };
 
-export default WebCourses;
+export default WebCategory;

@@ -18,6 +18,7 @@ import WebCoursesPage from "../Pages/WebCoursesPage";
 import WebItServices from "../Components/WebItServices";
 import WebServicesPage from "../Pages/WebServicesPage";
 import WebServiceDetail from "../Pages/WebServiceDetail";
+import WebCategory from "../Pages/WebCategory";
 
 
 // const routes = createHashRouter([
@@ -112,6 +113,10 @@ const routes = createHashRouter([
       {
         path: "/services/details",
         element: <WebServiceDetail />,
+      },
+      {
+        path: "/services/category",
+        element: <WebCategory />,
       },
     ],
   },

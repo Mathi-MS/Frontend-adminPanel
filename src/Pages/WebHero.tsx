@@ -1,6 +1,8 @@
 import { Box, Button, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const WebHero = () => {
+  const navigate = useNavigate();
   return (
     <Box
       textAlign="center"
@@ -60,6 +62,7 @@ const WebHero = () => {
               color: "var(--webprimary)",
             },
           }}
+          onClick={() => navigate("/services")}
         >
           Explore More
         </Button>
@@ -79,6 +82,7 @@ const WebHero = () => {
               color: "var(--white)",
             },
           }}
+          onClick={() => navigate("/contact")}
         >
           Contact Us
         </Button>

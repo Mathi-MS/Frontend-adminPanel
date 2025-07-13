@@ -113,21 +113,6 @@ const WebTesti = () => {
             "@media (max-width: 690px)": { width: "100%", textAlign: "left" },
           }}
         >
-          <Box
-            component="button"
-            sx={{
-              background: "#fff",
-              border: "1px solid #e0e0e0",
-              px: 2,
-              py: 1,
-              borderRadius: "6px",
-              fontWeight: 500,
-              cursor: "pointer",
-              fontFamily: "Medium_W",
-            }}
-          >
-            View All
-          </Box>
         </Box>
       </Box>
       {/* Bottom-right Arrows */}

@@ -8,7 +8,7 @@ import {
   ListItemText,
   useMediaQuery,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import { FaBarsStaggered } from "react-icons/fa6";
 import CloseIcon from "@mui/icons-material/Close";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -114,7 +114,7 @@ const WebNavbar = () => {
         {/* Right - Login + Menu */}
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
           <NavLink
-            to="/login"
+            to="/"
             style={{
               ...navlinks,
               minWidth: "100px",
@@ -131,7 +131,7 @@ const WebNavbar = () => {
 
           {isMobile && (
             <IconButton onClick={toggleDrawer}>
-              <MenuIcon />
+              <FaBarsStaggered style={{fontSize:"14px"}}/>
             </IconButton>
           )}
         </Box>
@@ -172,7 +172,7 @@ const WebNavbar = () => {
               />
             </Box>
             <IconButton onClick={toggleDrawer}>
-              <CloseIcon />
+              <CloseIcon sx={{fontSize:"16px"}}/>
             </IconButton>
           </Box>
 

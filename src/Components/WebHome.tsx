@@ -6,6 +6,7 @@ import WebCourses from "../Pages/WebCourses"
 import WebTesti from "../Pages/WebTesti"
 import WebContact from "../Pages/WebContact"
 import WebCount from "../Pages/WebCount"
+import WebCategory from "../Pages/WebCategory"
 
 const WebHome = () => {
     return (
@@ -15,6 +16,7 @@ const WebHome = () => {
             <WebCount />
             <WebServices />
             <WebCourses />
+            <WebCategory />
             <WebTesti />
             <WebContact />
         </Box>

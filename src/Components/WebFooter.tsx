@@ -5,8 +5,10 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { FaLinkedinIn } from "react-icons/fa";
 import { FaWhatsapp } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
 
 const WebFooter = () => {
+  const navigate = useNavigate()
   const currentYear = new Date().getFullYear();
   return (
     <Box
@@ -93,10 +95,9 @@ const WebFooter = () => {
           </Box>
         </Box>
         <Box>
-          <Typography
-            component={"a"}
-            href="/"
-            sx={{
+          <Link
+            to="/"
+            style={{
               display: "flex",
               gap: "3px",
               color: "var(--title)",
@@ -104,15 +105,14 @@ const WebFooter = () => {
               textDecoration: "none",
               fontSize: "12px",
               alignItems: "center",
-              paddingBottom: "5px",
+              paddingBottom: "10px",
             }}
           >
             Home
-          </Typography>
-          <Typography
-            component={"a"}
-            href="/"
-            sx={{
+          </Link>
+          <Link
+            to="/about"
+            style={{
               display: "flex",
               gap: "3px",
               color: "var(--title)",
@@ -120,16 +120,15 @@ const WebFooter = () => {
               textDecoration: "none",
               fontSize: "12px",
               alignItems: "center",
-              paddingBottom: "5px",
+              paddingBottom: "10px",
             }}
           >
             About Us
-          </Typography>
+          </Link>
 
-          <Typography
-            component={"a"}
-            href="/"
-            sx={{
+          <Link
+            to="/careers"
+            style={{
               display: "flex",
               gap: "3px",
               color: "var(--title)",
@@ -137,15 +136,14 @@ const WebFooter = () => {
               textDecoration: "none",
               fontSize: "12px",
               alignItems: "center",
-              paddingBottom: "5px",
+              paddingBottom: "10px",
             }}
           >
             Carrers
-          </Typography>
-          <Typography
-            component={"a"}
-            href="/"
-            sx={{
+          </Link>
+          <Link
+            to="/contact"
+            style={{
               display: "flex",
               gap: "3px",
               color: "var(--title)",
@@ -157,13 +155,12 @@ const WebFooter = () => {
             }}
           >
             Contact Us
-          </Typography>
+          </Link>
         </Box>
         <Box>
-          <Typography
-            component={"a"}
-            href="/"
-            sx={{
+          <Link
+            to="/services"
+            style={{
               display: "flex",
               gap: "3px",
               color: "var(--title)",
@@ -175,11 +172,10 @@ const WebFooter = () => {
             }}
           >
             Services
-          </Typography>
-          <Typography
-            component={"a"}
-            href="/"
-            sx={{
+          </Link>
+          <Link
+            to="/services"
+            style={{
               display: "flex",
               gap: "3px",
               color: "var(--title)",
@@ -187,15 +183,14 @@ const WebFooter = () => {
               textDecoration: "none",
               fontSize: "12px",
               alignItems: "center",
-              paddingBottom: "5px",
+              paddingBottom: "10px",
             }}
           >
             Courses
-          </Typography>
-          <Typography
-            component={"a"}
-            href="/"
-            sx={{
+          </Link>
+          <Link
+            to="/services"
+            style={{
               display: "flex",
               gap: "3px",
               color: "var(--title)",
@@ -203,15 +198,14 @@ const WebFooter = () => {
               textDecoration: "none",
               fontSize: "12px",
               alignItems: "center",
-              paddingBottom: "5px",
+              paddingBottom: "10px",
             }}
           >
             Inplant Training
-          </Typography>
-          <Typography
-            component={"a"}
-            href="/"
-            sx={{
+          </Link>
+          <Link
+            to="/services"
+            style={{
               display: "flex",
               gap: "3px",
               color: "var(--title)",
@@ -219,15 +213,14 @@ const WebFooter = () => {
               textDecoration: "none",
               fontSize: "12px",
               alignItems: "center",
-              paddingBottom: "5px",
+              paddingBottom: "10px",
             }}
           >
             Intenship
-          </Typography>
-          <Typography
-            component={"a"}
-            href="/"
-            sx={{
+          </Link>
+          <Link
+            to="/services"
+            style={{
               display: "flex",
               gap: "3px",
               color: "var(--title)",
@@ -235,15 +228,14 @@ const WebFooter = () => {
               textDecoration: "none",
               fontSize: "12px",
               alignItems: "center",
-              paddingBottom: "5px",
+              paddingBottom: "10px",
             }}
           >
             Final Year Project
-          </Typography>
-          <Typography
-            component={"a"}
-            href="/"
-            sx={{
+          </Link>
+          <Link
+            to="/services"
+            style={{
               display: "flex",
               gap: "3px",
               color: "var(--title)",
@@ -255,13 +247,12 @@ const WebFooter = () => {
             }}
           >
             Workshop
-          </Typography>
+          </Link>
         </Box>
         <Box>
-          <Typography
-            component={"a"}
-            href="/"
-            sx={{
+          <Link
+            to="/itservices"
+            style={{
               display: "flex",
               gap: "3px",
               color: "var(--title)",
@@ -273,11 +264,10 @@ const WebFooter = () => {
             }}
           >
             Software Development
-          </Typography>
-          <Typography
-            component={"a"}
-            href="/"
-            sx={{
+          </Link>
+          <Link
+            to="/itservices"
+            style={{
               display: "flex",
               gap: "3px",
               color: "var(--title)",
@@ -285,15 +275,14 @@ const WebFooter = () => {
               textDecoration: "none",
               fontSize: "12px",
               alignItems: "center",
-              paddingBottom: "5px",
+              paddingBottom: "10px",
             }}
           >
             Web Development
-          </Typography>
-          <Typography
-            component={"a"}
-            href="/"
-            sx={{
+          </Link>
+          <Link
+            to="/itservices"
+            style={{
               display: "flex",
               gap: "3px",
               color: "var(--title)",
@@ -301,15 +290,14 @@ const WebFooter = () => {
               textDecoration: "none",
               fontSize: "12px",
               alignItems: "center",
-              paddingBottom: "5px",
+              paddingBottom: "10px",
             }}
           >
             App Development
-          </Typography>
-          <Typography
-            component={"a"}
-            href="/"
-            sx={{
+          </Link>
+          <Link
+            to="/itservices"
+            style={{
               display: "flex",
               gap: "3px",
               color: "var(--title)",
@@ -321,7 +309,7 @@ const WebFooter = () => {
             }}
           >
             Digital Marketing
-          </Typography>
+          </Link>
         </Box>
         <Box>
           <Typography
@@ -413,7 +401,14 @@ const WebFooter = () => {
             paddingTop: "20px",
           }}
         >
-          © <span id="year">{currentYear}</span> SkillUp Tech Solutions. All
+          © <span id="year">{currentYear}</span> <Typography component={"a"}           sx={{
+            color: "var(--title)",
+            fontFamily: "Regular_W",
+            fontSize: "12px",
+            textAlign: "center",
+            paddingTop: "20px",
+            cursor:"pointer",
+          }} href="https://skilluptechbuzz.in/" target="_blank" >SkillUp Tech Solutions</Typography>. All
           rights reserved.
         </Typography>
       </Box>

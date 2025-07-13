@@ -116,7 +116,6 @@ const WebCareers = () => {
         jobTitle: selectedJob.title,
       };
       console.log("Apply for:", submissionData);
-      // Handle form submission here, e.g., send to an API
     }
   };
 
