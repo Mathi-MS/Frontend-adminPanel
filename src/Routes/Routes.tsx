@@ -11,6 +11,13 @@ import Carrers from "../Pages/Carrers";
 import Syllabus from "../Pages/Syllabus";
 import WebsiteLayout from "../Components/WebsiteLayout";
 import WebHome from "../Components/WebHome";
+import WebAbout from "../Components/WebAbout";
+import WebContactUs from "../Pages/WebContactUs";
+import WebCarrers from "../Components/WebCarrers";
+import WebCoursesPage from "../Pages/WebCoursesPage";
+import WebItServices from "../Components/WebItServices";
+import WebServicesPage from "../Pages/WebServicesPage";
+import WebServiceDetail from "../Pages/WebServiceDetail";
 
 
 // const routes = createHashRouter([
@@ -77,6 +84,34 @@ const routes = createHashRouter([
       {
         path: "/",
         element: <WebHome />,
+      },
+      {
+        path: "/about",
+        element: <WebAbout />,
+      },
+      {
+        path: "/contact",
+        element: <WebContactUs />,
+      },
+      {
+        path: "/careers",
+        element: <WebCarrers />,
+      },
+      {
+        path: "/services/courses",
+        element: <WebCoursesPage />,
+      },
+      {
+        path: "/itservices",
+        element: <WebItServices />,
+      },
+      {
+        path: "/services",
+        element: <WebServicesPage />,
+      },
+      {
+        path: "/services/details",
+        element: <WebServiceDetail />,
       },
     ],
   },

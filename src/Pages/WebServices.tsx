@@ -7,6 +7,7 @@ import {
   IconButton,
 } from "@mui/material";
 import NorthEastIcon from "@mui/icons-material/NorthEast";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const benefits = [
   {
@@ -31,8 +32,8 @@ const benefits = [
   },
   {
     number: "05",
-    title: "Career Guidance",
-    desc: "Receive personalized mentoring, resume building, and interview preparation to help you land your dream tech job.",
+    title: "Courses",
+    desc: "Learn essential, industry-relevant skills through expert-led, hands-on training designed to prepare you for real-world challenges.",
   },
   {
     number: "06",
@@ -42,8 +43,23 @@ const benefits = [
 ];
 
 const WebServices = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleDetail = (data: any) => {
+    console.log(data);
+if (data === "Courses") {
+    navigate("/services/courses");
+  } else if (data === "IT Services") {
+    navigate("/itservices");
+  } else {
+    navigate("/services/details", { state: data });
+  }
+  };
+
   return (
     <Box
+      className="webServices"
       sx={{
         padding: "60px 0px",
         "@media (max-width: 768px)": { padding: "40px 0px" },
@@ -98,21 +114,25 @@ const WebServices = () => {
             "@media (max-width: 690px)": { width: "100%", textAlign: "left" },
           }}
         >
-          <Box
-            component="button"
-            sx={{
-              background: "#fff",
-              border: "1px solid #e0e0e0",
-              px: 2,
-              py: 1,
-              borderRadius: "6px",
-              fontWeight: 500,
-              cursor: "pointer",
-              fontFamily: "Medium_W",
-            }}
-          >
-            View All
-          </Box>
+          {location.pathname === "/services" ? (
+            ""
+          ) : (
+            <Box
+              component="button"
+              sx={{
+                background: "#fff",
+                border: "1px solid #e0e0e0",
+                px: 2,
+                py: 1,
+                borderRadius: "6px",
+                fontWeight: 500,
+                cursor: "pointer",
+                fontFamily: "Medium_W",
+              }}
+            >
+              View All
+            </Box>
+          )}
         </Box>
       </Box>
 
@@ -181,6 +201,9 @@ const WebServices = () => {
                       border: "1px solid #eee",
                       width: 36,
                       height: 36,
+                    }}
+                    onClick={() => {
+                      handleDetail(item.title);
                     }}
                   >
                     <NorthEastIcon

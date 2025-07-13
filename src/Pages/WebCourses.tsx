@@ -10,6 +10,7 @@ import {
   Stack,
 } from "@mui/material";
 import { images } from "../assets/Images/Images";
+import { useLocation } from "react-router-dom";
 
 const courses = [
   {
@@ -36,6 +37,7 @@ const courses = [
 ];
 
 const WebCourses = () => {
+  const location = useLocation();
   return (
     <Box>
       <Box
@@ -83,21 +85,25 @@ const WebCourses = () => {
             "@media (max-width: 690px)": { width: "100%", textAlign: "left" },
           }}
         >
-          <Box
-            component="button"
-            sx={{
-              background: "#fff",
-              border: "1px solid #e0e0e0",
-              px: 2,
-              py: 1,
-              borderRadius: "6px",
-              fontWeight: 500,
-              cursor: "pointer",
-              fontFamily: "Medium_W",
-            }}
-          >
-            View All
-          </Box>
+          {location.pathname === "/courses" ? (
+            ""
+          ) : (
+            <Box
+              component="button"
+              sx={{
+                background: "#fff",
+                border: "1px solid #e0e0e0",
+                px: 2,
+                py: 1,
+                borderRadius: "6px",
+                fontWeight: 500,
+                cursor: "pointer",
+                fontFamily: "Medium_W",
+              }}
+            >
+              View All
+            </Box>
+          )}
         </Box>
       </Box>
 

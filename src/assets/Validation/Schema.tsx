@@ -276,3 +276,21 @@ export const contactUsSchema = z.object({
     .min(5, { message: "Description must be at least 5 characters" })
     .max(200, { message: "Description must be at most 200 characters" }),
 });
+export const carrersWebSchema = z.object({
+  name: z
+    .string()
+    .min(3, { message: "Name must be at least 3 characters" })
+    .max(20, { message: "Name must be at most 20 characters" })
+    .nonempty({ message: "Name is required" }),
+  email: z
+    .string()
+    .min(1, { message: "Email is required" })
+    .email({ message: "Invalid email address" })
+    .trim(),
+  mobile: z
+    .string()
+    .min(1, { message: "Mobile number is required" })
+    .regex(/^\d+$/, { message: "Mobile number must contain only digits" })
+    .min(10, { message: "Mobile number must be at least 10 digits" })
+    .max(10, { message: "Mobile number must be at most 10 digits" }),
+});
