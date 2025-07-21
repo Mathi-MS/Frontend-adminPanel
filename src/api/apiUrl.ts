@@ -11,4 +11,5 @@ export const apiUrls = {
   courses: "courses",
   category: "category",
   lessons: "lessons",
+  reviews: "reviews",
 };

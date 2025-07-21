@@ -11,7 +11,7 @@ import {
 import { FaBarsStaggered } from "react-icons/fa6";
 import CloseIcon from "@mui/icons-material/Close";
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { images } from "../assets/Images/Images";
 
 const navItems = [
@@ -42,7 +42,7 @@ const WebNavbar = () => {
   const [isSticky, setIsSticky] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const isMobile = useMediaQuery("(max-width:991px)");
-
+  const navigate = useNavigate();
   useEffect(() => {
     const handleScroll = () => setIsSticky(window.scrollY > 0);
     window.addEventListener("scroll", handleScroll);
@@ -54,7 +54,9 @@ const WebNavbar = () => {
   const handleLinkClick = () => {
     if (isMobile) setMobileOpen(false);
   };
-
+  const handleLogin = () =>{
+    navigate("/login")
+  }
   return (
     <>
       {/* Top Navbar */}
@@ -113,9 +115,8 @@ const WebNavbar = () => {
 
         {/* Right - Login + Menu */}
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-          <NavLink
-            to="/"
-            style={{
+          <Box
+            sx={{
               ...navlinks,
               minWidth: "100px",
               background: "var(--webprimary)" ,
@@ -125,9 +126,10 @@ const WebNavbar = () => {
               alignItems: "center",
               textDecoration: "none",
             }}
+            onClick={handleLogin}
           >
             Login
-          </NavLink>
+          </Box>
 
           {isMobile && (
             <IconButton onClick={toggleDrawer}>

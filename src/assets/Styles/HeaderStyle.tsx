@@ -1,5 +1,5 @@
 export const HeaderStyle = {
-    background:'var(--primary)',
+    background:'var(--newprimary)',
     borderRadius: '3px',
     padding:"5px 20px",
     display:"flex",
@@ -7,7 +7,7 @@ export const HeaderStyle = {
     justifyContent:"space-between",
     "& h4":{
         color:"var(--greyText)",
-        fontSize:"16px",
+        fontSize:"15px",
         fontFamily:"Medium_M"
     },
     "& svg":{

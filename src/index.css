@@ -5,23 +5,23 @@
 }
 @font-face {
   font-family: "Bold_M";
-  src: url("/src/assets/Fonts/Inter/Inter_18pt-Bold.ttf") format("truetype");
+  src: url("/src/assets/Fonts/Be/BeVietnamPro-Bold.ttf") format("truetype");
 }
 @font-face {
   font-family: "SemiBold_M";
-  src: url("/src/assets/Fonts/Inter/Inter_18pt-SemiBold.ttf") format("truetype");
+  src: url("/src/assets/Fonts/Be/BeVietnamPro-SemiBold.ttf") format("truetype");
 }
 @font-face {
   font-family: "Medium_M";
-  src: url("/src/assets/Fonts/Inter/Inter_18pt-Medium.ttf") format("truetype");
+  src: url("/src/assets/Fonts/Be/BeVietnamPro-Medium.ttf") format("truetype");
 }
 @font-face {
   font-family: "Regular_M";
-  src: url("/src/assets/Fonts/Inter/Inter_18pt-Regular.ttf") format("truetype");
+  src: url("/src/assets/Fonts/Be/BeVietnamPro-Regular.ttf") format("truetype");
 }
 @font-face {
   font-family: "Light_M";
-  src: url("/src/assets/Fonts/Inter/Inter_18pt-Light.ttf") format("truetype");
+  src: url("/src/assets/Fonts/Be/BeVietnamPro-Light.ttf") format("truetype");
 }
 /* -----  */
 @font-face {
@@ -57,15 +57,16 @@ body {
   padding: 0px;
 }
 :root {
-  --primary: #182230;
-  --secondary: #4b9cd3;
+  --primary: #f57f17;
+  --secondary: #f57f17;
+  --newprimary: #1F2026;
   --grey: #717680;
   --greyDark: #535862;
   --greyText: #a4a7ae;
   --white: #fff;
   --title: #181d27;
   --inputLabel: #414651;
-  --buttonPrimary: #246ca5;
+  --buttonPrimary: #f57f17;
   --buttonSecondary: #3489c3;
   --borderColor: #d5d7da;
   --sidebarBack: #414651;
@@ -178,7 +179,7 @@ input[type=number] {
     }
     .MuiDataGrid-columnHeader , .MuiDataGrid-filler{
       outline: none !important;
-      background: var(--greyText) !important;
+      background: var(--newprimary) !important;
       color: var(--white) !important;
     }
     .MuiDataGrid-columnHeaders{

@@ -11,7 +11,6 @@ import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  ChangePasswordSchema,
   CourseSchema,
 } from "../assets/Validation/Schema";
 import CustomInput from "../Custom/CustomInput";
@@ -76,7 +75,6 @@ const Courses = () => {
     const courseToEdit = courses.find((course) => course._id === id);
     if (courseToEdit) {
       setEditingCourse(courseToEdit);
-      console.log(courseToEdit, "qdqwdqd");
 
       reset({
         courseName: courseToEdit.name || "",

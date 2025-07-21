@@ -27,8 +27,17 @@ import { TbLayoutDashboard } from "react-icons/tb";
 import { FiBook } from "react-icons/fi";
 import { AiOutlineRead } from "react-icons/ai";
 import { MdOutlineCategory, MdOutlineLocalOffer } from "react-icons/md";
-import { CarreerRoutes, CategoryRoutes, CoursesRoutes, OffersRoutes, SyllabusRoutes, UsersRoutes } from "./RoutesActive";
+import {
+  CarreerRoutes,
+  CategoryRoutes,
+  CertificateRoutes,
+  CoursesRoutes,
+  OffersRoutes,
+  SyllabusRoutes,
+  UsersRoutes,
+} from "./RoutesActive";
 import { GrUserWorker } from "react-icons/gr";
+import { PiCertificate } from "react-icons/pi";
 interface SidebarProps {
   isOpen: boolean;
   isMobile?: boolean;
@@ -87,9 +96,6 @@ const Sidebar = ({ isOpen, isMobile }: SidebarProps) => {
         <Box>
           <Box sx={{ ...SidebarBoxOne }}>
             <Box component={"img"} src={images.logo} />
-            {(isOpen || isMobile) && (
-              <Typography variant="h3">PackRepo</Typography>
-            )}
           </Box>
           <Box sx={{ ...SidebarBoxTwo }}>
             {(isOpen || isMobile) && (
@@ -103,99 +109,115 @@ const Sidebar = ({ isOpen, isMobile }: SidebarProps) => {
                 </Box>
               </Link>
               <Link to={"/users"}>
-                <Box sx={{
-                    backgroundColor: UsersRoutes.includes(
-                      location.pathname
-                    )
+                <Box
+                  sx={{
+                    backgroundColor: UsersRoutes.includes(location.pathname)
                       ? " var(--buttonPrimary)"
                       : "transparent",
                     color: UsersRoutes.includes(location.pathname)
                       ? "var(--white)"
                       : "inherit",
                     transition: "background-color 0.3s ease, color 0.3s ease",
-                  }}>
+                  }}
+                >
                   <FaUsers />
                   {(isOpen || isMobile) && "Users"}
                 </Box>
               </Link>
               <Link to={"/courses"}>
-                <Box  sx={{
-                    backgroundColor: CoursesRoutes.includes(
-                      location.pathname
-                    )
+                <Box
+                  sx={{
+                    backgroundColor: CoursesRoutes.includes(location.pathname)
                       ? " var(--buttonPrimary)"
                       : "transparent",
                     color: CoursesRoutes.includes(location.pathname)
                       ? "var(--white)"
                       : "inherit",
                     transition: "background-color 0.3s ease, color 0.3s ease",
-                  }}>
+                  }}
+                >
                   <AiOutlineRead />
                   {(isOpen || isMobile) && "Courses"}
                 </Box>
               </Link>
               <Link to={"/syllabus"}>
-                <Box sx={{
-                    backgroundColor: SyllabusRoutes.includes(
-                      location.pathname
-                    )
+                <Box
+                  sx={{
+                    backgroundColor: SyllabusRoutes.includes(location.pathname)
                       ? " var(--buttonPrimary)"
                       : "transparent",
                     color: SyllabusRoutes.includes(location.pathname)
                       ? "var(--white)"
                       : "inherit",
                     transition: "background-color 0.3s ease, color 0.3s ease",
-                  }}>
+                  }}
+                >
                   <FiBook />
                   {(isOpen || isMobile) && "Syllabus"}
                 </Box>
               </Link>
               <Link to={"/category"}>
-                <Box sx={{
-                    backgroundColor: CategoryRoutes.includes(
-                      location.pathname
-                    )
+                <Box
+                  sx={{
+                    backgroundColor: CategoryRoutes.includes(location.pathname)
                       ? " var(--buttonPrimary)"
                       : "transparent",
                     color: CategoryRoutes.includes(location.pathname)
                       ? "var(--white)"
                       : "inherit",
                     transition: "background-color 0.3s ease, color 0.3s ease",
-                  }}>
+                  }}
+                >
                   <MdOutlineCategory />
                   {(isOpen || isMobile) && "Category"}
                 </Box>
               </Link>
               <Link to={"/offers"}>
-                <Box sx={{
-                    backgroundColor: OffersRoutes.includes(
-                      location.pathname
-                    )
+                <Box
+                  sx={{
+                    backgroundColor: OffersRoutes.includes(location.pathname)
                       ? " var(--buttonPrimary)"
                       : "transparent",
                     color: OffersRoutes.includes(location.pathname)
                       ? "var(--white)"
                       : "inherit",
                     transition: "background-color 0.3s ease, color 0.3s ease",
-                  }}>
+                  }}
+                >
                   <MdOutlineLocalOffer />
                   {(isOpen || isMobile) && "Offers"}
                 </Box>
               </Link>
-              <Link to={"/careers"}>
-                <Box sx={{
-                    backgroundColor: CarreerRoutes.includes(
-                      location.pathname
-                    )
+              <Link to={"/admincareers"}>
+                <Box
+                  sx={{
+                    backgroundColor: CarreerRoutes.includes(location.pathname)
                       ? " var(--buttonPrimary)"
                       : "transparent",
                     color: CarreerRoutes.includes(location.pathname)
                       ? "var(--white)"
                       : "inherit",
                     transition: "background-color 0.3s ease, color 0.3s ease",
-                  }}>
+                  }}
+                >
                   <GrUserWorker />
                   {(isOpen || isMobile) && "Careers"}
+                </Box>
+              </Link>
+              <Link to={"/certificate"}>
+                <Box
+                  sx={{
+                    backgroundColor: CertificateRoutes.includes(location.pathname)
+                      ? " var(--buttonPrimary)"
+                      : "transparent",
+                    color: CertificateRoutes.includes(location.pathname)
+                      ? "var(--white)"
+                      : "inherit",
+                    transition: "background-color 0.3s ease, color 0.3s ease",
+                  }}
+                >
+                  <PiCertificate />
+                  {(isOpen || isMobile) && "Certificate"}
                 </Box>
               </Link>
             </Box>
@@ -222,7 +244,22 @@ const Sidebar = ({ isOpen, isMobile }: SidebarProps) => {
         </Box>
         <Box sx={{ ...SidebarBottom }}>
           <Box sx={{ ...SidebarBottomLeft }}>
-            <Box component={"img"} src={images.profile} />
+            <Box
+              sx={{
+                width: "35px",
+                height: "35px",
+                borderRadius: "50%",
+                backgroundColor: "var(--buttonPrimary)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "var(--white)",
+                fontFamily: "Medium_M",
+                fontSize: "16px",
+              }}
+            >
+              {(displayUsername || "User").charAt(0).toUpperCase()}
+            </Box>
             {(isOpen || isMobile) && (
               <Box>
                 <Typography variant="h2">

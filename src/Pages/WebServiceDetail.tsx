@@ -37,7 +37,7 @@ const serviceDetails: Record<
     ],
   },
   "Internship Programmes": {
-    title: "Internship Programmes",
+    title: "Internship & Workshop ",
     desc:
       "Our internship programmes are designed to bridge the gap between academics and industry. Interns work on real-time projects under the supervision of industry experts. This opportunity helps them enhance their technical skills, teamwork, time management, and communication. The programme ensures that candidates leave with hands-on experience and practical knowledge useful for job placements and career growth.",
     highlights: [

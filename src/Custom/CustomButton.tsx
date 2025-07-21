@@ -5,7 +5,7 @@ export const customBtnStyle ={
     width: "100%",
     marginTop:"10px",
     fontWeight:"500",
-    backgroundColor:"var(--buttonSecondary)",
+    backgroundColor:"var(--primary)",
     fontFamily:"Regular_M",
     fontSize:"12px"
 }

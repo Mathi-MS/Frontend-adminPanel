@@ -43,7 +43,7 @@ export const OffersDescriptionSchema = z.object({
   description: z
     .string()
     .min(10, "Description must be at least 10 characters long")
-    .max(20, "Description must be at most 20 characters long"),
+    .max(100, "Description must be at most 100 characters long"),
 });
 
 export const jobFormSchema = z.object({
@@ -51,12 +51,12 @@ export const jobFormSchema = z.object({
   jobTitle: z
     .string()
     .min(10, "jobTitle must be at least 10 characters long")
-    .max(20, "jobTitle must be at most 20 characters long"),
+    .max(40, "jobTitle must be at most 40 characters long"),
   workType: z.string().min(1, { message: "Work Type is required" }).trim(),
   description: z
     .string()
     .min(10, "Description must be at least 10 characters long")
-    .max(20, "Description must be at most 20 characters long"),
+    .max(200, "Description must be at most 200 characters long"),
   keySkill: z.string().min(1, "Key Skill is required"),
   vancancy: z.string().min(1, { message: "Vancancy is required" }).trim(),
   noOfopening: z
@@ -98,7 +98,7 @@ export const CourseSchema = z.object({
   courseName: z
     .string()
     .min(3, "Course Name must be at least 3 characters long")
-    .max(20, "Course Name must be at most 20 characters long")
+    .max(30, "Course Name must be at most 30 characters long")
     .regex(
       /^[A-Za-z\s]+$/,
       "Course Name must contain only alphabets and spaces"
@@ -106,7 +106,7 @@ export const CourseSchema = z.object({
   description: z
     .string()
     .min(3, "Description must be at least 3 characters long")
-    .max(100, "Description must be at most 100 characters long"),
+    .max(200, "Description must be at most 200 characters long"),
   prize: z.string().min(1, "Prize is required"),
   duration: z
     .string()

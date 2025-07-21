@@ -33,7 +33,7 @@ const SignUp = () => {
   const [valueStore, setValueStore] = useState<any>({});
   const [otp, setOtp] = useState<string[]>(["", "", "", "", "", ""]);
   const otpRefs = useRef<(HTMLInputElement | null)[]>([]);
-  const {mutate: RegisterUser} = useRegisterApi();
+  const { mutate: RegisterUser } = useRegisterApi();
   const { mutate: otpFunction } = verifyOtp();
   const {
     register,
@@ -43,19 +43,24 @@ const SignUp = () => {
     resolver: zodResolver(SignupSchema),
   });
 
-  const onsubmit = async (data: { email: string,name:string,mobile:string }) => {
-    RegisterUser({email:data.email,name:data.name,mobile:data.mobile},
+  const onsubmit = async (data: {
+    email: string;
+    name: string;
+    mobile: string;
+  }) => {
+    RegisterUser(
+      { email: data.email, name: data.name, mobile: data.mobile },
       {
-        onSuccess:()=>{
+        onSuccess: () => {
           CustomSnackBar.successSnackbar("Please check your mail");
           setOpenOpen(true);
           setValueStore(data);
         },
-        onError:(error)=>{
-          CustomSnackBar.errorSnackbar(error.message); 
-        }
+        onError: (error) => {
+          CustomSnackBar.errorSnackbar(error.message);
+        },
       }
-    )
+    );
   };
 
   const handleOtpChange = (index: number, value: string) => {
@@ -80,37 +85,44 @@ const SignUp = () => {
   const handleOtpSubmit = () => {
     const otpValue = otp.join("");
     if (otpValue.length === 6) {
-      otpFunction({otp:otpValue,email:valueStore.email},{
-      onSuccess:()=>{
-        CustomSnackBar.successSnackbar("Register Successfully");
-        setValueStore({});
-        navigate("/");
-      },
-      onError:(error)=>{
-        CustomSnackBar.errorSnackbar(error.message);
-      }
-    });
-    }
-    else{
+      otpFunction(
+        { otp: otpValue, email: valueStore.email },
+        {
+          onSuccess: () => {
+            CustomSnackBar.successSnackbar("Register Successfully");
+            setValueStore({});
+            navigate("/login");
+          },
+          onError: (error) => {
+            CustomSnackBar.errorSnackbar(error.message);
+          },
+        }
+      );
+    } else {
       CustomSnackBar.errorSnackbar("Please enter valid OTP");
     }
   };
-  const handleResendClick = () =>{
+  const handleResendClick = () => {
     console.log(valueStore);
-    
-    RegisterUser({email:valueStore.email,name:valueStore.name,mobile:valueStore.mobile},
+
+    RegisterUser(
       {
-        onSuccess:()=>{
+        email: valueStore.email,
+        name: valueStore.name,
+        mobile: valueStore.mobile,
+      },
+      {
+        onSuccess: () => {
           CustomSnackBar.successSnackbar("Please check your mail");
           setOpenOpen(true);
           setValueStore(valueStore);
         },
-        onError:(error)=>{
-          CustomSnackBar.errorSnackbar(error.message); 
-        }
+        onError: (error) => {
+          CustomSnackBar.errorSnackbar(error.message);
+        },
       }
-    )
-  }
+    );
+  };
   return (
     <>
       <Box sx={{ ...LoginStyle }}>
@@ -128,7 +140,7 @@ const SignUp = () => {
           <Box sx={{ ...LoginContentOverlay }}>
             <Box
               component={"img"}
-              src={images.blueStar}
+              src={images.whiteStar}
               sx={{ ...blueStarOne }}
             />
             <Box
@@ -138,24 +150,38 @@ const SignUp = () => {
             />
             <Box
               component={"img"}
-              src={images.blueStar}
+              src={images.whiteStar}
               sx={{ ...blueStarTwo }}
             />
             <Typography variant="h3">
-              Make Every Stage <br /> Count
+              Let’s Get to <br /> Work
             </Typography>
             <Typography variant="h4">
-              Turn each milestone into a measurable quality checkpoint.
+              All-in-One Platform for Management and Collaboration
             </Typography>
           </Box>
         </Box>
         <Box sx={{ ...LoginRight }}>
-          <Box sx={{ ...boxOne }}>
-            <Box component={"img"} src={images.logo} sx={{ ...loginLogo }} />
-            <Typography variant="h2">PackRepo</Typography>
-          </Box>
           <Box sx={{ ...boxTwo }}>
-            <Typography variant="h3">Welcome to PackRepo</Typography>
+            <Box
+              sx={{
+                background: "var(--webprimary)",
+                width: "35px",
+                height: "35px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: "3px",
+                marginBottom: "15px",
+              }}
+            >
+              <Box
+                component={"img"}
+                sx={{ width: "30px" }}
+                src={images.logoicon}
+              />
+            </Box>
+            <Typography variant="h3">Welcome to SkillUp Tech</Typography>
             {otpOpen === false ? (
               <>
                 <Typography variant="h6">Please Sign up to continue</Typography>
@@ -194,10 +220,11 @@ const SignUp = () => {
                     type="submit"
                     variant="contained"
                     label="Sign Up"
+                    btnSx={{ marginTop: "0px" }}
                   />
                   <Box sx={{ ...microsoftBottom }}>
                     Already have an account?{" "}
-                    <Box component={"span"} onClick={() => navigate("/")}>
+                    <Box component={"span"} onClick={() => navigate("/login")}>
                       Sign In
                     </Box>
                   </Box>
@@ -256,14 +283,18 @@ const SignUp = () => {
                     variant="contained"
                     label="Verify OTP"
                     onClick={handleOtpSubmit}
+                    btnSx={{ marginTop: "0px" }}
                   />
                   <Box sx={{ ...microsoftBottom }}>
                     Didn't receive the code?{" "}
-                    <Box
-                      component={"span"}
-                      onClick={handleResendClick}
-                    >
+                    <Box component={"span"} onClick={handleResendClick}>
                       Resend
+                    </Box>
+                  </Box>
+                  <Box sx={{ ...microsoftBottom }}>
+                    Already have an account?{" "}
+                    <Box component={"span"} onClick={()=>navigate("/login")}>
+                      Sign In
                     </Box>
                   </Box>
                 </Box>
@@ -272,10 +303,7 @@ const SignUp = () => {
           </Box>
           <Box sx={{ ...boxThree }}>
             <Typography variant="h4">
-              © Cavinkare {new Date().getFullYear()}
-            </Typography>
-            <Typography variant="h4">
-              <CiMail /> help.packrepo.com
+              © SkillUp Tech Solutions {new Date().getFullYear()}
             </Typography>
           </Box>
         </Box>

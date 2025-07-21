@@ -20,16 +20,7 @@ import WebServicesPage from "../Pages/WebServicesPage";
 import WebServiceDetail from "../Pages/WebServiceDetail";
 import WebCategory from "../Pages/WebCategory";
 
-
 // const routes = createHashRouter([
-//   {
-//     path: "/",
-//     element: <Login />,
-//   },
-//   {
-//     path: "/login",
-//     element: <Login />,
-//   },
 //   {
 //     path: "/signup",
 //     element: <SignUp />,
@@ -79,6 +70,18 @@ import WebCategory from "../Pages/WebCategory";
 // ]);
 const routes = createHashRouter([
   {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/signup",
+    element: <SignUp />,
+  },
+  {
+    path: "/forgotpassword",
+    element: <ForgetPassword />,
+  },
+  {
     path: "/",
     element: <WebsiteLayout />,
     children: [
@@ -118,6 +121,49 @@ const routes = createHashRouter([
         path: "/services/category",
         element: <WebCategory />,
       },
+    ],
+  },
+  {
+    path: "/",
+    // element: <ProtectedRoute element={<Layout />} />,
+    element: <Layout />,
+    children: [
+      // {
+      //   path: "dashboard",
+      //   element: <Dashboard />,
+        // element: <ProtectedRoute element={<AdminDashboard />} />,
+      // },
+      {
+        path: "users",
+        element: <Users />,
+        // element: <ProtectedRoute element={<AdminDashboard />} />,
+      },
+      {
+        path: "courses",
+        element: <Courses />
+        // element: <ProtectedRoute element={<AdminDashboard />} />,
+      },
+      {
+        path: "offers",
+        element: <Offers />
+        // element: <ProtectedRoute element={<AdminDashboard />} />,
+      },
+      {
+        path: "category",
+        element: <Category />
+        // element: <ProtectedRoute element={<AdminDashboard />} />,
+      },
+      {
+        path: "admincareers",
+        element: <Carrers />
+        // element: <ProtectedRoute element={<AdminDashboard />} />,
+      },
+      {
+        path: "syllabus",
+        element: <Syllabus />
+        // element: <ProtectedRoute element={<AdminDashboard />} />,
+      },
+
     ],
   },
 ]);

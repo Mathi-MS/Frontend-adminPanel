@@ -147,7 +147,8 @@ export const microsoftBottom = {
     }
 }
 export const ForgetButton = {
-    cursor:'pointer'
+    cursor:'pointer',
+    color:'var(--primary)',
 }
 export const loginOr = {
     fontSize:'12px',   

@@ -60,7 +60,7 @@ const Header = ({ onToggleSidebar, sidebarOpen, isMobile }: HeaderProps) => {
   } = useForm({
     resolver: zodResolver(ChangePasswordSchema),
   });
-  const username = Cookies.get("user");
+  const username = Cookies.get("name");
   const email = Cookies.get("email");
   const displayUsername =
     username && username.length > 10
@@ -93,16 +93,18 @@ const Header = ({ onToggleSidebar, sidebarOpen, isMobile }: HeaderProps) => {
             <IconButton
               onClick={onToggleSidebar}
               sx={{
-                color: "var(--textPrimary)",
                 "&:hover": {
-                  backgroundColor: "var(--buttonSecondary)",
+                  backgroundColor: "var(--buttonPrimary)",
+                  "& svg": {
+                    color: "var(--white)",
+                  },
                 },
               }}
             >
               {sidebarOpen ? (
-                <HiOutlineMenuAlt3 size={24} />
+                <HiOutlineMenuAlt3 size={18} />
               ) : (
-                <HiOutlineMenuAlt2 size={24} />
+                <HiOutlineMenuAlt2 size={18} />
               )}
             </IconButton>
           </Tooltip>

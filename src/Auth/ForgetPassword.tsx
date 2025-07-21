@@ -37,7 +37,7 @@ const ForgetPassword = () => {
 
   const onsubmit = async (data: { email: string }) => {
     successnotify("Please Check your mail ");
-    navigate("/");
+    navigate("/login");
   };
   return (
     <>
@@ -56,7 +56,7 @@ const ForgetPassword = () => {
           <Box sx={{ ...LoginContentOverlay }}>
             <Box
               component={"img"}
-              src={images.blueStar}
+              src={images.whiteStar}
               sx={{ ...blueStarOne }}
             />
             <Box
@@ -66,25 +66,38 @@ const ForgetPassword = () => {
             />
             <Box
               component={"img"}
-              src={images.blueStar}
+              src={images.whiteStar}
               sx={{ ...blueStarTwo }}
             />
             <Typography variant="h3">
-              Make Every Stage <br /> Count
+              Let’s Get to <br /> Work
             </Typography>
             <Typography variant="h4">
-              Turn each milestone into a measurable quality checkpoint.
+              All-in-One Platform for Management and Collaboration
             </Typography>
           </Box>
         </Box>
         <Box sx={{ ...LoginRight }}>
-          <Box sx={{ ...boxOne }}>
-            <Box component={"img"} src={images.logo} sx={{ ...loginLogo }} />
-            <Typography variant="h2">PackRepo</Typography>
-          </Box>
           <Box sx={{ ...boxTwo }}>
-            <Typography variant="h3">Welcome to PackRepo</Typography>
-              <>
+<Box
+              sx={{
+                background: "var(--webprimary)",
+                width: "35px",
+                height: "35px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: "3px",
+                marginBottom: "15px",
+              }}
+            >
+              <Box
+                component={"img"}
+                sx={{ width: "30px" }}
+                src={images.logoicon}
+              />
+            </Box>
+            <Typography variant="h3">Welcome to SkillUp Tech</Typography>              <>
                 <Typography variant="h6">Forget Password</Typography>
                 <Box component={"form"} onSubmit={handleSubmit(onsubmit)}>
                   <CustomInput
@@ -101,10 +114,11 @@ const ForgetPassword = () => {
                     type="submit"
                     variant="contained"
                     label="Send Email"
+                    btnSx={{ marginTop: "0px" }}
                   />
                   <Box sx={{ ...microsoftBottom }}>
                     Already have an account?{" "}
-                    <Box component={"span"} onClick={() => navigate("/")}>
+                    <Box component={"span"} onClick={() => navigate("/login")}>
                       Sign In
                     </Box>
                   </Box>
@@ -113,11 +127,9 @@ const ForgetPassword = () => {
           </Box>
           <Box sx={{ ...boxThree }}>
             <Typography variant="h4">
-              © Cavinkare {new Date().getFullYear()}
+              © SkillUp Tech Solutions {new Date().getFullYear()}
             </Typography>
-            <Typography variant="h4">
-              <CiMail /> help.packrepo.com
-            </Typography>
+
           </Box>
         </Box>
       </Box>

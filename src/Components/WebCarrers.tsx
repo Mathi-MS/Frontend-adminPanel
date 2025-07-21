@@ -17,25 +17,25 @@ import CustomButton from "../Custom/CustomButton";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { carrersWebSchema } from "../assets/Validation/Schema";
 import { useForm } from "react-hook-form";
+import { useGetCarrers } from "../Hooks/carrers";
 
 const jobData = [
   {
-    description:
-      "Looking for a frontend developer with experience in React and responsive UI.",
-    keySkill: "React, JavaScript, HTML, CSS",
-    jobTitle: "Frontend Developer",
-    vacancy: "Open",
-    workType: "Hybrid",
-    noOfopening: 2,
-    salaryRange: "₹30,000 - ₹50,000",
-    id: "154",
+    "description":
+      "Looking for a frontend developer with experience in React and responsive UI.", 
+    "keySkill": "React, JavaScript, HTML, CSS", 
+    "jobTitle": "Frontend Developer",
+    "vancancy": "Open",
+    "workType": "Hybrid", 
+    "noOfopening": 2, 
+    "salaryRange": "₹30,000 - ₹50,000", 
   },
   {
     description:
       "Looking for a frontend developer with experience in React and responsive UI.",
     keySkill: "React, JavaScript, HTML, CSS",
     jobTitle: "Frontend Developer",
-    vacancy: "Open",
+    vancancy: "Open",
     workType: "Hybrid",
     noOfopening: 2,
     salaryRange: "₹30,000 - ₹50,000",
@@ -46,7 +46,7 @@ const jobData = [
       "Looking for a frontend developer with experience in React and responsive UI.",
     keySkill: "React, JavaScript, HTML, CSS",
     jobTitle: "Frontend Developer",
-    vacancy: "Open",
+    vancancy: "Open",
     workType: "Hybrid",
     noOfopening: 2,
     salaryRange: "₹30,000 - ₹50,000",
@@ -57,7 +57,7 @@ const jobData = [
       "We need a backend developer skilled in Node.js and MongoDB for API development.",
     keySkill: "Node.js, Express, MongoDB",
     jobTitle: "Backend Developer",
-    vacancy: "Closed",
+    vancancy: "Closed",
     workType: "Remote",
     noOfopening: 0,
     salaryRange: "₹40,000 - ₹60,000",
@@ -91,7 +91,8 @@ const WebCareers = () => {
   } = useForm({
     resolver: zodResolver(carrersWebSchema),
   });
-
+  const { data: getUsersResponse } = useGetCarrers();
+  const jobData = getUsersResponse && getUsersResponse.data
   const [open, setOpen] = useState(false);
   const [selectedJob, setSelectedJob] = useState<{
     title: string;
@@ -151,7 +152,7 @@ const WebCareers = () => {
           gap: "20px",
         }}
       >
-        {jobData.map((job, index) => (
+        {getUsersResponse && jobData.map((job, index) => (
           <Box
             flexBasis={"48%"}
             key={index}
@@ -181,15 +182,15 @@ const WebCareers = () => {
                     {job.jobTitle}
                   </Typography>
                   <Chip
-                    label={job.vacancy}
+                    label={job.vancancy}
                     size="small"
                     sx={{
                       backgroundColor:
-                        job.vacancy.toLowerCase() === "open"
+                        job.vancancy.toLowerCase() === "open"
                           ? "#e0f7e9"
                           : "#f9e0e0",
                       color:
-                        job.vacancy.toLowerCase() === "open"
+                        job.vancancy.toLowerCase() === "open"
                           ? "#219653"
                           : "#d32f2f",
                       fontWeight: 500,
@@ -254,7 +255,7 @@ const WebCareers = () => {
                       color: "#fff",
                     },
                   }}
-                  disabled={job.vacancy.toLowerCase() !== "open"}
+                  disabled={job.vancancy.toLowerCase() !== "open"}
                 >
                   Apply
                 </Button>

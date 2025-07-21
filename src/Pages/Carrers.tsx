@@ -20,7 +20,6 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { jobFormSchema } from "../assets/Validation/Schema";
 import { IoClose } from "react-icons/io5";
-import { offerDeleteApi, offerUpdateApi } from "../Hooks/offer";
 import { carrersDeleteApi, carrerStatusUpdateApi, carrersUpdateApi, useCarrersAddApi, useGetCarrers } from "../Hooks/carrers";
 import CustomAutoComplete from "../Custom/CustomAutocomplete";
 const style = {
@@ -177,14 +176,14 @@ const Carrers = () => {
     },
     { field: "jobTitle", headerName: "Job Title", width: 200 },
     { field: "keySkill", headerName: "Key Skill", width: 200 },
-    { field: "vancancy", headerName: "Vancancy", width: 100 },
-    { field: "workType", headerName: "Work Type", width: 100 },
-    { field: "noOfopening", headerName: "No Of Opening", width: 100 },
+    { field: "vancancy", headerName: "Vancancy", width: 150 },
+    { field: "workType", headerName: "Work Type", width: 150 },
+    { field: "noOfopening", headerName: "No Of Opening", width: 150 },
     { field: "salaryRange", headerName: "Salary Range", width: 200 },
     {
       field: "status",
       headerName: "Status",
-      width: 80,
+      width: 100,
       renderCell: (params: any) => (
         <Switch
           checked={params.row.status === "Active"}

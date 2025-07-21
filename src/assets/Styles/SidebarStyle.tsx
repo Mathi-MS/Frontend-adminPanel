@@ -14,7 +14,7 @@ export const SidebarBoxOne = {
     paddingLeft:"10px",
     paddingRight:"10px",
     "& img": {
-        width: '20px',
+        width: '80px',
     },
     "& h3": {
         fontFamily: "Bold_M",

@@ -6,7 +6,7 @@ export const LayoutStyle = {
 export const LayoutSidebar = {
     width:'18%',
     minHeight:'100vh',
-    backgroundColor: 'var(--primary)',  
+    backgroundColor: 'var(--newprimary)',  
     maxHeight:'100vh',
     overflowY:'auto',
     position:'sticky',

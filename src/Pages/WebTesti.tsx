@@ -9,41 +9,44 @@ import {
 import { useState } from "react";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import { useGetReviews } from "../Hooks/review";
 
-const testimonials = [
-  {
-    name: "Sarah L",
-    email: "sarah@example.com",
-    review:
-      "The web design course provided a solid foundation for me. The instructors were knowledgeable and supportive, and the interactive learning environment was engaging. I highly recommend it!",
-    image: "",
-  },
-  {
-    name: "Jason M",
-    email: "jason@example.com",
-    review:
-      "The UI/UX design course exceeded my expectations. The instructor’s expertise and practical assignments helped me improve my design skills. I feel more confident in my career now. Thank you!",
-    image: "",
-  },
-  {
-    name: "Priya R",
-    email: "priya@example.com",
-    review:
-      "The inplant training helped me gain real-world exposure. I gained clarity on my career goals, and the instructors were incredibly helpful and patient.",
-    image: "",
-  },
-  {
-    name: "Rahul K",
-    email: "rahul@example.com",
-    review:
-      "Workshops were well-organized and informative. It helped me understand the latest trends and tools used in industry today.",
-    image: "",
-  },
-];
+// const testimonials = [
+//   {
+//     name: "Sarah L",
+//     email: "sarah@example.com",
+//     review:
+//       "The web design course provided a solid foundation for me. The instructors were knowledgeable and supportive, and the interactive learning environment was engaging. I highly recommend it!",
+//     image: "",
+//   },
+//   {
+//     name: "Jason M",
+//     email: "jason@example.com",
+//     review:
+//       "The UI/UX design course exceeded my expectations. The instructor’s expertise and practical assignments helped me improve my design skills. I feel more confident in my career now. Thank you!",
+//     image: "",
+//   },
+//   {
+//     name: "Priya R",
+//     email: "priya@example.com",
+//     review:
+//       "The inplant training helped me gain real-world exposure. I gained clarity on my career goals, and the instructors were incredibly helpful and patient.",
+//     image: "",
+//   },
+//   {
+//     name: "Rahul K",
+//     email: "rahul@example.com",
+//     review:
+//       "Workshops were well-organized and informative. It helped me understand the latest trends and tools used in industry today.",
+//     image: "",
+//   },
+// ];
 
 const WebTesti = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const visibleCount = 2;
+  const { data: reviewData } = useGetReviews();
+  const testimonials = reviewData && reviewData?.data;
 
   const handlePrev = () => {
     setCurrentIndex((prev) =>
@@ -59,7 +62,7 @@ const WebTesti = () => {
     );
   };
 
-  const visibleTestimonials = testimonials.slice(
+  const visibleTestimonials = testimonials?.slice(
     currentIndex,
     currentIndex + visibleCount
   );
@@ -112,8 +115,7 @@ const WebTesti = () => {
             textAlign: "right",
             "@media (max-width: 690px)": { width: "100%", textAlign: "left" },
           }}
-        >
-        </Box>
+        ></Box>
       </Box>
       {/* Bottom-right Arrows */}
       <Stack
@@ -146,74 +148,80 @@ const WebTesti = () => {
         </IconButton>
       </Stack>
       {/* Carousel Cards */}
+      {reviewData && reviewData.data.length === 0 && (
+        <Typography sx={{ fontFamily: "Regular_W", fontSize: "14px",textAlign: "center" }}>
+          No Review Yet
+        </Typography>
+      )}
       <Grid container sx={{ gap: "10px", justifyContent: "space-between" }}>
-        {visibleTestimonials.map((item, index) => (
-          <Box
-            key={index}
-            flexBasis={"48%"}
-            sx={{ "@media (max-width: 690px)": { flexBasis: "100%" } }}
-          >
+        {reviewData &&
+          visibleTestimonials.map((item, index) => (
             <Box
-              sx={{
-                background: "#fff",
-                borderRadius: "12px",
-                boxShadow: "0 1px 5px rgba(0,0,0,0.05)",
-                border: "1px solid #e0e0e0",
-                p: 3,
-                minHeight: "200px",
-                height: "100%",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-              }}
+              key={index}
+              flexBasis={"48%"}
+              sx={{ "@media (max-width: 690px)": { flexBasis: "100%" } }}
             >
-              <Typography
-                variant="body2"
-                sx={{ mb: 3, fontFamily: "Regular_W", color: "#444" }}
+              <Box
+                sx={{
+                  background: "#fff",
+                  borderRadius: "12px",
+                  boxShadow: "0 1px 5px rgba(0,0,0,0.05)",
+                  border: "1px solid #e0e0e0",
+                  p: 3,
+                  minHeight: "200px",
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
               >
-                {item.review}
-              </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{ mb: 3, fontFamily: "Regular_W", color: "#444" }}
+                >
+                  {item.review}
+                </Typography>
 
-              <Stack
-                direction="row"
-                alignItems="center"
-                justifyContent="space-between"
-              >
-                <Stack direction="row" alignItems="center" spacing={1}>
-                  <Avatar
-                    sx={{
-                      bgcolor: "var(--webprimary)",
-                      width: 40,
-                      height: 40,
-                      fontSize: "16px",
-                    }}
-                    src={item.image || undefined}
-                  >
-                    {!item.image && item.name.charAt(0)}
-                  </Avatar>
-                  <Box>
-                    <Typography
-                      fontWeight="500"
-                      sx={{ fontFamily: "Medium_W", fontSize: "14px" }}
-                    >
-                      {item.name}
-                    </Typography>
-                    <Typography
-                      variant="body2"
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  justifyContent="space-between"
+                >
+                  <Stack direction="row" alignItems="center" spacing={1}>
+                    <Avatar
                       sx={{
-                        fontSize: "12px",
-                        color: "#666",
-                        fontFamily: "Regular_W",
+                        bgcolor: "var(--webprimary)",
+                        width: 40,
+                        height: 40,
+                        fontSize: "16px",
                       }}
+                      src={item.image || undefined}
                     >
-                      {item.email}
-                    </Typography>
-                  </Box>
+                      {!item.image && item.name.charAt(0)}
+                    </Avatar>
+                    <Box>
+                      <Typography
+                        fontWeight="500"
+                        sx={{ fontFamily: "Medium_W", fontSize: "14px" }}
+                      >
+                        {item.name}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          fontSize: "12px",
+                          color: "#666",
+                          fontFamily: "Regular_W",
+                        }}
+                      >
+                        {item.email}
+                      </Typography>
+                    </Box>
+                  </Stack>
                 </Stack>
-              </Stack>
+              </Box>
             </Box>
-          </Box>
-        ))}
+          ))}
       </Grid>
     </Box>
   );
