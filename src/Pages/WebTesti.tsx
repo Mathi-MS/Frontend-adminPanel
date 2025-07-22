@@ -149,12 +149,12 @@ const WebTesti = () => {
       </Stack>
       {/* Carousel Cards */}
       {reviewData && reviewData.data.length === 0 && (
-        <Typography sx={{ fontFamily: "Regular_W", fontSize: "14px",textAlign: "center" }}>
-          No Review Yet
-        </Typography>
+        <Typography sx={{ fontFamily: "Regular_W", fontSize: "14px",textAlign:"center",margin:"auto",width:"max-content" }}>
+            No Review Yet
+          </Typography>
       )}
       <Grid container sx={{ gap: "10px", justifyContent: "space-between" }}>
-        {reviewData &&
+        {reviewData ?
           visibleTestimonials.map((item, index) => (
             <Box
               key={index}
@@ -221,7 +221,13 @@ const WebTesti = () => {
                 </Stack>
               </Box>
             </Box>
-          ))}
+          )) :
+          (
+            <Typography sx={{ fontFamily: "Regular_W", fontSize: "14px",textAlign:"center",margin:"auto",width:"max-content" }}>
+            No Review Yet
+          </Typography>
+          )
+          }
       </Grid>
     </Box>
   );

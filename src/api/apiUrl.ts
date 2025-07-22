@@ -12,4 +12,5 @@ export const apiUrls = {
   category: "category",
   lessons: "lessons",
   reviews: "reviews",
+  dashboardCounts: "dashboard-counts",
 };

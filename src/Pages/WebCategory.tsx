@@ -275,7 +275,7 @@ const WebCategory = () => {
         spacing={3}
         sx={{ justifyContent: "space-between", alignItems: "center" }}
       >
-        {getCategoriesData &&
+        {getCategoriesData ?
           mockCategoryData.map((item, index) => (
             <Grid
               flexBasis={"48%"}
@@ -380,7 +380,14 @@ const WebCategory = () => {
                 </CardContent>
               </Card>
             </Grid>
-          ))}
+          ))
+          :
+          (
+            <Typography sx={{ fontFamily: "Regular_W", fontSize: "14px",textAlign:"center",margin:"auto",width:"max-content" }}>
+            No Category Yet
+          </Typography>
+          )
+          }
       </Grid>
       {/* Apply Modal */}
       <Modal

@@ -108,7 +108,7 @@ const Header = ({ onToggleSidebar, sidebarOpen, isMobile }: HeaderProps) => {
               )}
             </IconButton>
           </Tooltip>
-          <Typography variant="h4">
+          <Typography variant="h4" sx={{"@media (max-width: 600px)": { display: "none" }}}>
             Welcome Back , {displayUsername || "Admin"}
           </Typography>
         </Box>

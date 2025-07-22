@@ -19,52 +19,6 @@ import { carrersWebSchema } from "../assets/Validation/Schema";
 import { useForm } from "react-hook-form";
 import { useGetCarrers } from "../Hooks/carrers";
 
-const jobData = [
-  {
-    "description":
-      "Looking for a frontend developer with experience in React and responsive UI.", 
-    "keySkill": "React, JavaScript, HTML, CSS", 
-    "jobTitle": "Frontend Developer",
-    "vancancy": "Open",
-    "workType": "Hybrid", 
-    "noOfopening": 2, 
-    "salaryRange": "₹30,000 - ₹50,000", 
-  },
-  {
-    description:
-      "Looking for a frontend developer with experience in React and responsive UI.",
-    keySkill: "React, JavaScript, HTML, CSS",
-    jobTitle: "Frontend Developer",
-    vancancy: "Open",
-    workType: "Hybrid",
-    noOfopening: 2,
-    salaryRange: "₹30,000 - ₹50,000",
-    id: "184",
-  },
-  {
-    description:
-      "Looking for a frontend developer with experience in React and responsive UI.",
-    keySkill: "React, JavaScript, HTML, CSS",
-    jobTitle: "Frontend Developer",
-    vancancy: "Open",
-    workType: "Hybrid",
-    noOfopening: 2,
-    salaryRange: "₹30,000 - ₹50,000",
-    id: "104",
-  },
-  {
-    description:
-      "We need a backend developer skilled in Node.js and MongoDB for API development.",
-    keySkill: "Node.js, Express, MongoDB",
-    jobTitle: "Backend Developer",
-    vancancy: "Closed",
-    workType: "Remote",
-    noOfopening: 0,
-    salaryRange: "₹40,000 - ₹60,000",
-    id: "155",
-  },
-];
-
 const style = {
   position: "absolute",
   top: "50%",
@@ -289,7 +243,7 @@ const WebCareers = () => {
               component="h2"
               sx={{ fontSize: "14px", fontFamily: "Medium_M" }}
             >
-              Job Apply
+              {selectedJob?.title}
             </Typography>
             <IconButton
               edge="end"

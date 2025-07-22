@@ -156,7 +156,7 @@ const WebCourses = () => {
         container
         sx={{ gap: 3, alignItems: "center", justifyContent: "space-between" }}
       >
-        {courses &&
+        {courses ?
           courses.map((course, index) => (
             <Box
               flexBasis={"48%"}
@@ -284,7 +284,9 @@ const WebCourses = () => {
                 </CardContent>
               </Card>
             </Box>
-          ))}
+          )) : <Typography sx={{ fontFamily: "Regular_W", fontSize: "14px",textAlign:"center",margin:"auto",width:"max-content" }}>
+            No Courses Yet
+          </Typography>}
       </Grid>
       {/* Apply Modal */}
       <Modal

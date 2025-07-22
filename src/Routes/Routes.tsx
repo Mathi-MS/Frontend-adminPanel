@@ -19,6 +19,7 @@ import WebItServices from "../Components/WebItServices";
 import WebServicesPage from "../Pages/WebServicesPage";
 import WebServiceDetail from "../Pages/WebServiceDetail";
 import WebCategory from "../Pages/WebCategory";
+import AdminDashboard from "../Pages/AdminDashboard";
 
 // const routes = createHashRouter([
 //   {
@@ -128,11 +129,11 @@ const routes = createHashRouter([
     // element: <ProtectedRoute element={<Layout />} />,
     element: <Layout />,
     children: [
-      // {
-      //   path: "dashboard",
-      //   element: <Dashboard />,
+      {
+        path: "dashboard",
+        element: <AdminDashboard />,
         // element: <ProtectedRoute element={<AdminDashboard />} />,
-      // },
+      },
       {
         path: "users",
         element: <Users />,
