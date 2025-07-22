@@ -22,6 +22,7 @@ import CustomButton from "../Custom/CustomButton";
 import { useState } from "react";
 import { useGetCategoryApi } from "../Hooks/category";
 import CustomAutoComplete from "../Custom/CustomAutocomplete";
+import config from "../Config/Config";
 
 // const mockCategoryData = [
 //   {
@@ -286,7 +287,7 @@ const WebCategory = () => {
                 <CardMedia
                   component="img"
                   height="200"
-                  image={`http://localhost:5000/uploads/${item.image}`}
+                  image={`${config.BASE_URL_MAIN}/uploads/${item.image}`}
                   // image={item.image}
                   alt={item.title}
                 />

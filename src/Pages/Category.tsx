@@ -29,6 +29,7 @@ import {
   useCategoryDeleteApi,
 } from "../Hooks/category";
 import CustomSnackBar from "../Custom/CustomSnackBar";
+import config from "../Config/Config";
 const style = {
   position: "absolute",
   top: "50%",
@@ -305,7 +306,7 @@ const Category = () => {
                         objectFit: "cover",
                         width: "100%",
                       }}
-                      image={`${"http://localhost:5000"}/uploads/${
+                      image={`${config.BASE_URL_MAIN}/uploads/${
                         category.image
                       }`}
                       alt={category.title}

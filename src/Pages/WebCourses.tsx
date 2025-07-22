@@ -20,6 +20,7 @@ import CustomButton from "../Custom/CustomButton";
 import { IoClose } from "react-icons/io5";
 import CustomInput from "../Custom/CustomInput";
 import { useGetCoursesApi } from "../Hooks/courses";
+import config from "../Config/Config";
 const style = {
   position: "absolute",
   top: "50%",
@@ -175,7 +176,7 @@ const WebCourses = () => {
                 <CardMedia
                   component="img"
                   height="200"
-                  image={`http://localhost:5000/uploads/${course.fileupload}`}
+                  image={`${config.BASE_URL_MAIN}/uploads/${course.fileupload}`}
                   alt={course.name}
                 />
 

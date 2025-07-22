@@ -24,6 +24,7 @@ import {
   useGetCoursesApi,
 } from "../Hooks/courses";
 import CustomSnackBar from "../Custom/CustomSnackBar";
+import config from "../Config/Config";
 const style = {
   position: "absolute",
   top: "50%",
@@ -273,7 +274,7 @@ const Courses = () => {
               >
                 <CourseCard
                   id={course._id}
-                  thumbnail={`http://localhost:5000/uploads/${course.fileupload}`}
+                  thumbnail={`${config.BASE_URL_MAIN}/uploads/${course.fileupload}`}
                   courseName={course.name}
                   description={course.description}
                   prize={parseFloat(course.price) || 0}
