@@ -67,6 +67,12 @@ const WebCourses = () => {
     setSelectedJob({ title: jobTitle, id: jobId });
     setOpen(true);
   };
+  const handleSyllabus = (jobId: string) => {
+    console.log(jobId);
+    navigate(`/services/courses/syllabus`, {
+      state: { jobId },
+    });
+  };
 
   const handleClose = () => {
     reset();
@@ -157,7 +163,7 @@ const WebCourses = () => {
         container
         sx={{ gap: 3, alignItems: "center", justifyContent: "space-between" }}
       >
-        {courses ?
+        {courses ? (
           courses.map((course, index) => (
             <Box
               flexBasis={"48%"}
@@ -217,49 +223,81 @@ const WebCourses = () => {
                   </Typography>
 
                   {/* Price Section */}
-                  <Stack direction="row" spacing={1} alignItems="center" mb={2}>
-                    {course.discount ? (
-                      <>
-                        <Typography
-                          variant="body2"
-                          color="text.secondary"
-                          sx={{
-                            textDecoration: "line-through",
-                            fontFamily: "Regular_W",
-                            "@media (max-width: 690px)": { fontSize: "14px" },
-                          }}
-                        >
-                          ₹{course.price}
-                        </Typography>
+                  <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <Stack
+                      direction="row"
+                      spacing={1}
+                      alignItems="center"
+                      mb={2}
+                    >
+                      {course.discount ? (
+                        <>
+                          <Typography
+                            variant="body2"
+                            color="text.secondary"
+                            sx={{
+                              textDecoration: "line-through",
+                              fontFamily: "Regular_W",
+                              "@media (max-width: 690px)": { fontSize: "14px" },
+                            }}
+                          >
+                            ₹{course.price}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            fontWeight="bold"
+                            sx={{
+                              fontFamily: "SemiBold_W",
+                              color: "var(--webprimary)",
+                              "@media (max-width: 690px)": { fontSize: "14px" },
+                            }}
+                          >
+                            ₹
+                            {Math.round(
+                              course.price -
+                                (course.price * course.discount) / 100
+                            )}
+                          </Typography>
+                        </>
+                      ) : (
                         <Typography
                           variant="body2"
                           fontWeight="bold"
                           sx={{
                             fontFamily: "SemiBold_W",
-                            color: "var(--webprimary)",
                             "@media (max-width: 690px)": { fontSize: "14px" },
                           }}
                         >
-                          ₹
-                          {Math.round(
-                            course.price -
-                              (course.price * course.discount) / 100
-                          )}
+                          ₹{course.price}
                         </Typography>
-                      </>
-                    ) : (
-                      <Typography
-                        variant="body2"
-                        fontWeight="bold"
+                      )}
+                    </Stack>
+                    <Box>
+                      <Button
+                        variant="outlined"
+                        fullWidth
                         sx={{
-                          fontFamily: "SemiBold_W",
+                          textTransform: "none",
+                          borderRadius: "6px",
+                          fontFamily: "Medium_W",
+                          borderColor: "var(--webprimary)",
+                          backgroundColor: "var(--webprimary)",
+                          color: "var(--white)",
+                          transition: "1s",
+                          width:"max-content",
+                          marginBottom:"10px",
+                          "&:hover": {
+                            color: "var(--webprimary)",
+                            backgroundColor: "var(--white)",
+                          },
                           "@media (max-width: 690px)": { fontSize: "14px" },
                         }}
+                        onClick={() => handleSyllabus(course._id)}
                       >
-                        ₹{course.price}
-                      </Typography>
-                    )}
-                  </Stack>
+                        View Syllabus
+                      </Button>
+                    </Box>
+                  </Box>
 
                   <Button
                     variant="outlined"
@@ -285,9 +323,20 @@ const WebCourses = () => {
                 </CardContent>
               </Card>
             </Box>
-          )) : <Typography sx={{ fontFamily: "Regular_W", fontSize: "14px",textAlign:"center",margin:"auto",width:"max-content" }}>
+          ))
+        ) : (
+          <Typography
+            sx={{
+              fontFamily: "Regular_W",
+              fontSize: "14px",
+              textAlign: "center",
+              margin: "auto",
+              width: "max-content",
+            }}
+          >
             No Courses Yet
-          </Typography>}
+          </Typography>
+        )}
       </Grid>
       {/* Apply Modal */}
       <Modal

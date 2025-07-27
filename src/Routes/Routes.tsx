@@ -20,6 +20,7 @@ import WebServicesPage from "../Pages/WebServicesPage";
 import WebServiceDetail from "../Pages/WebServiceDetail";
 import WebCategory from "../Pages/WebCategory";
 import AdminDashboard from "../Pages/AdminDashboard";
+import WebSyllabusView from "../Pages/WebSyllabusView";
 
 // const routes = createHashRouter([
 //   {
@@ -121,6 +122,10 @@ const routes = createHashRouter([
       {
         path: "/services/category",
         element: <WebCategory />,
+      },
+      {
+        path: "/services/courses/syllabus",
+        element: <WebSyllabusView />,
       },
     ],
   },

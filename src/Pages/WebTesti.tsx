@@ -197,7 +197,7 @@ const WebTesti = () => {
                       }}
                       src={item.image || undefined}
                     >
-                      {!item.image && item.name.charAt(0)}
+                      {!item.image && item?.name?.charAt(0)}
                     </Avatar>
                     <Box>
                       <Typography

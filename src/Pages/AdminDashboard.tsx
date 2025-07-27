@@ -51,7 +51,7 @@ const AdminDashboard = () => {
 
   const cards = [
     {
-      title: "Carriers",
+      title: "Careers",
       count: data?.carrierCount || 0,
       icon: <BusinessCenter />,
     },

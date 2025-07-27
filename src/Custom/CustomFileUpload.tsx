@@ -50,7 +50,7 @@ const CustomFileUpload: React.FC<CustomFileUploadProps> = ({
   value,
   required,
   multiple = false,
-  accept = "image/png, image/jpeg, image/jpg, image/webp, .jpg, .jpeg, .png, .webp",
+  accept = "image/png, image/jpeg, image/jpg, image/webp, .jpg, .jpeg, .png, .webp, application/pdf, .pdf, application/msword, .doc, application/vnd.openxmlformats-officedocument.wordprocessingml.document, .docx",
   maxFiles = 10,
   onChange,
 }) => {

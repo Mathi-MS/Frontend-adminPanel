@@ -15,9 +15,10 @@ import { IoClose } from "react-icons/io5";
 import CustomInput from "../Custom/CustomInput";
 import CustomButton from "../Custom/CustomButton";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { carrersWebSchema } from "../assets/Validation/Schema";
-import { useForm } from "react-hook-form";
+import { carrersWebSchema, carrersWebSchemaNew } from "../assets/Validation/Schema";
+import { Controller, useForm } from "react-hook-form";
 import { useGetCarrers } from "../Hooks/carrers";
+import CustomFileUpload from "../Custom/CustomFileUpload";
 
 const style = {
   position: "absolute",
@@ -41,12 +42,13 @@ const WebCareers = () => {
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(carrersWebSchema),
+    resolver: zodResolver(carrersWebSchemaNew),
   });
   const { data: getUsersResponse } = useGetCarrers();
-  const jobData = getUsersResponse && getUsersResponse.data
+  const jobData = getUsersResponse && getUsersResponse.data;
   const [open, setOpen] = useState(false);
   const [selectedJob, setSelectedJob] = useState<{
     title: string;
@@ -106,117 +108,118 @@ const WebCareers = () => {
           gap: "20px",
         }}
       >
-        {getUsersResponse && jobData.map((job, index) => (
-          <Box
-            flexBasis={"48%"}
-            key={index}
-            sx={{
-              "@media (max-width: 768px)": { flexBasis: "100%" },
-            }}
-          >
-            <Card
+        {getUsersResponse &&
+          jobData.map((job, index) => (
+            <Box
+              flexBasis={"48%"}
+              key={index}
               sx={{
-                border: "1px solid #eee",
-                borderRadius: "10px",
-                boxShadow: "0 2px 5px rgba(0,0,0,0.05)",
-                height: "100%",
+                "@media (max-width: 768px)": { flexBasis: "100%" },
               }}
             >
-              <CardContent>
-                <Stack
-                  direction="row"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  mb={1}
-                >
-                  <Typography
-                    variant="h6"
-                    sx={{ fontFamily: "SemiBold_W", color: "#222" }}
+              <Card
+                sx={{
+                  border: "1px solid #eee",
+                  borderRadius: "10px",
+                  boxShadow: "0 2px 5px rgba(0,0,0,0.05)",
+                  height: "100%",
+                }}
+              >
+                <CardContent>
+                  <Stack
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    mb={1}
                   >
-                    {job.jobTitle}
+                    <Typography
+                      variant="h6"
+                      sx={{ fontFamily: "SemiBold_W", color: "#222" }}
+                    >
+                      {job.jobTitle}
+                    </Typography>
+                    <Chip
+                      label={job.vancancy}
+                      size="small"
+                      sx={{
+                        backgroundColor:
+                          job.vancancy.toLowerCase() === "open"
+                            ? "#e0f7e9"
+                            : "#f9e0e0",
+                        color:
+                          job.vancancy.toLowerCase() === "open"
+                            ? "#219653"
+                            : "#d32f2f",
+                        fontWeight: 500,
+                      }}
+                    />
+                  </Stack>
+
+                  <Typography
+                    variant="body2"
+                    sx={{ color: "#555", fontFamily: "Regular_W", mb: 2 }}
+                  >
+                    {job.description}
                   </Typography>
-                  <Chip
-                    label={job.vancancy}
-                    size="small"
+
+                  <Stack
+                    direction="row"
+                    spacing={1}
+                    flexWrap="wrap"
+                    mb={2}
+                    sx={{ gap: "10px" }}
+                  >
+                    <Chip
+                      label={`Work Type: ${job.workType}`}
+                      size="small"
+                      sx={{ fontSize: "12px" }}
+                    />
+                    <Chip
+                      label={`Openings: ${job.noOfopening}`}
+                      size="small"
+                      sx={{ fontSize: "12px" }}
+                    />
+                    <Chip
+                      label={`Salary: ${job.salaryRange}`}
+                      size="small"
+                      sx={{ fontSize: "12px" }}
+                    />
+                  </Stack>
+
+                  <Typography
+                    variant="body2"
                     sx={{
-                      backgroundColor:
-                        job.vancancy.toLowerCase() === "open"
-                          ? "#e0f7e9"
-                          : "#f9e0e0",
-                      color:
-                        job.vancancy.toLowerCase() === "open"
-                          ? "#219653"
-                          : "#d32f2f",
-                      fontWeight: 500,
+                      fontSize: "13px",
+                      color: "#777",
+                      fontFamily: "Medium_W",
+                      mb: 2,
                     }}
-                  />
-                </Stack>
+                  >
+                    <strong>Key Skills:</strong> {job.keySkill}
+                  </Typography>
 
-                <Typography
-                  variant="body2"
-                  sx={{ color: "#555", fontFamily: "Regular_W", mb: 2 }}
-                >
-                  {job.description}
-                </Typography>
-
-                <Stack
-                  direction="row"
-                  spacing={1}
-                  flexWrap="wrap"
-                  mb={2}
-                  sx={{ gap: "10px" }}
-                >
-                  <Chip
-                    label={`Work Type: ${job.workType}`}
-                    size="small"
-                    sx={{ fontSize: "12px" }}
-                  />
-                  <Chip
-                    label={`Openings: ${job.noOfopening}`}
-                    size="small"
-                    sx={{ fontSize: "12px" }}
-                  />
-                  <Chip
-                    label={`Salary: ${job.salaryRange}`}
-                    size="small"
-                    sx={{ fontSize: "12px" }}
-                  />
-                </Stack>
-
-                <Typography
-                  variant="body2"
-                  sx={{
-                    fontSize: "13px",
-                    color: "#777",
-                    fontFamily: "Medium_W",
-                    mb: 2,
-                  }}
-                >
-                  <strong>Key Skills:</strong> {job.keySkill}
-                </Typography>
-
-                <Button
-                  variant="outlined"
-                  onClick={() => handleOpen(job.jobTitle, job.id)}
-                  sx={{
-                    textTransform: "none",
-                    fontFamily: "Medium_W",
-                    borderRadius: "6px",
-                    borderColor: "var(--webprimary)",
-                    color: "var(--webprimary)",
-                    "&:hover": {
-                      backgroundColor: "var(--webprimary)",
-                      color: "#fff",
-                    },
-                  }}
-                  disabled={job.vancancy.toLowerCase() !== "open"}
-                >
-                  Apply
-                </Button>
-              </CardContent>
-            </Card>
-          </Box>
-        ))}
+                  <Button
+                    variant="outlined"
+                    onClick={() => handleOpen(job.jobTitle, job.id)}
+                    sx={{
+                      textTransform: "none",
+                      fontFamily: "Medium_W",
+                      borderRadius: "6px",
+                      borderColor: "var(--webprimary)",
+                      color: "var(--webprimary)",
+                      "&:hover": {
+                        backgroundColor: "var(--webprimary)",
+                        color: "#fff",
+                      },
+                    }}
+                    disabled={job.vancancy.toLowerCase() !== "open"}
+                  >
+                    Apply
+                  </Button>
+                </CardContent>
+              </Card>
+            </Box>
+          ))}
       </Grid>
 
       {/* Apply Modal */}
@@ -293,6 +296,19 @@ const WebCareers = () => {
               required={false}
               register={register}
               errors={errors}
+            />
+            <Controller
+              name="resume"
+              control={control}
+              render={({ field, fieldState }) => (
+                <CustomFileUpload
+                  name={field.name}
+                  label="Resume"
+                  value={field.value}
+                  onChange={(file) => field.onChange(file)}
+                  error={fieldState.error}
+                />
+              )}
             />
           </Box>
           {/* Footer */}

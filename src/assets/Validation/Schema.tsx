@@ -10,7 +10,6 @@ export const LoginSchema = z.object({
     .string()
     .min(1, { message: "Password is required" })
     // .min(8, { message: "Password must be at least 8 characters" })
-    
     .max(12, { message: "Password must be not more than 12 characters" }),
 });
 
@@ -99,11 +98,7 @@ export const CourseSchema = z.object({
   courseName: z
     .string()
     .min(3, "Course Name must be at least 3 characters long")
-    .max(30, "Course Name must be at most 30 characters long")
-    .regex(
-      /^[A-Za-z\s]+$/,
-      "Course Name must contain only alphabets and spaces"
-    ),
+    .max(30, "Course Name must be at most 30 characters long"),
   description: z
     .string()
     .min(3, "Description must be at least 3 characters long")
@@ -139,7 +134,7 @@ export const CourseSchema = z.object({
     .refine(
       (value) => {
         if (value instanceof File) {
-          return value.size <= 20 * 1024; 
+          return value.size <= 20 * 1024;
         }
         return true;
       },
@@ -165,7 +160,6 @@ export const CourseSchema = z.object({
       }
     ),
 });
-
 
 export const CategorySchema = z
   .object({
@@ -210,7 +204,7 @@ export const CategorySchema = z
       .refine(
         (value) => {
           if (value instanceof File) {
-            return value.size <= 20 * 1024; 
+            return value.size <= 20 * 1024;
           }
           return true;
         },
@@ -240,20 +234,24 @@ export const CategorySchema = z
     message: "End date must be after or equal to start date",
     path: ["endDate"],
   })
-  .refine((data) => {
-    // If start and end dates are the same, check if end time is after start time
-    if (data.startDate.toDateString() === data.endDate.toDateString()) {
-      const startTime = data.startTime.split(":");
-      const endTime = data.endTime.split(":");
-      const startMinutes = parseInt(startTime[0]) * 60 + parseInt(startTime[1]);
-      const endMinutes = parseInt(endTime[0]) * 60 + parseInt(endTime[1]);
-      return endMinutes > startMinutes;
+  .refine(
+    (data) => {
+      // If start and end dates are the same, check if end time is after start time
+      if (data.startDate.toDateString() === data.endDate.toDateString()) {
+        const startTime = data.startTime.split(":");
+        const endTime = data.endTime.split(":");
+        const startMinutes =
+          parseInt(startTime[0]) * 60 + parseInt(startTime[1]);
+        const endMinutes = parseInt(endTime[0]) * 60 + parseInt(endTime[1]);
+        return endMinutes > startMinutes;
+      }
+      return true;
+    },
+    {
+      message: "End time must be after start time when dates are the same",
+      path: ["endTime"],
     }
-    return true;
-  }, {
-    message: "End time must be after start time when dates are the same",
-    path: ["endTime"],
-  });
+  );
 
 export const contactUsSchema = z.object({
   name: z
@@ -294,4 +292,62 @@ export const carrersWebSchema = z.object({
     .regex(/^\d+$/, { message: "Mobile number must contain only digits" })
     .min(10, { message: "Mobile number must be at least 10 digits" })
     .max(10, { message: "Mobile number must be at most 10 digits" }),
+});
+export const carrersWebSchemaNew = z.object({
+  name: z
+    .string()
+    .min(3, { message: "Name must be at least 3 characters" })
+    .max(20, { message: "Name must be at most 20 characters" })
+    .nonempty({ message: "Name is required" }),
+  email: z
+    .string()
+    .min(1, { message: "Email is required" })
+    .email({ message: "Invalid email address" })
+    .trim(),
+  mobile: z
+    .string()
+    .min(1, { message: "Mobile number is required" })
+    .regex(/^\d+$/, { message: "Mobile number must contain only digits" })
+    .min(10, { message: "Mobile number must be at least 10 digits" })
+    .max(10, { message: "Mobile number must be at most 10 digits" }),
+  resume: z
+    .any()
+    .refine(
+      (value) => {
+        if (value instanceof File) return true;
+        if (typeof value === "object" && value && "filename" in value)
+          return true;
+        return false;
+      },
+      {
+        message: "Image is required",
+      }
+    )
+    .refine(
+      (value) => {
+        if (value instanceof File) {
+          return value.size <= 1000 * 1024;
+        }
+        return true;
+      },
+      {
+        message: "Max file size is 1000KB",
+      }
+    )
+    .refine(
+      (value) => {
+        if (value instanceof File) {
+          return [
+            "application/pdf",
+            "application/msword",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          ].includes(value.type);
+        }
+        // Skip validation for existing uploads
+        return true;
+      },
+      {
+        message: "Only PDF, DOC, or DOCX files are allowed",
+      }
+    ),
 });

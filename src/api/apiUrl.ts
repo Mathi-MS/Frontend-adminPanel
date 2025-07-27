@@ -9,6 +9,7 @@ export const apiUrls = {
   carrers: "careers",
   carrersStatus: "careersstatus",
   courses: "courses",
+  lessonsNew: "lessons/course",
   category: "category",
   lessons: "lessons",
   reviews: "reviews",
