@@ -54,9 +54,9 @@ const WebNavbar = () => {
   const handleLinkClick = () => {
     if (isMobile) setMobileOpen(false);
   };
-  const handleLogin = () =>{
-    navigate("/login")
-  }
+  const handleLogin = () => {
+    navigate("/login");
+  };
   return (
     <>
       {/* Top Navbar */}
@@ -77,19 +77,20 @@ const WebNavbar = () => {
         <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
           <Box
             sx={{
-              background: "var(--webprimary)",
+              background: "var(--websecondary)",
               width: "35px",
               height: "35px",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
               borderRadius: "3px",
+              cursor: "pointer",
             }}
           >
             <Box
               component={"img"}
               sx={{ width: "30px" }}
-              src={images.logoicon}
+              src={images.logonew}
             />
           </Box>
         </Box>
@@ -119,8 +120,8 @@ const WebNavbar = () => {
             sx={{
               ...navlinks,
               minWidth: "100px",
-              background: "var(--webprimary)" ,
-              color:"var(--white)" ,
+              background: "var(--webprimary)",
+              color: "var(--white)",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -133,7 +134,7 @@ const WebNavbar = () => {
 
           {isMobile && (
             <IconButton onClick={toggleDrawer}>
-              <FaBarsStaggered style={{fontSize:"14px"}}/>
+              <FaBarsStaggered style={{ fontSize: "14px" }} />
             </IconButton>
           )}
         </Box>
@@ -174,7 +175,7 @@ const WebNavbar = () => {
               />
             </Box>
             <IconButton onClick={toggleDrawer}>
-              <CloseIcon sx={{fontSize:"16px"}}/>
+              <CloseIcon sx={{ fontSize: "16px" }} />
             </IconButton>
           </Box>
 
@@ -186,7 +187,9 @@ const WebNavbar = () => {
                 onClick={handleLinkClick}
                 style={({ isActive }) => ({
                   textDecoration: "none",
-                  backgroundColor: isActive ? "var(--webprimary)" : "transparent",
+                  backgroundColor: isActive
+                    ? "var(--webprimary)"
+                    : "transparent",
                   color: isActive ? "white" : "#333",
                   borderRadius: "4px",
                   marginBottom: "4px",

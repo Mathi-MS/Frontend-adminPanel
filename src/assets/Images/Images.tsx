@@ -10,6 +10,7 @@ import msme from "./msme.png"
 import iso from "./iso.png"
 import overlay from "./overlay.png"
 import banner from "./banner.webp"
+import logonew from "./newlogo.png"
 export const images = {
     blueStar:blueStar,
     whiteStar:whiteStar,
@@ -23,4 +24,5 @@ export const images = {
     logoicon:logoicon,
     overlay:overlay,
     banner:banner,
+    logonew:logonew,
 };

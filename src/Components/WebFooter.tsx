@@ -42,7 +42,7 @@ const WebFooter = () => {
               sx={{
                 fontSize: "25px",
                 fontFamily: "Bold_W",
-                background: "var(--webprimary)",
+                background: "var(--websecondary)",
                 color: "var(--white)",
                 width: "35px",
                 height: "35px",
@@ -50,12 +50,13 @@ const WebFooter = () => {
                 justifyContent: "center",
                 alignItems: "center",
                 borderRadius: "3px",
+                cursor:"pointer"
               }}
             >
               <Box
                 component={"img"}
                 sx={{ width: "30px" }}
-                src={images.logoicon}
+                src={images.logonew}
               ></Box>
             </Box>
             <Box sx={{ display: "flex", gap: "10px", flexDirection: "column" }}>
