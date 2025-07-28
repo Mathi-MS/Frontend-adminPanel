@@ -21,6 +21,8 @@ import WebServiceDetail from "../Pages/WebServiceDetail";
 import WebCategory from "../Pages/WebCategory";
 import AdminDashboard from "../Pages/AdminDashboard";
 import WebSyllabusView from "../Pages/WebSyllabusView";
+import Certificate from "../Pages/Certificate";
+import ResetPassword from "../Auth/ResetPassword";
 
 // const routes = createHashRouter([
 //   {
@@ -74,6 +76,10 @@ const routes = createHashRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/reset-password",
+    element: <ResetPassword />,
   },
   {
     path: "/signup",
@@ -167,6 +173,11 @@ const routes = createHashRouter([
       {
         path: "syllabus",
         element: <Syllabus />
+        // element: <ProtectedRoute element={<AdminDashboard />} />,
+      },
+      {
+        path: "certificate",
+        element: <Certificate />
         // element: <ProtectedRoute element={<AdminDashboard />} />,
       },
 

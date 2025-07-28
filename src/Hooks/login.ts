@@ -41,3 +41,29 @@ export const verifyOtp = () => {
     },
   });
 };
+export const forgetPassword = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: any) => {
+      const response = await callApi(apiUrls.forgotPassword, "POST", data);
+      return response as ApiResponse;
+    },
+    onSuccess: () => {
+      // queryClient.invalidateQueries({ queryKey: ["login"] });
+      // queryClient.invalidateQueries({ queryKey: ["users"] });
+    },
+  });
+};
+export const resetPassword = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: any) => {
+      const response = await callApi(apiUrls.resetPassword, "POST", data);
+      return response as ApiResponse;
+    },
+    onSuccess: () => {
+      // queryClient.invalidateQueries({ queryKey: ["login"] });
+      // queryClient.invalidateQueries({ queryKey: ["users"] });
+    },
+  });
+};

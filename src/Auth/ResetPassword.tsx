@@ -12,44 +12,49 @@ import {
   LoginOverLay,
   LoginRight,
   LoginStyle,
+  marginBottom10,
   microsoftBottom,
   whiteStar,
 } from "../assets/Styles/LoginStyle";
 import { images } from "../assets/Images/Images";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  ForgetPasswordSchema,
-  SignupSchema,
-} from "../assets/Validation/Schema";
+import { resetPasswordSchema, SignupSchema } from "../assets/Validation/Schema";
 import CustomInput from "../Custom/CustomInput";
 import CustomButton from "../Custom/CustomButton";
 import { CiMail } from "react-icons/ci";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { successnotify } from "../Custom/Notify";
-import { forgetPassword } from "../Hooks/login";
+import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
+import { useState } from "react";
+import { resetPassword } from "../Hooks/login";
 import CustomSnackBar from "../Custom/CustomSnackBar";
 
-const ForgetPassword = () => {
+const ResetPassword = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const token = queryParams.get("token");
+  const [visibility, setVisibility] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(ForgetPasswordSchema),
+    resolver: zodResolver(resetPasswordSchema),
   });
-  const { mutate: forgetPasswordNew } = forgetPassword();
+  const { mutate: resetPasswordNew } = resetPassword();
 
-  const onsubmit = async (data: { email: string }) => {
-    console.log(data);
+  const onsubmit = async (data: { newPassword: string }) => {
 
-    forgetPasswordNew(
-      { email: data.email },
+    resetPasswordNew(
+      { token: token, newPassword: data.newPassword },
       {
         onSuccess: (response: any) => {
-          CustomSnackBar.successSnackbar(response.message || "Password reset link sent to your email");
-          navigate("/login")
+          CustomSnackBar.successSnackbar(
+            response.message || "Password Changes Successfully"
+          );
+          navigate("/login");
         },
         onError: (error) => {
           CustomSnackBar.errorSnackbar(error.message || "Somethimg went wrong");
@@ -117,14 +122,26 @@ const ForgetPassword = () => {
             </Box>
             <Typography variant="h3">Welcome to SkillUp Tech</Typography>{" "}
             <>
-              <Typography variant="h6">Forget Password</Typography>
+              <Typography variant="h6">Reset Password</Typography>
               <Box component={"form"} onSubmit={handleSubmit(onsubmit)}>
                 <CustomInput
-                  name="email"
-                  placeholder="Enter your Email"
-                  label="Email"
-                  type="email"
+                  name="newPassword"
+                  placeholder="Enter your Password"
+                  label="Password"
+                  type={visibility ? "text" : "password"}
                   bgmode="dark"
+                  boxSx={{ ...marginBottom10 }}
+                  icon={
+                    visibility ? (
+                      <IoEyeOutline
+                        onClick={() => setVisibility(!visibility)}
+                      />
+                    ) : (
+                      <IoEyeOffOutline
+                        onClick={() => setVisibility(!visibility)}
+                      />
+                    )
+                  }
                   required={false}
                   register={register}
                   errors={errors}
@@ -132,7 +149,7 @@ const ForgetPassword = () => {
                 <CustomButton
                   type="submit"
                   variant="contained"
-                  label="Send Email"
+                  label="Change Password"
                   btnSx={{ marginTop: "0px" }}
                 />
                 <Box sx={{ ...microsoftBottom }}>
@@ -155,4 +172,4 @@ const ForgetPassword = () => {
   );
 };
 
-export default ForgetPassword;
+export default ResetPassword;

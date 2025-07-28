@@ -28,7 +28,6 @@ import CustomInput from "../Custom/CustomInput";
 import { useState } from "react";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import CustomButton from "../Custom/CustomButton";
-import { CiMail } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
 import CustomSnackBar from "../Custom/CustomSnackBar";
 import { useLoginApi } from "../Hooks/login";

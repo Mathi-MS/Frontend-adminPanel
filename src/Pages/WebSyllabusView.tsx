@@ -258,7 +258,7 @@ const WebSyllabusView = () => {
                       variant="h6"
                       sx={{
                         fontFamily: "Medium_W",
-                        fontSize: "18px",
+                        fontSize: "16px",
                         "@media (max-width: 768px)": {
                           fontSize: "16px",
                           "@media (max-width: 690px)": { fontSize: "14px" },
@@ -271,7 +271,7 @@ const WebSyllabusView = () => {
                       label={`${unit.lessons?.length || 0} Lessons`}
                       size="small"
                       sx={{
-                        backgroundColor: "rgba(255,255,255,0.2)",
+                        backgroundColor: "var(--webprimary)",
                         color: "white",
                         fontFamily: "Regular_W",
                       }}

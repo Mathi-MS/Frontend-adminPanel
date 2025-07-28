@@ -14,4 +14,6 @@ export const apiUrls = {
   lessons: "lessons",
   reviews: "reviews",
   dashboardCounts: "dashboard-counts",
+  forgotPassword: "forgot-password",
+  resetPassword: "reset-password",
 };
