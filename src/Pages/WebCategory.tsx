@@ -404,367 +404,371 @@ const WebCategory = () => {
       </Grid>
 
       {/* Benefits Section */}
-      <Box sx={{ mt: 6 }}>
-        <Typography
-          variant="h5"
-          component="h2"
-          gutterBottom
-          sx={{
-            fontFamily: "SemiBold_W",
-            fontSize: "24px",
-            mb: 3,
-            "@media (max-width: 768px)": {
-              fontSize: "22px",
-              "@media (max-width: 690px)": { fontSize: "20px" },
-            },
-          }}
-        >
-          What You'll Get From Our Programs
-        </Typography>
-
-        <Box
-          sx={{
-            display: "grid",
-            gridTemplateColumns: {
-              xs: "1fr",
-              sm: "repeat(2, 1fr)",
-              lg: "repeat(3, 1fr)",
-            },
-            gap: 3,
-            mb: 4,
-          }}
-        >
-          {/* Benefit 1: Hands-on Experience */}
-          <Card
+      {location.pathname === "/services/category" ? (
+                <Box sx={{ mt: 6 }}>
+          <Typography
+            variant="h5"
+            component="h2"
+            gutterBottom
             sx={{
-              p: 3,
-              height: "100%",
-              boxShadow: 3,
-              borderRadius: "12px",
-              transition: "all 0.3s ease",
-              "&:hover": {
-                transform: "translateY(-4px)",
-                boxShadow: 6,
+              fontFamily: "SemiBold_W",
+              fontSize: "24px",
+              mb: 3,
+              "@media (max-width: 768px)": {
+                fontSize: "22px",
+                "@media (max-width: 690px)": { fontSize: "20px" },
               },
-              background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-              color: "white",
             }}
           >
-            <Box display="flex" alignItems="center" gap={2} mb={2}>
-              <Box
-                sx={{
-                  width: 48,
-                  height: 48,
-                  borderRadius: "12px",
-                  backgroundColor: "rgba(255,255,255,0.2)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "24px",
-                }}
-              >
-                💻
-              </Box>
-              <Typography
-                variant="h6"
-                sx={{
-                  fontFamily: "SemiBold_W",
-                  fontSize: "18px",
-                }}
-              >
-                Hands-on Experience
-              </Typography>
-            </Box>
-            <Typography
-              variant="body2"
-              sx={{
-                fontFamily: "Regular_W",
-                fontSize: "14px",
-                opacity: 0.9,
-                lineHeight: 1.6,
-              }}
-            >
-              Get practical exposure to real-world projects and
-              industry-standard tools and technologies.
-            </Typography>
-          </Card>
+            What You'll Get From Our Programs
+          </Typography>
 
-          {/* Benefit 2: Industry Mentorship */}
-          <Card
+          <Box
             sx={{
-              p: 3,
-              height: "100%",
-              boxShadow: 3,
-              borderRadius: "12px",
-              transition: "all 0.3s ease",
-              "&:hover": {
-                transform: "translateY(-4px)",
-                boxShadow: 6,
+              display: "grid",
+              gridTemplateColumns: {
+                xs: "1fr",
+                sm: "repeat(2, 1fr)",
+                lg: "repeat(3, 1fr)",
               },
-              background: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
-              color: "white",
+              gap: 3,
+              mb: 4,
             }}
           >
-            <Box display="flex" alignItems="center" gap={2} mb={2}>
-              <Box
-                sx={{
-                  width: 48,
-                  height: 48,
-                  borderRadius: "12px",
-                  backgroundColor: "rgba(255,255,255,0.2)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "24px",
-                }}
-              >
-                👨‍💼
-              </Box>
-              <Typography
-                variant="h6"
-                sx={{
-                  fontFamily: "SemiBold_W",
-                  fontSize: "18px",
-                }}
-              >
-                Industry Mentorship
-              </Typography>
-            </Box>
-            <Typography
-              variant="body2"
+            {/* Benefit 1: Hands-on Experience */}
+            <Card
               sx={{
-                fontFamily: "Regular_W",
-                fontSize: "14px",
-                opacity: 0.9,
-                lineHeight: 1.6,
+                p: 3,
+                height: "100%",
+                boxShadow: 3,
+                borderRadius: "12px",
+                transition: "all 0.3s ease",
+                "&:hover": {
+                  transform: "translateY(-4px)",
+                  boxShadow: 6,
+                },
+                background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                color: "white",
               }}
             >
-              Learn from experienced professionals and get guided support
-              throughout your learning journey.
-            </Typography>
-          </Card>
+              <Box display="flex" alignItems="center" gap={2} mb={2}>
+                <Box
+                  sx={{
+                    width: 48,
+                    height: 48,
+                    borderRadius: "12px",
+                    backgroundColor: "rgba(255,255,255,0.2)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "24px",
+                  }}
+                >
+                  💻
+                </Box>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontFamily: "SemiBold_W",
+                    fontSize: "18px",
+                  }}
+                >
+                  Hands-on Experience
+                </Typography>
+              </Box>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontFamily: "Regular_W",
+                  fontSize: "14px",
+                  opacity: 0.9,
+                  lineHeight: 1.6,
+                }}
+              >
+                Get practical exposure to real-world projects and
+                industry-standard tools and technologies.
+              </Typography>
+            </Card>
 
-          {/* Benefit 3: Skill Development */}
-          <Card
-            sx={{
-              p: 3,
-              height: "100%",
-              boxShadow: 3,
-              borderRadius: "12px",
-              transition: "all 0.3s ease",
-              "&:hover": {
-                transform: "translateY(-4px)",
-                boxShadow: 6,
-              },
-              background: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
-              color: "white",
-            }}
-          >
-            <Box display="flex" alignItems="center" gap={2} mb={2}>
-              <Box
-                sx={{
-                  width: 48,
-                  height: 48,
-                  borderRadius: "12px",
-                  backgroundColor: "rgba(255,255,255,0.2)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "24px",
-                }}
-              >
-                🎯
-              </Box>
-              <Typography
-                variant="h6"
-                sx={{
-                  fontFamily: "SemiBold_W",
-                  fontSize: "18px",
-                }}
-              >
-                Skill Development
-              </Typography>
-            </Box>
-            <Typography
-              variant="body2"
+            {/* Benefit 2: Industry Mentorship */}
+            <Card
               sx={{
-                fontFamily: "Regular_W",
-                fontSize: "14px",
-                opacity: 0.9,
-                lineHeight: 1.6,
+                p: 3,
+                height: "100%",
+                boxShadow: 3,
+                borderRadius: "12px",
+                transition: "all 0.3s ease",
+                "&:hover": {
+                  transform: "translateY(-4px)",
+                  boxShadow: 6,
+                },
+                background: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+                color: "white",
               }}
             >
-              Enhance your technical skills, teamwork abilities, and
-              professional communication.
-            </Typography>
-          </Card>
+              <Box display="flex" alignItems="center" gap={2} mb={2}>
+                <Box
+                  sx={{
+                    width: 48,
+                    height: 48,
+                    borderRadius: "12px",
+                    backgroundColor: "rgba(255,255,255,0.2)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "24px",
+                  }}
+                >
+                  👨‍💼
+                </Box>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontFamily: "SemiBold_W",
+                    fontSize: "18px",
+                  }}
+                >
+                  Industry Mentorship
+                </Typography>
+              </Box>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontFamily: "Regular_W",
+                  fontSize: "14px",
+                  opacity: 0.9,
+                  lineHeight: 1.6,
+                }}
+              >
+                Learn from experienced professionals and get guided support
+                throughout your learning journey.
+              </Typography>
+            </Card>
 
-          {/* Benefit 4: Career Readiness */}
-          <Card
-            sx={{
-              p: 3,
-              height: "100%",
-              boxShadow: 3,
-              borderRadius: "12px",
-              transition: "all 0.3s ease",
-              "&:hover": {
-                transform: "translateY(-4px)",
-                boxShadow: 6,
-              },
-              background: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
-              color: "white",
-            }}
-          >
-            <Box display="flex" alignItems="center" gap={2} mb={2}>
-              <Box
-                sx={{
-                  width: 48,
-                  height: 48,
-                  borderRadius: "12px",
-                  backgroundColor: "rgba(255,255,255,0.2)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "24px",
-                }}
-              >
-                💼
-              </Box>
-              <Typography
-                variant="h6"
-                sx={{
-                  fontFamily: "SemiBold_W",
-                  fontSize: "18px",
-                }}
-              >
-                Career Readiness
-              </Typography>
-            </Box>
-            <Typography
-              variant="body2"
+            {/* Benefit 3: Skill Development */}
+            <Card
               sx={{
-                fontFamily: "Regular_W",
-                fontSize: "14px",
-                opacity: 0.9,
-                lineHeight: 1.6,
+                p: 3,
+                height: "100%",
+                boxShadow: 3,
+                borderRadius: "12px",
+                transition: "all 0.3s ease",
+                "&:hover": {
+                  transform: "translateY(-4px)",
+                  boxShadow: 6,
+                },
+                background: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+                color: "white",
               }}
             >
-              Prepare yourself for job placements with portfolio-worthy projects
-              and industry connections.
-            </Typography>
-          </Card>
+              <Box display="flex" alignItems="center" gap={2} mb={2}>
+                <Box
+                  sx={{
+                    width: 48,
+                    height: 48,
+                    borderRadius: "12px",
+                    backgroundColor: "rgba(255,255,255,0.2)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "24px",
+                  }}
+                >
+                  🎯
+                </Box>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontFamily: "SemiBold_W",
+                    fontSize: "18px",
+                  }}
+                >
+                  Skill Development
+                </Typography>
+              </Box>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontFamily: "Regular_W",
+                  fontSize: "14px",
+                  opacity: 0.9,
+                  lineHeight: 1.6,
+                }}
+              >
+                Enhance your technical skills, teamwork abilities, and
+                professional communication.
+              </Typography>
+            </Card>
 
-          {/* Benefit 5: Official Certification */}
-          <Card
-            sx={{
-              p: 3,
-              height: "100%",
-              boxShadow: 3,
-              borderRadius: "12px",
-              transition: "all 0.3s ease",
-              "&:hover": {
-                transform: "translateY(-4px)",
-                boxShadow: 6,
-              },
-              background: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
-              color: "#333",
-            }}
-          >
-            <Box display="flex" alignItems="center" gap={2} mb={2}>
-              <Box
-                sx={{
-                  width: 48,
-                  height: 48,
-                  borderRadius: "12px",
-                  backgroundColor: "rgba(0,0,0,0.1)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "24px",
-                }}
-              >
-                📜
-              </Box>
-              <Typography
-                variant="h6"
-                sx={{
-                  fontFamily: "SemiBold_W",
-                  fontSize: "18px",
-                }}
-              >
-                Official Certification
-              </Typography>
-            </Box>
-            <Typography
-              variant="body2"
+            {/* Benefit 4: Career Readiness */}
+            <Card
               sx={{
-                fontFamily: "Regular_W",
-                fontSize: "14px",
-                opacity: 0.8,
-                lineHeight: 1.6,
+                p: 3,
+                height: "100%",
+                boxShadow: 3,
+                borderRadius: "12px",
+                transition: "all 0.3s ease",
+                "&:hover": {
+                  transform: "translateY(-4px)",
+                  boxShadow: 6,
+                },
+                background: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
+                color: "white",
               }}
             >
-              Receive verified certificates that validate your participation and
-              enhance your resume.
-            </Typography>
-          </Card>
+              <Box display="flex" alignItems="center" gap={2} mb={2}>
+                <Box
+                  sx={{
+                    width: 48,
+                    height: 48,
+                    borderRadius: "12px",
+                    backgroundColor: "rgba(255,255,255,0.2)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "24px",
+                  }}
+                >
+                  💼
+                </Box>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontFamily: "SemiBold_W",
+                    fontSize: "18px",
+                  }}
+                >
+                  Career Readiness
+                </Typography>
+              </Box>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontFamily: "Regular_W",
+                  fontSize: "14px",
+                  opacity: 0.9,
+                  lineHeight: 1.6,
+                }}
+              >
+                Prepare yourself for job placements with portfolio-worthy
+                projects and industry connections.
+              </Typography>
+            </Card>
 
-          {/* Benefit 6: Networking Opportunities */}
-          <Card
-            sx={{
-              p: 3,
-              height: "100%",
-              boxShadow: 3,
-              borderRadius: "12px",
-              transition: "all 0.3s ease",
-              "&:hover": {
-                transform: "translateY(-4px)",
-                boxShadow: 6,
-              },
-              background: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
-              color: "#333",
-            }}
-          >
-            <Box display="flex" alignItems="center" gap={2} mb={2}>
-              <Box
-                sx={{
-                  width: 48,
-                  height: 48,
-                  borderRadius: "12px",
-                  backgroundColor: "rgba(0,0,0,0.1)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "24px",
-                }}
-              >
-                🤝
-              </Box>
-              <Typography
-                variant="h6"
-                sx={{
-                  fontFamily: "SemiBold_W",
-                  fontSize: "18px",
-                }}
-              >
-                Networking Opportunities
-              </Typography>
-            </Box>
-            <Typography
-              variant="body2"
+            {/* Benefit 5: Official Certification */}
+            <Card
               sx={{
-                fontFamily: "Regular_W",
-                fontSize: "14px",
-                opacity: 0.8,
-                lineHeight: 1.6,
+                p: 3,
+                height: "100%",
+                boxShadow: 3,
+                borderRadius: "12px",
+                transition: "all 0.3s ease",
+                "&:hover": {
+                  transform: "translateY(-4px)",
+                  boxShadow: 6,
+                },
+                background: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
+                color: "#333",
               }}
             >
-              Connect with industry professionals, peers, and build valuable
-              relationships for your career.
-            </Typography>
-          </Card>
+              <Box display="flex" alignItems="center" gap={2} mb={2}>
+                <Box
+                  sx={{
+                    width: 48,
+                    height: 48,
+                    borderRadius: "12px",
+                    backgroundColor: "rgba(0,0,0,0.1)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "24px",
+                  }}
+                >
+                  📜
+                </Box>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontFamily: "SemiBold_W",
+                    fontSize: "18px",
+                  }}
+                >
+                  Official Certification
+                </Typography>
+              </Box>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontFamily: "Regular_W",
+                  fontSize: "14px",
+                  opacity: 0.8,
+                  lineHeight: 1.6,
+                }}
+              >
+                Receive verified certificates that validate your participation
+                and enhance your resume.
+              </Typography>
+            </Card>
+
+            {/* Benefit 6: Networking Opportunities */}
+            <Card
+              sx={{
+                p: 3,
+                height: "100%",
+                boxShadow: 3,
+                borderRadius: "12px",
+                transition: "all 0.3s ease",
+                "&:hover": {
+                  transform: "translateY(-4px)",
+                  boxShadow: 6,
+                },
+                background: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
+                color: "#333",
+              }}
+            >
+              <Box display="flex" alignItems="center" gap={2} mb={2}>
+                <Box
+                  sx={{
+                    width: 48,
+                    height: 48,
+                    borderRadius: "12px",
+                    backgroundColor: "rgba(0,0,0,0.1)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "24px",
+                  }}
+                >
+                  🤝
+                </Box>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontFamily: "SemiBold_W",
+                    fontSize: "18px",
+                  }}
+                >
+                  Networking Opportunities
+                </Typography>
+              </Box>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontFamily: "Regular_W",
+                  fontSize: "14px",
+                  opacity: 0.8,
+                  lineHeight: 1.6,
+                }}
+              >
+                Connect with industry professionals, peers, and build valuable
+                relationships for your career.
+              </Typography>
+            </Card>
+          </Box>
         </Box>
-      </Box>
+      ) : (
+          ""
+      )}
 
       {/* Apply Modal */}
       <Modal

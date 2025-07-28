@@ -24,5 +24,5 @@ export const images = {
     logoicon:logoicon,
     overlay:overlay,
     banner:banner,
-    logonew:logonew,
+    logonew:logo,
 };
