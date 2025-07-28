@@ -347,6 +347,375 @@ const WebSyllabusView = () => {
               </Accordion>
             ))
           )}
+
+          {/* Course Features Section */}
+          <Box sx={{ mt: 6 }}>
+            <Typography
+              variant="h5"
+              component="h2"
+              gutterBottom
+              sx={{
+                fontFamily: "SemiBold_W",
+                fontSize: "24px",
+                mb: 3,
+                "@media (max-width: 768px)": {
+                  fontSize: "22px",
+                  "@media (max-width: 690px)": { fontSize: "20px" },
+                },
+              }}
+            >
+              What You'll Get
+            </Typography>
+
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: {
+                  xs: "1fr",
+                  sm: "repeat(2, 1fr)",
+                  lg: "repeat(3, 1fr)",
+                },
+                gap: 3,
+                mb: 4,
+              }}
+            >
+              {/* Project-Based Learning */}
+              <Card
+                sx={{
+                  p: 3,
+                  height: "100%",
+                  boxShadow: 3,
+                  borderRadius: "12px",
+                  transition: "all 0.3s ease",
+                  "&:hover": {
+                    transform: "translateY(-4px)",
+                    boxShadow: 6,
+                  },
+                  background:
+                    "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                  color: "white",
+                }}
+              >
+                <Box display="flex" alignItems="center" gap={2} mb={2}>
+                  <Box
+                    sx={{
+                      width: 48,
+                      height: 48,
+                      borderRadius: "12px",
+                      backgroundColor: "rgba(255,255,255,0.2)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: "24px",
+                    }}
+                  >
+                    🚀
+                  </Box>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontFamily: "SemiBold_W",
+                      fontSize: "18px",
+                    }}
+                  >
+                    Project-Based Learning
+                  </Typography>
+                </Box>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    fontFamily: "Regular_W",
+                    fontSize: "14px",
+                    opacity: 0.9,
+                    lineHeight: 1.6,
+                  }}
+                >
+                  Build real-world projects that showcase your skills and add
+                  value to your portfolio
+                </Typography>
+              </Card>
+
+              {/* Interactive Assignments */}
+              <Card
+                sx={{
+                  p: 3,
+                  height: "100%",
+                  boxShadow: 3,
+                  borderRadius: "12px",
+                  transition: "all 0.3s ease",
+                  "&:hover": {
+                    transform: "translateY(-4px)",
+                    boxShadow: 6,
+                  },
+                  background:
+                    "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+                  color: "white",
+                }}
+              >
+                <Box display="flex" alignItems="center" gap={2} mb={2}>
+                  <Box
+                    sx={{
+                      width: 48,
+                      height: 48,
+                      borderRadius: "12px",
+                      backgroundColor: "rgba(255,255,255,0.2)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: "24px",
+                    }}
+                  >
+                    📝
+                  </Box>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontFamily: "SemiBold_W",
+                      fontSize: "18px",
+                    }}
+                  >
+                    Session Assignments
+                  </Typography>
+                </Box>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    fontFamily: "Regular_W",
+                    fontSize: "14px",
+                    opacity: 0.9,
+                    lineHeight: 1.6,
+                  }}
+                >
+                  Practice with carefully crafted assignments after each session
+                  to reinforce learning
+                </Typography>
+              </Card>
+
+              {/* Live Coding Sessions */}
+              <Card
+                sx={{
+                  p: 3,
+                  height: "100%",
+                  boxShadow: 3,
+                  borderRadius: "12px",
+                  transition: "all 0.3s ease",
+                  "&:hover": {
+                    transform: "translateY(-4px)",
+                    boxShadow: 6,
+                  },
+                  background:
+                    "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+                  color: "white",
+                }}
+              >
+                <Box display="flex" alignItems="center" gap={2} mb={2}>
+                  <Box
+                    sx={{
+                      width: 48,
+                      height: 48,
+                      borderRadius: "12px",
+                      backgroundColor: "rgba(255,255,255,0.2)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: "24px",
+                    }}
+                  >
+                    💻
+                  </Box>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontFamily: "SemiBold_W",
+                      fontSize: "18px",
+                    }}
+                  >
+                    Live Coding Sessions
+                  </Typography>
+                </Box>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    fontFamily: "Regular_W",
+                    fontSize: "14px",
+                    opacity: 0.9,
+                    lineHeight: 1.6,
+                  }}
+                >
+                  Interactive live coding sessions where you code along with the
+                  instructor
+                </Typography>
+              </Card>
+
+              {/* Personalized Feedback */}
+              <Card
+                sx={{
+                  p: 3,
+                  height: "100%",
+                  boxShadow: 3,
+                  borderRadius: "12px",
+                  transition: "all 0.3s ease",
+                  "&:hover": {
+                    transform: "translateY(-4px)",
+                    boxShadow: 6,
+                  },
+                  background:
+                    "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
+                  color: "white",
+                }}
+              >
+                <Box display="flex" alignItems="center" gap={2} mb={2}>
+                  <Box
+                    sx={{
+                      width: 48,
+                      height: 48,
+                      borderRadius: "12px",
+                      backgroundColor: "rgba(255,255,255,0.2)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: "24px",
+                    }}
+                  >
+                    🎯
+                  </Box>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontFamily: "SemiBold_W",
+                      fontSize: "18px",
+                    }}
+                  >
+                    Personalized Feedback
+                  </Typography>
+                </Box>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    fontFamily: "Regular_W",
+                    fontSize: "14px",
+                    opacity: 0.9,
+                    lineHeight: 1.6,
+                  }}
+                >
+                  Get detailed feedback on your assignments and projects from
+                  expert instructors
+                </Typography>
+              </Card>
+
+              {/* Industry Mentorship */}
+              <Card
+                sx={{
+                  p: 3,
+                  height: "100%",
+                  boxShadow: 3,
+                  borderRadius: "12px",
+                  transition: "all 0.3s ease",
+                  "&:hover": {
+                    transform: "translateY(-4px)",
+                    boxShadow: 6,
+                  },
+                  background:
+                    "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
+                  color: "#333",
+                }}
+              >
+                <Box display="flex" alignItems="center" gap={2} mb={2}>
+                  <Box
+                    sx={{
+                      width: 48,
+                      height: 48,
+                      borderRadius: "12px",
+                      backgroundColor: "rgba(0,0,0,0.1)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: "24px",
+                    }}
+                  >
+                    👨‍🏫
+                  </Box>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontFamily: "SemiBold_W",
+                      fontSize: "18px",
+                    }}
+                  >
+                    Industry Mentorship
+                  </Typography>
+                </Box>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    fontFamily: "Regular_W",
+                    fontSize: "14px",
+                    opacity: 0.8,
+                    lineHeight: 1.6,
+                  }}
+                >
+                  Connect with industry professionals and get career guidance
+                  throughout your journey
+                </Typography>
+              </Card>
+
+              {/* Certificate of Completion */}
+              <Card
+                sx={{
+                  p: 3,
+                  height: "100%",
+                  boxShadow: 3,
+                  borderRadius: "12px",
+                  transition: "all 0.3s ease",
+                  "&:hover": {
+                    transform: "translateY(-4px)",
+                    boxShadow: 6,
+                  },
+                  background:
+                    "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
+                  color: "#333",
+                }}
+              >
+                <Box display="flex" alignItems="center" gap={2} mb={2}>
+                  <Box
+                    sx={{
+                      width: 48,
+                      height: 48,
+                      borderRadius: "12px",
+                      backgroundColor: "rgba(0,0,0,0.1)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: "24px",
+                    }}
+                  >
+                    🏆
+                  </Box>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontFamily: "SemiBold_W",
+                      fontSize: "18px",
+                    }}
+                  >
+                    Certificate of Completion
+                  </Typography>
+                </Box>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    fontFamily: "Regular_W",
+                    fontSize: "14px",
+                    opacity: 0.8,
+                    lineHeight: 1.6,
+                  }}
+                >
+                  Earn a verified certificate upon successful completion to
+                  showcase your achievement
+                </Typography>
+              </Card>
+            </Box>
+          </Box>
         </>
       )}
     </Box>
