@@ -169,7 +169,7 @@ const WebSyllabusView = () => {
                   ) : (
                     <Chip
                       label={`₹${syllabusData.courseId?.price}`}
-                      color="primary"
+                      // color="primary"
                       variant="filled"
                       sx={{ fontFamily: "Medium_W" }}
                     />

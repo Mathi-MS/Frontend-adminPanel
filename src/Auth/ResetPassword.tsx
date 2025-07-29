@@ -104,20 +104,21 @@ const ResetPassword = () => {
           <Box sx={{ ...boxTwo }}>
             <Box
               sx={{
-                background: "var(--webprimary)",
-                width: "35px",
-                height: "35px",
+                background: "var(--websecondary)",
+                width: "100px",
+                height: "40px",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
                 borderRadius: "3px",
-                marginBottom: "15px",
+                cursor: "pointer",
+                marginBottom: "10px",
               }}
             >
               <Box
                 component={"img"}
-                sx={{ width: "30px" }}
-                src={images.logoicon}
+                sx={{ width: "80px" }}
+                src={images.logonew}
               />
             </Box>
             <Typography variant="h3">Welcome to SkillUp Tech</Typography>{" "}

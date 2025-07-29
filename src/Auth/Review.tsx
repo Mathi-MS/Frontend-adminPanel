@@ -18,40 +18,39 @@ import {
 import { images } from "../assets/Images/Images";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  ForgetPasswordSchema,
-  SignupSchema,
-} from "../assets/Validation/Schema";
+
 import CustomInput from "../Custom/CustomInput";
 import CustomButton from "../Custom/CustomButton";
-import { CiMail } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
-import { successnotify } from "../Custom/Notify";
 import { forgetPassword } from "../Hooks/login";
 import CustomSnackBar from "../Custom/CustomSnackBar";
+import { ReviewSchema } from "../assets/Validation/Schema";
+import { useReviewPost } from "../Hooks/review";
 
-const ForgetPassword = () => {
+const Review = () => {
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(ForgetPasswordSchema),
+    resolver: zodResolver(ReviewSchema),
   });
-  const { mutate: forgetPasswordNew } = forgetPassword();
+  const { mutate: reviewMutation } = useReviewPost();
 
-  const onsubmit = async (data: { email: string }) => {
+  const onsubmit = async (data: { email: string,name:string,review:string }) => {
     console.log(data);
 
-    forgetPasswordNew(
-      { email: data.email },
+    reviewMutation(
+      { email: data.email, name: data.name, review: data.review },
       {
         onSuccess: (response: any) => {
           CustomSnackBar.successSnackbar(
-            response.message || "Password reset link sent to your email"
+            response.message || "Review created successfully"
           );
-          navigate("/login");
+          navigate("/");
+          reset();
         },
         onError: (error) => {
           CustomSnackBar.errorSnackbar(error.message || "Somethimg went wrong");
@@ -118,10 +117,20 @@ const ForgetPassword = () => {
                 src={images.logonew}
               />
             </Box>
-            <Typography variant="h3">Welcome to SkillUp Tech</Typography>{" "}
+            <Typography variant="h3">Review</Typography>{" "}
             <>
-              <Typography variant="h6">Forget Password</Typography>
               <Box component={"form"} onSubmit={handleSubmit(onsubmit)}>
+                <CustomInput
+                  name="name"
+                  placeholder="Enter your Name"
+                  label="Name"
+                  type="text"
+                  bgmode="dark"
+                  required={false}
+                  register={register}
+                  errors={errors}
+                  boxSx={{ marginBottom: "10px" }}
+                />
                 <CustomInput
                   name="email"
                   placeholder="Enter your Email"
@@ -131,19 +140,25 @@ const ForgetPassword = () => {
                   required={false}
                   register={register}
                   errors={errors}
+                  boxSx={{ marginBottom: "10px" }}
+                />
+                <CustomInput
+                  name="review"
+                  placeholder="Enter your Review"
+                  label="review"
+                  type="text"
+                  bgmode="dark"
+                  required={false}
+                  register={register}
+                  errors={errors}
+                  boxSx={{ marginBottom: "10px" }}
                 />
                 <CustomButton
                   type="submit"
                   variant="contained"
-                  label="Send Email"
+                  label="Submit Review"
                   btnSx={{ marginTop: "0px" }}
                 />
-                <Box sx={{ ...microsoftBottom }}>
-                  Already have an account?{" "}
-                  <Box component={"span"} onClick={() => navigate("/login")}>
-                    Sign In
-                  </Box>
-                </Box>
               </Box>
             </>
           </Box>
@@ -158,4 +173,4 @@ const ForgetPassword = () => {
   );
 };
 
-export default ForgetPassword;
+export default Review;

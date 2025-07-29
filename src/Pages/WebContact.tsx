@@ -3,6 +3,8 @@ import CustomInput from "../Custom/CustomInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { contactUsSchema } from "../assets/Validation/Schema";
+import { useContactPost } from "../Hooks/review";
+import CustomSnackBar from "../Custom/CustomSnackBar";
 
 const WebContact = () => {
   const {
@@ -16,9 +18,22 @@ const WebContact = () => {
   } = useForm({
     resolver: zodResolver(contactUsSchema),
   });
+  const { mutate: contactMutation } = useContactPost();
   const onsubmit = (data: any) => {
-    console.log(data);
-    reset();
+    contactMutation(
+      {name: data.name, email: data.email, contactNumber: data.mobile, description: data.description },
+      {
+        onSuccess: (response: any) => {
+          CustomSnackBar.successSnackbar(
+            response.message || "Review created successfully"
+          );
+          reset();
+        },
+        onError: (error) => {
+          CustomSnackBar.errorSnackbar(error.message || "Somethimg went wrong");
+        },
+      }
+    );
   };
   return (
     <Box>

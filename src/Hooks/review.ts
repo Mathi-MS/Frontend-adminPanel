@@ -16,6 +16,30 @@ export const useGetReviews = () => {
     },
   });
 };
+export const useReviewPost = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: any) => {
+      const response = await callApi(apiUrls.reviews, "POST", data);
+      return response as ApiResponse;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["review"] });
+    },
+  });
+};
+export const useContactPost = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: any) => {
+      const response = await callApi(apiUrls.contact, "POST", data);
+      return response as ApiResponse;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["review"] });
+    },
+  });
+};
 // export const useOfferAddApi = () => {
 //   const queryClient = useQueryClient();
 //   return useMutation({

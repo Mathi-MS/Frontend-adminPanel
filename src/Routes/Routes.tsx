@@ -23,6 +23,7 @@ import AdminDashboard from "../Pages/AdminDashboard";
 import WebSyllabusView from "../Pages/WebSyllabusView";
 import Certificate from "../Pages/Certificate";
 import ResetPassword from "../Auth/ResetPassword";
+import Review from "../Auth/Review";
 
 // const routes = createHashRouter([
 //   {
@@ -88,6 +89,10 @@ const routes = createHashRouter([
   {
     path: "/forgotpassword",
     element: <ForgetPassword />,
+  },
+  {
+    path: "/reviews",
+    element: <Review />,
   },
   {
     path: "/",

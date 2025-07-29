@@ -46,6 +46,22 @@ export const ForgetPasswordSchema = z.object({
     .email({ message: "Invalid email address" })
     .trim(),
 });
+export const ReviewSchema = z.object({
+  email: z
+    .string()
+    .min(1, { message: "Email is required" })
+    .email({ message: "Invalid email address" })
+    .trim(),
+    review: z
+    .string()
+    .min(10, "Description must be at least 10 characters long")
+    .max(200, "Description must be at most 200 characters long"),
+    name: z
+    .string()
+    .min(3, { message: "Name must be at least 3 characters" })
+    .max(20, { message: "Name must be at most 20 characters" })
+    .nonempty({ message: "Name is required" }),
+});
 export const OffersDescriptionSchema = z.object({
   description: z
     .string()
