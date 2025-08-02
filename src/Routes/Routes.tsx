@@ -24,6 +24,7 @@ import WebSyllabusView from "../Pages/WebSyllabusView";
 import Certificate from "../Pages/Certificate";
 import ResetPassword from "../Auth/ResetPassword";
 import Review from "../Auth/Review";
+import ProtectedRoute from "./ProtectedRoute";
 
 // const routes = createHashRouter([
 //   {
@@ -142,48 +143,48 @@ const routes = createHashRouter([
   },
   {
     path: "/",
-    // element: <ProtectedRoute element={<Layout />} />,
-    element: <Layout />,
+    element: <ProtectedRoute element={<Layout />} />,
+    // element: <Layout />,
     children: [
       {
         path: "dashboard",
-        element: <AdminDashboard />,
-        // element: <ProtectedRoute element={<AdminDashboard />} />,
+        // element: <AdminDashboard />,
+        element: <ProtectedRoute element={<AdminDashboard />} />,
       },
       {
         path: "users",
-        element: <Users />,
-        // element: <ProtectedRoute element={<AdminDashboard />} />,
+        // element: <Users />,
+        element: <ProtectedRoute element={<Users />} />,
       },
       {
         path: "courses",
-        element: <Courses />
-        // element: <ProtectedRoute element={<AdminDashboard />} />,
+        // element: <Courses />
+        element: <ProtectedRoute element={<Courses />} />,
       },
       {
         path: "offers",
-        element: <Offers />
-        // element: <ProtectedRoute element={<AdminDashboard />} />,
+        // element: <Offers />
+        element: <ProtectedRoute element={<Offers />} />,
       },
       {
         path: "category",
-        element: <Category />
-        // element: <ProtectedRoute element={<AdminDashboard />} />,
+        // element: <Category />
+        element: <ProtectedRoute element={<Category />} />,
       },
       {
         path: "admincareers",
-        element: <Carrers />
-        // element: <ProtectedRoute element={<AdminDashboard />} />,
+        // element: <Carrers />
+        element: <ProtectedRoute element={<Carrers />} />,
       },
       {
         path: "syllabus",
-        element: <Syllabus />
-        // element: <ProtectedRoute element={<AdminDashboard />} />,
+        // element: <Syllabus />
+        element: <ProtectedRoute element={<Syllabus />} />,
       },
       {
         path: "certificate",
-        element: <Certificate />
-        // element: <ProtectedRoute element={<AdminDashboard />} />,
+        // element: <Certificate />
+        element: <ProtectedRoute element={<Certificate />} />,
       },
 
     ],

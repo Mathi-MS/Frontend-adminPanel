@@ -8,14 +8,14 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute = ({ element }: ProtectedRouteProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    const token = Cookies.get("PRT_token");
+    const token = Cookies.get("skToken");
 
     return !!token;
   });
 
   useEffect(() => {
     const handleStorageChange = () => {
-      const token = Cookies.get("PRT_token");
+      const token = Cookies.get("skToken");
       setIsAuthenticated(!!token);
     };
 

@@ -17,4 +17,7 @@ export const apiUrls = {
   dashboardCounts: "dashboard-counts",
   forgotPassword: "forgot-password",
   resetPassword: "reset-password",
+  coursesMail: "course-mail",
+  carrerMail: "career-mail",
+  categoryMail: "category-mail",
 };

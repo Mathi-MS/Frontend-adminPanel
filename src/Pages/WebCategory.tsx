@@ -23,6 +23,8 @@ import { useState } from "react";
 import { useGetCategoryApi } from "../Hooks/category";
 import CustomAutoComplete from "../Custom/CustomAutocomplete";
 import config from "../Config/Config";
+import { useCategoryMail } from "../Hooks/review";
+import CustomSnackBar from "../Custom/CustomSnackBar";
 
 // const mockCategoryData = [
 //   {
@@ -116,6 +118,7 @@ const WebCategory = () => {
   } = useForm({
     resolver: zodResolver(carrersWebSchema),
   });
+  const { mutate: categoryMutation } = useCategoryMail();
   const onsubmit = async (data: any) => {
     if (selectedJob) {
       const submissionData = {
@@ -124,7 +127,28 @@ const WebCategory = () => {
         categoryTitle: selectedJob.title,
         category: selectedJob.category,
       };
-      console.log("Apply for:", submissionData);
+      categoryMutation(
+        {
+          name: submissionData.name,
+          email: submissionData.email,
+          mobile: submissionData.mobile,
+          categoryName: submissionData.categoryTitle,
+          categoryType: submissionData.category,
+        },
+        {
+          onSuccess: (response: any) => {
+            CustomSnackBar.successSnackbar(
+              response.message || "Successfully"
+            );
+            handleClose();
+          },
+          onError: (error) => {
+            CustomSnackBar.errorSnackbar(
+              error.message || "Somethimg went wrong"
+            );
+          },
+        }
+      );
     }
   };
   const handleOpen = (
@@ -405,7 +429,7 @@ const WebCategory = () => {
 
       {/* Benefits Section */}
       {location.pathname === "/services/category" ? (
-                <Box sx={{ mt: 6 }}>
+        <Box sx={{ mt: 6 }}>
           <Typography
             variant="h5"
             component="h2"
@@ -767,7 +791,7 @@ const WebCategory = () => {
           </Box>
         </Box>
       ) : (
-          ""
+        ""
       )}
 
       {/* Apply Modal */}

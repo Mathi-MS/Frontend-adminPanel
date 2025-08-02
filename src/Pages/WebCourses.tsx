@@ -21,6 +21,8 @@ import { IoClose } from "react-icons/io5";
 import CustomInput from "../Custom/CustomInput";
 import { useGetCoursesApi } from "../Hooks/courses";
 import config from "../Config/Config";
+import { useCoursesMail } from "../Hooks/review";
+import CustomSnackBar from "../Custom/CustomSnackBar";
 const style = {
   position: "absolute",
   top: "50%",
@@ -78,6 +80,7 @@ const WebCourses = () => {
     reset();
     setOpen(false);
   };
+  const { mutate: coursesMutation } = useCoursesMail();
   const onsubmit = async (data: any) => {
     if (selectedJob) {
       const submissionData = {
@@ -86,6 +89,27 @@ const WebCourses = () => {
         courseName: selectedJob.title,
       };
       console.log("Apply for:", submissionData);
+      coursesMutation(
+        {
+          name: submissionData.name,
+          email: submissionData.email,
+          mobile: submissionData.mobile,
+          courseName: submissionData.courseName,
+        },
+        {
+          onSuccess: (response: any) => {
+            CustomSnackBar.successSnackbar(
+              response.message || "Successfully"
+            );
+            handleClose();
+          },
+          onError: (error) => {
+            CustomSnackBar.errorSnackbar(
+              error.message || "Somethimg went wrong"
+            );
+          },
+        }
+      );
     }
   };
   return (
@@ -223,7 +247,13 @@ const WebCourses = () => {
                   </Typography>
 
                   {/* Price Section */}
-                  <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
                     <Stack
                       direction="row"
                       spacing={1}
@@ -284,8 +314,8 @@ const WebCourses = () => {
                           backgroundColor: "var(--webprimary)",
                           color: "var(--white)",
                           transition: "1s",
-                          width:"max-content",
-                          marginBottom:"10px",
+                          width: "max-content",
+                          marginBottom: "10px",
                           "&:hover": {
                             color: "var(--webprimary)",
                             backgroundColor: "var(--white)",

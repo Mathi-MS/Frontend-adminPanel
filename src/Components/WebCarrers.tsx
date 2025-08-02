@@ -15,10 +15,15 @@ import { IoClose } from "react-icons/io5";
 import CustomInput from "../Custom/CustomInput";
 import CustomButton from "../Custom/CustomButton";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { carrersWebSchema, carrersWebSchemaNew } from "../assets/Validation/Schema";
+import {
+  carrersWebSchema,
+  carrersWebSchemaNew,
+} from "../assets/Validation/Schema";
 import { Controller, useForm } from "react-hook-form";
 import { useGetCarrers } from "../Hooks/carrers";
 import CustomFileUpload from "../Custom/CustomFileUpload";
+import { useCarrerMail } from "../Hooks/review";
+import CustomSnackBar from "../Custom/CustomSnackBar";
 
 const style = {
   position: "absolute",
@@ -64,15 +69,35 @@ const WebCareers = () => {
     reset();
     setOpen(false);
   };
-
+  const { mutate: carrerMutation } = useCarrerMail();
   const onsubmit = async (data: any) => {
     if (selectedJob) {
-      const submissionData = {
-        ...data,
-        jobId: selectedJob.id,
-        jobTitle: selectedJob.title,
-      };
-      console.log("Apply for:", submissionData);
+      const formData = new FormData();
+
+      // Append form fields to FormData
+      formData.append("name", data.name);
+      formData.append("email", data.email);
+      formData.append("mobile", data.mobile);
+      formData.append("title", selectedJob.title);
+      // Append resume file if it exists
+      if (data.resume) {
+        formData.append("resume", data.resume);
+      }
+
+      console.log("FormData entries:");
+      for (let [key, value] of formData.entries()) {
+        console.log(key, value);
+      }
+
+      carrerMutation(formData, {
+        onSuccess: (response: any) => {
+          CustomSnackBar.successSnackbar(response.message || "Successfully");
+          handleClose();
+        },
+        onError: (error) => {
+          CustomSnackBar.errorSnackbar(error.message || "Somethimg went wrong");
+        },
+      });
     }
   };
 

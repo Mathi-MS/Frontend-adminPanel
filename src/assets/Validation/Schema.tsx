@@ -295,7 +295,7 @@ export const contactUsSchema = z.object({
     .max(10, { message: "Mobile number must be at most 10 digits" }),
   description: z
     .string()
-    .min(5, { message: "Description must be at least 5 characters" })
+    .min(10, { message: "Description must be at least 10 characters" })
     .max(200, { message: "Description must be at most 200 characters" }),
 });
 export const carrersWebSchema = z.object({

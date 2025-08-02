@@ -40,6 +40,43 @@ export const useContactPost = () => {
     },
   });
 };
+export const useCoursesMail = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: any) => {
+      const response = await callApi(apiUrls.coursesMail, "POST", data);
+      return response as ApiResponse;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["courses"] });
+    },
+  });
+};
+
+export const useCategoryMail = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: any) => {
+      const response = await callApi(apiUrls.categoryMail, "POST", data);
+      return response as ApiResponse;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["category"] });
+    },
+  });
+};
+export const useCarrerMail = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: any) => {
+      const response = await callApi(apiUrls.carrerMail, "POST", data);
+      return response as ApiResponse;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["carrers"] });
+    },
+  });
+};
 // export const useOfferAddApi = () => {
 //   const queryClient = useQueryClient();
 //   return useMutation({
