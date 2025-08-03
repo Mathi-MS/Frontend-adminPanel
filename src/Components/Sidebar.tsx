@@ -204,7 +204,7 @@ const Sidebar = ({ isOpen, isMobile }: SidebarProps) => {
                   {(isOpen || isMobile) && "Careers"}
                 </Box>
               </Link>
-              <Link to={"/certificate"}>
+              {/* <Link to={"/certificate"}>
                 <Box
                   sx={{
                     backgroundColor: CertificateRoutes.includes(location.pathname)
@@ -219,7 +219,7 @@ const Sidebar = ({ isOpen, isMobile }: SidebarProps) => {
                   <PiCertificate />
                   {(isOpen || isMobile) && "Certificate"}
                 </Box>
-              </Link>
+              </Link> */}
             </Box>
           </Box>
           {/* <Box sx={{ ...SidebarBoxThree }}>
