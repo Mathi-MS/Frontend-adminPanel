@@ -3,10 +3,10 @@ import CountUp from "react-countup";
 
 // Numeric values extracted separately for animation
 const stats = [
-  { label: "Projects", value: 20 },
-  { label: "Placed Students", value: 40 },
+  { label: "Projects", value: 200 },
+  { label: "Placed Students", value: 80 },
   { label: "Experience", value: 3, suffix: "+ Years" },
-  { label: "Happy Clients", value: 50 },
+  { label: "Happy Clients", value: 99 },
 ];
 
 const WebCount = () => {
@@ -49,11 +49,21 @@ const WebCount = () => {
               fontFamily: "SemiBold_W",
             }}
           >
-            <CountUp
-              end={item.value}
-              duration={2}
-              suffix={item.suffix || "+"}
-            />
+            {item.label === "Happy Clients" ? (
+              <>
+                <CountUp
+                  end={item.value}
+                  duration={2}
+                  suffix={item.suffix || "%"}
+                />
+              </>
+            ) : (
+              <CountUp
+                end={item.value}
+                duration={2}
+                suffix={item.suffix || "+"}
+              />
+            )}
           </Typography>
           <Typography
             sx={{

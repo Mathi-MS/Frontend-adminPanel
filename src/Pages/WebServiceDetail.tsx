@@ -390,6 +390,76 @@ const WebServiceDetail = () => {
           >
             {data.desc}
           </Typography>
+          {data.title === "Final Year Projects" && (
+            <Box
+              sx={{
+                background: "linear-gradient(135deg, #f8f9fa, #eef3ff)",
+                borderRadius: "12px",
+                p: { xs: 2, sm: 3, md: 4 },
+                boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+                mt: 3,
+                mb: 5,
+                mx: "auto",
+              }}
+            >
+              <Typography
+                variant="h5"
+                sx={{
+                  fontFamily: "SemiBold_W",
+                  color: "var(--webprimary)",
+                  mb: 2,
+                  textAlign: "center",
+                  textTransform: "uppercase",
+                  letterSpacing: "1px",
+                }}
+              >
+                Domains We Offer
+              </Typography>
+
+              <Grid container spacing={1.5}>
+                {[
+                  "Machine Learning",
+                  "Artificial Intelligence",
+                  "Data Science",
+                  "Full Stack Development",
+                  "Blockchain",
+                  "Deep Learning",
+                  "Cloud Computing",
+                  "IoT",
+                  "Robotics",
+                  "Microcontroller",
+                  "Raspberry Pi",
+                  "Arduino",
+                  "RF & RFID",
+                  "Cyber Security",
+                  "GSM & GPS Control",
+                ].map((domain, index) => (
+                  <Grid item xs={6} sm={4} md={3} key={index}>
+                    <Box
+                      sx={{
+                        backgroundColor: "#fff",
+                        borderRadius: "8px",
+                        textAlign: "center",
+                        p: 1.5,
+                        boxShadow: "0 2px 5px rgba(0,0,0,0.05)",
+                        fontFamily: "Medium_W",
+                        fontSize: { xs: "13px", sm: "14px" },
+                        color: "#333",
+                        transition: "all 0.3s ease",
+                        "&:hover": {
+                          transform: "translateY(-3px)",
+                          backgroundColor: "var(--webprimary)",
+                          color: "#fff",
+                        },
+                      }}
+                    >
+                      {domain}
+                    </Box>
+                  </Grid>
+                ))}
+              </Grid>
+            </Box>
+          )}
 
           <Grid container spacing={3}>
             {data.highlights.map((item, index) => (

@@ -12,34 +12,35 @@ import { useLocation, useNavigate } from "react-router-dom";
 const benefits = [
   {
     number: "01",
+    title: "IT Services",
+    desc: "We deliver high-quality web and software development services tailored to meet business needs and drive digital transformation.",
+  },
+  {
+    number: "02",
     title: "Inplant Training",
     desc: "Gain hands-on exposure in real-time industrial environments to bridge the gap between academic learning and industry demands.",
   },
   {
-    number: "02",
+    number: "03",
     title: "Internship Programmes",
     desc: "Work on live projects under the guidance of professionals to enhance your practical skills and industry knowledge.",
   },
   {
-    number: "03",
+    number: "04",
     title: "Final Year Projects",
     desc: "Get complete assistance on innovative final year projects, from concept development to implementation and documentation.",
   },
   {
-    number: "04",
+    number: "05",
     title: "Workshop Sessions",
     desc: "Participate in expert-led workshops that focus on current technologies, tools, and practical application through guided sessions.",
   },
   {
-    number: "05",
+    number: "06",
     title: "Courses",
     desc: "Learn essential, industry-relevant skills through expert-led, hands-on training designed to prepare you for real-world challenges.",
   },
-  {
-    number: "06",
-    title: "IT Services",
-    desc: "We deliver high-quality web and software development services tailored to meet business needs and drive digital transformation.",
-  },
+  
 ];
 
 const WebServices = () => {
@@ -107,9 +108,9 @@ const WebServices = () => {
               "@media (max-width: 768px)": { fontSize: "14px" },
             }}
           >
-            Empowering students and professionals through real-world training,
-            project support, and innovative tech solutions tailored for career
-            growth.
+            Transform Knowledge into Power. Gain industry-ready skills with our
+            advanced IT courses, inplant training, and project-based learning
+            programs.
           </Typography>
         </Box>
         <Box

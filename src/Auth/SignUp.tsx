@@ -29,6 +29,7 @@ import CustomSnackBar from "../Custom/CustomSnackBar";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [otpOpen, setOpenOpen] = useState<boolean>(false);
   const [valueStore, setValueStore] = useState<any>({});
   const [otp, setOtp] = useState<string[]>(["", "", "", "", "", ""]);
@@ -48,6 +49,7 @@ const SignUp = () => {
     name: string;
     mobile: string;
   }) => {
+    setLoading(true);
     RegisterUser(
       { email: data.email, name: data.name, mobile: data.mobile },
       {
@@ -59,6 +61,7 @@ const SignUp = () => {
         onError: (error) => {
           CustomSnackBar.errorSnackbar(error.message);
         },
+        onSettled: () => setLoading(false),
       }
     );
   };
@@ -83,6 +86,7 @@ const SignUp = () => {
   };
 
   const handleOtpSubmit = () => {
+    setLoading(true);
     const otpValue = otp.join("");
     if (otpValue.length === 6) {
       otpFunction(
@@ -96,6 +100,7 @@ const SignUp = () => {
           onError: (error) => {
             CustomSnackBar.errorSnackbar(error.message);
           },
+          onSettled: () => setLoading(false),
         }
       );
     } else {
@@ -222,6 +227,7 @@ const SignUp = () => {
                     variant="contained"
                     label="Sign Up"
                     btnSx={{ marginTop: "0px" }}
+                    disabled={loading}
                   />
                   <Box sx={{ ...microsoftBottom }}>
                     Already have an account?{" "}
@@ -284,6 +290,7 @@ const SignUp = () => {
                     variant="contained"
                     label="Verify OTP"
                     onClick={handleOtpSubmit}
+                    disabled={loading}
                     btnSx={{ marginTop: "0px" }}
                   />
                   <Box sx={{ ...microsoftBottom }}>
@@ -294,7 +301,7 @@ const SignUp = () => {
                   </Box>
                   <Box sx={{ ...microsoftBottom }}>
                     Already have an account?{" "}
-                    <Box component={"span"} onClick={()=>navigate("/login")}>
+                    <Box component={"span"} onClick={() => navigate("/login")}>
                       Sign In
                     </Box>
                   </Box>

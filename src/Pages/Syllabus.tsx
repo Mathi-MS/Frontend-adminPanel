@@ -104,7 +104,7 @@ const Syllabus: React.FC = () => {
   const { data: lessonData } = useGetLessonApi();
   const { mutate: lessonDelete } = SyllabusDeleteApi();
   const { mutate: lessonUpdate } = lessonUpdateApi();
-
+  const [loading, setLoading] = useState(false);
   // Transform API data to match our interface
   const transformedSyllabusData: SyllabusData[] =
     lessonData && Array.isArray(lessonData)
@@ -457,6 +457,7 @@ const Syllabus: React.FC = () => {
       );
       return;
     }
+    setLoading(true);
 
     const syllabusPayload = {
       courseId: selectedCourse,
@@ -481,17 +482,23 @@ const Syllabus: React.FC = () => {
     };
 
     if (isEditMode) {
-      lessonUpdate({ id: editingSyllabus!.id, formData: syllabusPayload }, {
-        onSuccess: () => {
-          CustomSnackBar.successSnackbar("Syllabus Updated Successfully!");
-          handleCloseMainModal();
-        },
-        onError: (error) => {
-          CustomSnackBar.errorSnackbar(
-            error.message || "Error Updating Syllabus."
-          );
-        },
-      })
+      lessonUpdate(
+        { id: editingSyllabus!.id, formData: syllabusPayload },
+        {
+          onSuccess: () => {
+            CustomSnackBar.successSnackbar("Syllabus Updated Successfully!");
+            handleCloseMainModal();
+          },
+          onError: (error) => {
+            CustomSnackBar.errorSnackbar(
+              error.message || "Error Updating Syllabus."
+            );
+          },
+          onSettled: () => {
+            setLoading(false);
+          },
+        }
+      );
     } else {
       createSyllabus(syllabusPayload, {
         onSuccess: () => {
@@ -502,6 +509,9 @@ const Syllabus: React.FC = () => {
           CustomSnackBar.errorSnackbar(
             error.message || "Error Adding Syllabus."
           );
+        },
+        onSettled: () => {
+          setLoading(false);
         },
       });
     }
@@ -982,6 +992,7 @@ const Syllabus: React.FC = () => {
                 label={isEditMode ? "Update Syllabus" : "Add Syllabus"}
                 variant="contained"
                 btnSx={{ background: "var(--primary)", color: "var(--white)" }}
+                disabled={loading}
               />
             </Box>
           </Box>

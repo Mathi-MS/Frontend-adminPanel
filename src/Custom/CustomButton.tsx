@@ -18,6 +18,7 @@ const CustomButton = ({
   btnSx,
   startIcon,
   onClick,
+  disabled,
 }: customButton) => {
   return (
     <Button
@@ -30,6 +31,7 @@ const CustomButton = ({
       }}
       startIcon={startIcon}
       onClick={onClick}
+      disabled={disabled}
     >
       {label}
     </Button>

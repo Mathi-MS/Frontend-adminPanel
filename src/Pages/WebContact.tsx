@@ -5,8 +5,11 @@ import { useForm } from "react-hook-form";
 import { contactUsSchema } from "../assets/Validation/Schema";
 import { useContactPost } from "../Hooks/review";
 import CustomSnackBar from "../Custom/CustomSnackBar";
+import { useState } from "react";
 
 const WebContact = () => {
+    const [loading, setLoading] = useState(false);
+  
   const {
     register,
     handleSubmit,
@@ -20,6 +23,7 @@ const WebContact = () => {
   });
   const { mutate: contactMutation } = useContactPost();
   const onsubmit = (data: any) => {
+    setLoading(true);
     contactMutation(
       {name: data.name, email: data.email, contactNumber: data.mobile, description: data.description },
       {
@@ -32,23 +36,14 @@ const WebContact = () => {
         onError: (error) => {
           CustomSnackBar.errorSnackbar(error.message || "Somethimg went wrong");
         },
+        onSettled: () => {
+          setLoading(false);
+        }
       }
     );
   };
   return (
     <Box>
-      <Typography
-        variant="h4"
-        fontWeight="bold"
-        sx={{
-          fontFamily: "SemiBold_W",
-          fontSize: "24px",
-          mb: "10px",
-          "@media (max-width: 690px)": { fontSize: "20px" },
-        }}
-      >
-        Get in Touch
-      </Typography>
 
       <Grid
         container
@@ -132,6 +127,7 @@ const WebContact = () => {
                 variant="contained"
                 type="submit"
                 onClick={handleSubmit(onsubmit)}
+                disabled={loading}
                 fullWidth
                 sx={{
                   background: "var(--webprimary)",

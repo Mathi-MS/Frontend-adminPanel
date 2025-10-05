@@ -31,6 +31,7 @@ import { resetPassword } from "../Hooks/login";
 import CustomSnackBar from "../Custom/CustomSnackBar";
 
 const ResetPassword = () => {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -46,7 +47,7 @@ const ResetPassword = () => {
   const { mutate: resetPasswordNew } = resetPassword();
 
   const onsubmit = async (data: { newPassword: string }) => {
-
+    setLoading(true);
     resetPasswordNew(
       { token: token, newPassword: data.newPassword },
       {
@@ -58,6 +59,9 @@ const ResetPassword = () => {
         },
         onError: (error) => {
           CustomSnackBar.errorSnackbar(error.message || "Somethimg went wrong");
+        },
+        onSettled: () => {
+          setLoading(false);
         },
       }
     );
@@ -152,6 +156,7 @@ const ResetPassword = () => {
                   variant="contained"
                   label="Change Password"
                   btnSx={{ marginTop: "0px" }}
+                  disabled={loading}
                 />
                 <Box sx={{ ...microsoftBottom }}>
                   Already have an account?{" "}

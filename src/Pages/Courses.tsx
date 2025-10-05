@@ -10,9 +10,7 @@ import { IoClose } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  CourseSchema,
-} from "../assets/Validation/Schema";
+import { CourseSchema } from "../assets/Validation/Schema";
 import CustomInput from "../Custom/CustomInput";
 import CustomButton from "../Custom/CustomButton";
 import CustomFileUpload from "../Custom/CustomFileUpload";
@@ -43,6 +41,7 @@ const style = {
 };
 
 const Courses = () => {
+  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [courses, setCourses] = useState<any[]>([]);
@@ -94,7 +93,7 @@ const Courses = () => {
     }
   };
 
-  const handleDeleteClick = (id: any) => {    
+  const handleDeleteClick = (id: any) => {
     setCourseToDelete(id);
     setDeleteModalOpen(true);
   };
@@ -139,6 +138,7 @@ const Courses = () => {
     resolver: zodResolver(CourseSchema),
   });
   const onsubmit = (data: any) => {
+    setLoading(true)
     if (editingCourse) {
       const formData = new FormData();
       console.log(data, editingCourse);
@@ -165,6 +165,9 @@ const Courses = () => {
               error.message || "Error Adding Courses."
             );
           },
+          onSettled: () => {
+          setLoading(false);
+        }
         }
       );
     } else {
@@ -186,9 +189,11 @@ const Courses = () => {
             error.message || "Error Adding Courses."
           );
         },
+        onSettled: () => {
+          setLoading(false);
+        }
       });
     }
-    handleClose();
   };
   return (
     <>
@@ -455,6 +460,7 @@ const Courses = () => {
                 label={editingCourse ? "Update Course" : "Add Course"}
                 btnSx={{ background: "var(--primary)", color: "var(--white)" }}
                 onClick={handleSubmit(onsubmit)}
+                disabled={loading}
               />
             </Box>
           </Box>

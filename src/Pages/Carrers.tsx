@@ -20,7 +20,13 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { jobFormSchema } from "../assets/Validation/Schema";
 import { IoClose } from "react-icons/io5";
-import { carrersDeleteApi, carrerStatusUpdateApi, carrersUpdateApi, useCarrersAddApi, useGetCarrers } from "../Hooks/carrers";
+import {
+  carrersDeleteApi,
+  carrerStatusUpdateApi,
+  carrersUpdateApi,
+  useCarrersAddApi,
+  useGetCarrers,
+} from "../Hooks/carrers";
 import CustomAutoComplete from "../Custom/CustomAutocomplete";
 const style = {
   position: "absolute",
@@ -40,6 +46,7 @@ const style = {
 };
 
 const Carrers = () => {
+  const [loading, setLoading] = useState(false);
   const { data: getUsersResponse, isLoading, error } = useGetCarrers();
   const { mutate: carrersUpdate } = carrersUpdateApi();
   const { mutate: carrersAdd } = useCarrersAddApi();
@@ -252,7 +259,7 @@ const Carrers = () => {
     );
   }
   const onsubmit = async (data: any) => {
-    console.log(data);
+    setLoading(true);
 
     if (isEditMode) {
       carrersUpdate(
@@ -276,6 +283,9 @@ const Carrers = () => {
             CustomSnackBar.errorSnackbar(
               error.message || "Error updating Offer."
             );
+          },
+          onSettled: () => {
+            setLoading(false);
           },
         }
       );
@@ -301,6 +311,9 @@ const Carrers = () => {
               error.message || "Error adding Offer."
             );
           },
+          onSettled: () => {
+            setLoading(false);
+          }
         }
       );
     }
@@ -518,6 +531,7 @@ const Carrers = () => {
               label={isEditMode ? "Update Careers" : "Add Careers"}
               btnSx={{ background: "var(--primary)", color: "var(--white)" }}
               onClick={handleSubmit(onsubmit)}
+              disabled={loading}
             />
           </Box>
         </Box>

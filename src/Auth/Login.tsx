@@ -35,6 +35,7 @@ import Cookies from "js-cookie";
 
 const Login = () => {
   const [visibility, setVisibility] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const {
     register,
@@ -45,6 +46,7 @@ const Login = () => {
   });
   const { mutate: loginFunction } = useLoginApi();
   const onsubmit = async (data: { email: string; password: string }) => {
+    setLoading(true);
     loginFunction(
       { email: data.email, password: data.password },
       {
@@ -71,6 +73,9 @@ const Login = () => {
           console.log(error);
           CustomSnackBar.errorSnackbar(error.message || "Invalid Credentials!");
         },
+        onSettled: () => {
+          setLoading(false);
+        }
       }
     );
   };
@@ -177,7 +182,7 @@ const Login = () => {
               >
                 Forgot Password?
               </Typography>
-              <CustomButton type="submit" variant="contained" label="Sign in" />
+              <CustomButton type="submit" variant="contained" label="Sign in" disabled={loading}/>
               {/* <Box sx={{ ...relative }}>
                 <Typography sx={{ ...loginOr }}>or</Typography>
               </Box>
@@ -207,7 +212,6 @@ const Login = () => {
             <Typography variant="h4">
               © SkillUp Tech Solutions {new Date().getFullYear()}
             </Typography>
-
           </Box>
         </Box>
       </Box>

@@ -63,6 +63,7 @@ const Category = () => {
   const [startTime, setStartTime] = useState<Dayjs | null>(null);
   const [endTime, setEndTime] = useState<Dayjs | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
 
   // Options for autocomplete fields
   const categoryOptions = [
@@ -102,6 +103,7 @@ const Category = () => {
     setImageFile(null);
   };
   const onsubmit = async (data: any) => {
+    setLoading(true);
     const formData = new FormData();
     formData.append("category", categoryValue);
     formData.append("description", data.description);
@@ -137,6 +139,9 @@ const Category = () => {
               error.message || "Error Updating Category."
             );
           },
+          onSettled: () => {
+          setLoading(false);
+        }
         }
       );
     } else {
@@ -150,6 +155,9 @@ const Category = () => {
             error.message || "Error Adding Category."
           );
         },
+        onSettled: () => {
+          setLoading(false);
+        }
       });
     }
   };
@@ -306,9 +314,7 @@ const Category = () => {
                         objectFit: "cover",
                         width: "100%",
                       }}
-                      image={`${config.BASE_URL_MAIN}/uploads/${
-                        category.image
-                      }`}
+                      image={`${config.BASE_URL_MAIN}/uploads/${category.image}`}
                       alt={category.title}
                     />
                   )}
@@ -876,6 +882,7 @@ const Category = () => {
                 label={editMode ? "Update Category" : "Add Category"}
                 btnSx={{ background: "var(--primary)", color: "var(--white)" }}
                 onClick={handleSubmit(onsubmit)}
+                disabled={loading}
               />
             </Box>
           </Box>

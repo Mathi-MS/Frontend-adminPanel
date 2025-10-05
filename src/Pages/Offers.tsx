@@ -18,9 +18,7 @@ import CustomInput from "../Custom/CustomInput";
 import CustomButton from "../Custom/CustomButton";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  OffersDescriptionSchema,
-} from "../assets/Validation/Schema";
+import { OffersDescriptionSchema } from "../assets/Validation/Schema";
 import { IoClose } from "react-icons/io5";
 import {
   offerDeleteApi,
@@ -45,6 +43,7 @@ const style = {
   },
 };
 const Offers = () => {
+  const [loading, setLoading] = useState(false);
   const { data: getUsersResponse, isLoading, error } = useGetOffers();
   const { mutate: offersUpdate } = offerUpdateApi();
   const { mutate: offerAdd } = useOfferAddApi();
@@ -122,7 +121,6 @@ const Offers = () => {
     });
   };
   const handleStatusToggle = (newRow: any) => {
-    console.log(newRow);
 
     setRows((prevRows: any) =>
       prevRows.map((row: any) =>
@@ -233,7 +231,7 @@ const Offers = () => {
     );
   }
   const onsubmit = async (data: any) => {
-    console.log(data);
+      setLoading(true);
 
     if (isEditMode) {
       offersUpdate(
@@ -252,6 +250,9 @@ const Offers = () => {
               error.message || "Error updating Offer."
             );
           },
+          onSettled: () => {
+          setLoading(false);
+        }
         }
       );
     } else {
@@ -270,6 +271,9 @@ const Offers = () => {
               error.message || "Error adding Offer."
             );
           },
+          onSettled: () => {
+          setLoading(false);
+        }
         }
       );
     }
@@ -399,6 +403,7 @@ const Offers = () => {
               label={isEditMode ? "Update Offer" : "Add Offer"}
               btnSx={{ background: "var(--primary)", color: "var(--white)" }}
               onClick={handleSubmit(onsubmit)}
+              disabled={loading}
             />
           </Box>
         </Box>

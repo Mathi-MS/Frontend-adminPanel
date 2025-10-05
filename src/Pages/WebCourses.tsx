@@ -42,6 +42,7 @@ const style = {
 
 const WebCourses = () => {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [selectedJob, setSelectedJob] = useState<{
     title: string;
     id: string;
@@ -82,13 +83,13 @@ const WebCourses = () => {
   };
   const { mutate: coursesMutation } = useCoursesMail();
   const onsubmit = async (data: any) => {
+    setLoading(true);
     if (selectedJob) {
       const submissionData = {
         ...data,
         coursesId: selectedJob.id,
         courseName: selectedJob.title,
       };
-      console.log("Apply for:", submissionData);
       coursesMutation(
         {
           name: submissionData.name,
@@ -108,6 +109,7 @@ const WebCourses = () => {
               error.message || "Somethimg went wrong"
             );
           },
+          onSettled: () => { setLoading(false); },
         }
       );
     }
@@ -466,6 +468,7 @@ const WebCourses = () => {
               label={"Apply"}
               btnSx={{ background: "var(--primary)", color: "var(--white)" }}
               onClick={handleSubmit(onsubmit)}
+              disabled={loading}
             />
           </Box>
         </Box>

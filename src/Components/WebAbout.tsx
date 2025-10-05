@@ -46,17 +46,23 @@ const WebAbout = () => {
             paddingBottom: "5px",
           }}
         >
-          We Help Clients Invest Their Future.
+          Empowering the Next Generation of Tech Innovators
         </Typography>
         <Typography sx={{ fontFamily: "Regular_W", fontSize: "14px" }}>
-          Welcome to SkillUp Tech Solutions, your destination for all IT needs.
-          From final year projects to comprehensive training, we offer diverse
-          solutions. Our seasoned professionals ensure unparalleled results,
-          exceeding expectations. Specializing in graphic design, we elevate
-          brands' visual identities. Internship programs provide hands-on
-          experience, while career guidance leads to success. With a passion for
-          innovation, SkillUp transforms ideas into reality — your trusted
-          partner in the digital landscape.
+          SkillUp Tech Solutions helps students and professionals become skilled
+          IT experts through cutting-edge software development and hands-on
+          training programs. 
+          We combine industry experience, modern technology,
+          and practical learning to bridge the gap between education and
+          employment. 
+           As a leading software development and training company, we
+          specialize in real-world projects, inplant training, and
+          career-focused IT courses designed to build future-ready
+          professionals. Through partnerships with colleges, universities, and
+          corporate clients, SkillUp Tech Solutions delivers structured
+          internship programs, live project exposure, and professional
+          certifications — ensuring every learner gains the skills, confidence,
+          and experience to succeed in the tech industry.
         </Typography>
 
         {/* ✅ Certifications section with logos */}

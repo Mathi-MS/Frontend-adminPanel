@@ -92,6 +92,7 @@ export interface customButton {
   btnSx?: SxProps<Theme>;
   startIcon?: React.ReactNode;
   onClick?: () => void;
+  disabled?: boolean;
 }
 
 export interface CustomTableColumn {

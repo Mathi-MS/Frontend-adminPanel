@@ -29,9 +29,11 @@ import { useNavigate } from "react-router-dom";
 import { successnotify } from "../Custom/Notify";
 import { forgetPassword } from "../Hooks/login";
 import CustomSnackBar from "../Custom/CustomSnackBar";
+import { useState } from "react";
 
 const ForgetPassword = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -42,7 +44,7 @@ const ForgetPassword = () => {
   const { mutate: forgetPasswordNew } = forgetPassword();
 
   const onsubmit = async (data: { email: string }) => {
-    console.log(data);
+    setLoading(true);
 
     forgetPasswordNew(
       { email: data.email },
@@ -56,6 +58,9 @@ const ForgetPassword = () => {
         onError: (error) => {
           CustomSnackBar.errorSnackbar(error.message || "Somethimg went wrong");
         },
+        onSettled: () => {
+          setLoading(false);
+        }
       }
     );
   };
@@ -137,6 +142,7 @@ const ForgetPassword = () => {
                   variant="contained"
                   label="Send Email"
                   btnSx={{ marginTop: "0px" }}
+                  disabled={loading}
                 />
                 <Box sx={{ ...microsoftBottom }}>
                   Already have an account?{" "}
