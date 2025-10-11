@@ -32,6 +32,7 @@ import {
   CategoryRoutes,
   CertificateRoutes,
   CoursesRoutes,
+  DashboardRoutes,
   OffersRoutes,
   SyllabusRoutes,
   UsersRoutes,
@@ -103,7 +104,15 @@ const Sidebar = ({ isOpen, isMobile }: SidebarProps) => {
             )}
             <Box sx={{ ...SidebarLinks }}>
               <Link to={"/dashboard"}>
-                <Box>
+                <Box sx={{
+                    backgroundColor: DashboardRoutes.includes(location.pathname)
+                      ? " var(--buttonPrimary)"
+                      : "transparent",
+                    color: DashboardRoutes.includes(location.pathname)
+                      ? "var(--white)"
+                      : "inherit",
+                    transition: "background-color 0.3s ease, color 0.3s ease",
+                  }}>
                   <TbLayoutDashboard />
                   {(isOpen || isMobile) && "Dashboard"}
                 </Box>
@@ -204,7 +213,7 @@ const Sidebar = ({ isOpen, isMobile }: SidebarProps) => {
                   {(isOpen || isMobile) && "Careers"}
                 </Box>
               </Link>
-              {/* <Link to={"/certificate"}>
+              <Link to={"/certificate"}>
                 <Box
                   sx={{
                     backgroundColor: CertificateRoutes.includes(location.pathname)
@@ -219,7 +228,7 @@ const Sidebar = ({ isOpen, isMobile }: SidebarProps) => {
                   <PiCertificate />
                   {(isOpen || isMobile) && "Certificate"}
                 </Box>
-              </Link> */}
+              </Link>
             </Box>
           </Box>
           {/* <Box sx={{ ...SidebarBoxThree }}>

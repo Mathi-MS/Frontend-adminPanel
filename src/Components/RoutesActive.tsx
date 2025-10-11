@@ -5,3 +5,4 @@ export const CategoryRoutes = ["/category"];
 export const SyllabusRoutes = ["/syllabus"];
 export const CarreerRoutes = ["/admincareers"];
 export const CertificateRoutes = ["/certificate"];
+export const DashboardRoutes = ["/dashboard"];
