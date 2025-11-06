@@ -6,10 +6,11 @@ import { contactUsSchema } from "../assets/Validation/Schema";
 import { useContactPost } from "../Hooks/review";
 import CustomSnackBar from "../Custom/CustomSnackBar";
 import { useState } from "react";
+import emailjs from "emailjs-com";
 
 const WebContact = () => {
-    const [loading, setLoading] = useState(false);
-  
+  const [loading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -22,29 +23,38 @@ const WebContact = () => {
     resolver: zodResolver(contactUsSchema),
   });
   const { mutate: contactMutation } = useContactPost();
-  const onsubmit = (data: any) => {
+  const onsubmit = async (data: any) => {
     setLoading(true);
-    contactMutation(
-      {name: data.name, email: data.email, contactNumber: data.mobile, description: data.description },
-      {
-        onSuccess: (response: any) => {
-          CustomSnackBar.successSnackbar(
-            response.message || "Review created successfully"
-          );
-          reset();
-        },
-        onError: (error) => {
-          CustomSnackBar.errorSnackbar(error.message || "Somethimg went wrong");
-        },
-        onSettled: () => {
-          setLoading(false);
-        }
-      }
-    );
+
+    const emailParams = {
+      name: data.name,
+      email: data.email,
+      contactNumber: data.mobile,
+      description: data.description,
+      year: new Date().getFullYear(),
+    };
+
+    try {
+      await emailjs.send(
+        "service_xto17zc",
+        "template_v4zyapd",
+        emailParams,
+        "j0ZYBw2nraPLfCMAv"
+      );
+      CustomSnackBar.successSnackbar("Email sent successfully!");
+    } catch (error) {
+      console.error("EmailJS error:", error);
+      CustomSnackBar.errorSnackbar("Failed to send email.");
+      setLoading(false);
+    }
+    finally{
+      reset();
+      setLoading(false);
+    }
   };
+
   return (
     <Box>
-
       <Grid
         container
         sx={{

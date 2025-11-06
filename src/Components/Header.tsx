@@ -112,7 +112,7 @@ const Header = ({ onToggleSidebar, sidebarOpen, isMobile }: HeaderProps) => {
             Welcome Back , {displayUsername || "Admin"}
           </Typography>
         </Box>
-        <Box>
+        {/* <Box>
           <Tooltip title="Change Password">
             <IconButton
               sx={{ color: "var(--textPrimary)" }}
@@ -121,7 +121,7 @@ const Header = ({ onToggleSidebar, sidebarOpen, isMobile }: HeaderProps) => {
               <FaRegUserCircle />
             </IconButton>
           </Tooltip>
-        </Box>
+        </Box> */}
         <Modal
           open={open}
           onClose={handleClose}

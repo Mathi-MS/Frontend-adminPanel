@@ -24,6 +24,7 @@ import { useGetCarrers } from "../Hooks/carrers";
 import CustomFileUpload from "../Custom/CustomFileUpload";
 import { useCarrerMail } from "../Hooks/review";
 import CustomSnackBar from "../Custom/CustomSnackBar";
+import emailjs from "emailjs-com";
 
 const style = {
   position: "absolute",
@@ -74,35 +75,31 @@ const WebCareers = () => {
   const onsubmit = async (data: any) => {
     setLoading(true);
     if (selectedJob) {
-      const formData = new FormData();
+      const emailParams = {
+        name: data.name,
+        email: data.email,
+        contactNumber: data.mobile,
+        title: selectedJob.title,
+        year: new Date().getFullYear(),
+      };
 
-      // Append form fields to FormData
-      formData.append("name", data.name);
-      formData.append("email", data.email);
-      formData.append("mobile", data.mobile);
-      formData.append("title", selectedJob.title);
-      // Append resume file if it exists
-      if (data.resume) {
-        formData.append("resume", data.resume);
+      try {
+        await emailjs.send(
+          "service_xto17zc",
+          "template_d26jy52",
+          emailParams,
+          "j0ZYBw2nraPLfCMAv"
+        );
+        CustomSnackBar.successSnackbar("Email sent successfully!");
+      } catch (error) {
+        console.error("EmailJS error:", error);
+        CustomSnackBar.errorSnackbar("Failed to send email.");
+        setLoading(false);
+      } finally {
+        handleClose();
+        setLoading(false);
+        reset();
       }
-
-      console.log("FormData entries:");
-      for (let [key, value] of formData.entries()) {
-        console.log(key, value);
-      }
-
-      carrerMutation(formData, {
-        onSuccess: (response: any) => {
-          CustomSnackBar.successSnackbar(response.message || "Successfully");
-          handleClose();
-        },
-        onError: (error) => {
-          CustomSnackBar.errorSnackbar(error.message || "Somethimg went wrong");
-        },
-        onSettled: () => {
-          setLoading(false);
-        }
-      });
     }
   };
 
@@ -329,7 +326,7 @@ const WebCareers = () => {
               register={register}
               errors={errors}
             />
-            <Controller
+            {/* <Controller
               name="resume"
               control={control}
               render={({ field, fieldState }) => (
@@ -341,7 +338,7 @@ const WebCareers = () => {
                   error={fieldState.error}
                 />
               )}
-            />
+            /> */}
           </Box>
           {/* Footer */}
           <Box

@@ -333,44 +333,44 @@ export const carrersWebSchemaNew = z.object({
     .regex(/^\d+$/, { message: "Mobile number must contain only digits" })
     .min(10, { message: "Mobile number must be at least 10 digits" })
     .max(10, { message: "Mobile number must be at most 10 digits" }),
-  resume: z
-    .any()
-    .refine(
-      (value) => {
-        if (value instanceof File) return true;
-        if (typeof value === "object" && value && "filename" in value)
-          return true;
-        return false;
-      },
-      {
-        message: "Image is required",
-      }
-    )
-    .refine(
-      (value) => {
-        if (value instanceof File) {
-          return value.size <= 1000 * 1024;
-        }
-        return true;
-      },
-      {
-        message: "Max file size is 1000KB",
-      }
-    )
-    .refine(
-      (value) => {
-        if (value instanceof File) {
-          return [
-            "application/pdf",
-            "application/msword",
-            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-          ].includes(value.type);
-        }
-        // Skip validation for existing uploads
-        return true;
-      },
-      {
-        message: "Only PDF, DOC, or DOCX files are allowed",
-      }
-    ),
+  // resume: z
+  //   .any()
+  //   .refine(
+  //     (value) => {
+  //       if (value instanceof File) return true;
+  //       if (typeof value === "object" && value && "filename" in value)
+  //         return true;
+  //       return false;
+  //     },
+  //     {
+  //       message: "Image is required",
+  //     }
+  //   )
+  //   .refine(
+  //     (value) => {
+  //       if (value instanceof File) {
+  //         return value.size <= 1000 * 1024;
+  //       }
+  //       return true;
+  //     },
+  //     {
+  //       message: "Max file size is 1000KB",
+  //     }
+  //   )
+  //   .refine(
+  //     (value) => {
+  //       if (value instanceof File) {
+  //         return [
+  //           "application/pdf",
+  //           "application/msword",
+  //           "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  //         ].includes(value.type);
+  //       }
+  //       // Skip validation for existing uploads
+  //       return true;
+  //     },
+  //     {
+  //       message: "Only PDF, DOC, or DOCX files are allowed",
+  //     }
+  //   ),
 });

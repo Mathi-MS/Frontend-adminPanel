@@ -175,13 +175,13 @@ const Login = () => {
                 register={register}
                 errors={errors}
               />
-              <Typography
+              {/* <Typography
                 variant="h6"
                 sx={{ ...ForgetButton }}
                 onClick={() => navigate("/forgotpassword")}
               >
                 Forgot Password?
-              </Typography>
+              </Typography> */}
               <CustomButton type="submit" variant="contained" label="Sign in" disabled={loading}/>
               {/* <Box sx={{ ...relative }}>
                 <Typography sx={{ ...loginOr }}>or</Typography>
@@ -199,12 +199,12 @@ const Login = () => {
                   />
                 }
               /> */}
-              <Box sx={{ ...microsoftBottom }}>
+              {/* <Box sx={{ ...microsoftBottom }}>
                 Don’t have an account?{" "}
                 <Box component={"span"} onClick={() => navigate("/signup")}>
                   Sign Up
                 </Box>
-              </Box>
+              </Box> */}
             </form>
           </Box>
 

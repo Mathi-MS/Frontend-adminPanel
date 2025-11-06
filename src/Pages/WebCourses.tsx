@@ -23,6 +23,8 @@ import { useGetCoursesApi } from "../Hooks/courses";
 import config from "../Config/Config";
 import { useCoursesMail } from "../Hooks/review";
 import CustomSnackBar from "../Custom/CustomSnackBar";
+import emailjs from "emailjs-com";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -82,38 +84,46 @@ const WebCourses = () => {
     setOpen(false);
   };
   const { mutate: coursesMutation } = useCoursesMail();
-  const onsubmit = async (data: any) => {
-    setLoading(true);
-    if (selectedJob) {
-      const submissionData = {
-        ...data,
-        coursesId: selectedJob.id,
-        courseName: selectedJob.title,
-      };
-      coursesMutation(
-        {
-          name: submissionData.name,
-          email: submissionData.email,
-          mobile: submissionData.mobile,
-          courseName: submissionData.courseName,
-        },
-        {
-          onSuccess: (response: any) => {
-            CustomSnackBar.successSnackbar(
-              response.message || "Successfully"
-            );
-            handleClose();
-          },
-          onError: (error) => {
-            CustomSnackBar.errorSnackbar(
-              error.message || "Somethimg went wrong"
-            );
-          },
-          onSettled: () => { setLoading(false); },
-        }
+const onsubmit = async (data: any) => {
+  setLoading(true);
+
+  if (selectedJob) {
+    const submissionData = {
+      ...data,
+      coursesId: selectedJob.id,
+      courseName: selectedJob.title,
+    };
+    const emailParams = {
+      name: submissionData.name,
+      email: submissionData.email,
+      mobile: submissionData.mobile,
+      courseName: submissionData.courseName,
+      categoryName: "-",
+      categoryType:"-",
+      year: new Date().getFullYear(),
+    };
+
+    try {
+      await emailjs.send(
+        "service_xto17zc", 
+        "template_d26jy52",  
+        emailParams,
+        "j0ZYBw2nraPLfCMAv"  
       );
+
+      CustomSnackBar.successSnackbar("Email sent successfully!");
+    } catch (error) {
+      console.error("EmailJS error:", error);
+      CustomSnackBar.errorSnackbar("Failed to send email.");
+      setLoading(false);
     }
-  };
+    finally{
+      handleClose();
+      setLoading(false);
+    }
+  }
+};
+
   return (
     <Box>
       <Box
