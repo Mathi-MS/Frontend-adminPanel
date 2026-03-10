@@ -143,7 +143,7 @@ const routes = createHashRouter([
   },
   {
     path: "/",
-    element:Layout />,
+    element:<Layout />,
     // element: <Layout />,
     children: [
       {
