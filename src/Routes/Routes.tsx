@@ -143,48 +143,48 @@ const routes = createHashRouter([
   },
   {
     path: "/",
-    element: <ProtectedRoute element={<Layout />} />,
+    element:Layout />,
     // element: <Layout />,
     children: [
       {
         path: "dashboard",
         // element: <AdminDashboard />,
-        element: <ProtectedRoute element={<AdminDashboard />} />,
+        element:<AdminDashboard />,
       },
       {
         path: "users",
         // element: <Users />,
-        element: <ProtectedRoute element={<Users />} />,
+        element:<Users />,
       },
       {
         path: "courses",
         // element: <Courses />
-        element: <ProtectedRoute element={<Courses />} />,
+        element:<Courses />,
       },
       {
         path: "offers",
         // element: <Offers />
-        element: <ProtectedRoute element={<Offers />} />,
+        element:<Offers />,
       },
       {
         path: "category",
         // element: <Category />
-        element: <ProtectedRoute element={<Category />} />,
+        element: <Category />,
       },
       {
         path: "admincareers",
         // element: <Carrers />
-        element: <ProtectedRoute element={<Carrers />} />,
+        element: <Carrers />,
       },
       {
         path: "syllabus",
         // element: <Syllabus />
-        element: <ProtectedRoute element={<Syllabus />} />,
+        element: <Syllabus />,
       },
       {
         path: "certificate",
         // element: <Certificate />
-        element: <ProtectedRoute element={<Certificate />} />,
+        element:<Certificate />,
       },
 
     ],
